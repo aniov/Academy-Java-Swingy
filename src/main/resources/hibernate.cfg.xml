@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!--User / Password-->
+        <property name="hibernate.connection.username">swingy</property>
+        <property name="hibernate.connection.password">swingy</property>
+
+        <!--DB Settings-->
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/swingy</property>
+
+        <!--Properties-->
+
+        <property name="hibernate.archive.autodetection">class</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!--Mapping-->
+        <mapping class="aniov.company.model.Hero"/>
+        <mapping class="aniov.company.model.Artifact"/>
+
+    </session-factory>
+</hibernate-configuration>

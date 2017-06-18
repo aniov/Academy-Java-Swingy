@@ -15,6 +15,12 @@
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.2.10.Final</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -48,4 +54,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
 </project>
