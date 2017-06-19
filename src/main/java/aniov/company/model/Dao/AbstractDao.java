@@ -19,7 +19,7 @@ public abstract class AbstractDao {
     public Object save(Object object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Long id = (Long) session.save(object);
+            session.save(object);
             session.getTransaction().commit();
             return object;
         } catch (HibernateException e) {
