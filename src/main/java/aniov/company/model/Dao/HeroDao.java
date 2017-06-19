@@ -13,17 +13,13 @@ import java.util.List;
 public class HeroDao extends AbstractDao {
 
     public List<Hero> findHeroesByName(String name) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("from Hero h where h.name = :Name").setParameter("Name", name);
             List<Hero> heroes = query.list();
             return heroes;
         } catch (HibernateException e) {
             handleException(e);
             return null;
-        } finally {
-            session.close();
         }
     }
 }

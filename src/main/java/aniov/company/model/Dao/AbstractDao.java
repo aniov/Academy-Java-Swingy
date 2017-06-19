@@ -17,9 +17,7 @@ public abstract class AbstractDao {
     protected SessionFactory sessionFactory = HibernateService.sessionFactory;
 
     public Object save(Object object) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Long id = (Long) session.save(object);
             session.getTransaction().commit();
@@ -27,65 +25,47 @@ public abstract class AbstractDao {
         } catch (HibernateException e) {
             handleException(e);
             return null;
-        } finally {
-            session.close();
         }
     }
 
     public void update(Object object) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(object);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
-        } finally {
-            session.close();
         }
     }
 
     public Object findById(Class c, Long id) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             Object object = session.load(c, id);
             return object;
         } catch (HibernateException e) {
             handleException(e);
             return null;
-        } finally {
-            session.close();
         }
     }
 
     public List<Object> findAll(Class c) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
-            Query query = session.createQuery("from " + c.getName());
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery(String.format("from %s order by id asc", c.getName()));
             List<Object> objects = query.list();
             return objects;
         } catch (HibernateException e) {
             handleException(e);
             return null;
-        } finally {
-            session.close();
         }
     }
 
     public void delete(Object object) {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.delete(object);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
-        } finally {
-            session.close();
         }
     }
 
