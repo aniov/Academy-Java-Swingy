@@ -23,8 +23,8 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!--Mapping-->
-        <mapping class="aniov.company.model.Hero"/>
-        <mapping class="aniov.company.model.Artifact"/>
+        <mapping class="aniov.company.model.hero.Hero"/>
+        <mapping class="aniov.company.model.artifact.Artifact"/>
 
     </session-factory>
 </hibernate-configuration>

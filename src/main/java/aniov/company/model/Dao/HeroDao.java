@@ -1,6 +1,6 @@
 package aniov.company.model.Dao;
 
-import aniov.company.model.Hero;
+import aniov.company.model.hero.Hero;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

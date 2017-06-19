@@ -1,4 +1,4 @@
-package aniov.company.model;
+package aniov.company.model.artifact;
 
 /**
  * Created by Marius on 6/18/2017.

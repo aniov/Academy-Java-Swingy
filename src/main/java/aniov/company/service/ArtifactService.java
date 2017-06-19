@@ -1,6 +1,6 @@
 package aniov.company.service;
 
-import aniov.company.model.Artifact;
+import aniov.company.model.artifact.Artifact;
 import aniov.company.model.Dao.ArtifactDao;
 
 /**

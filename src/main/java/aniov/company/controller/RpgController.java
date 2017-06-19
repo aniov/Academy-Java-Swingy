@@ -12,7 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RpgController {
 
-    private  RpgView rpgView;
+    private RpgView rpgView;
     private HeroService heroService = new HeroService();
+
+    public void setRpgView(RpgView rpgView) {
+        this.rpgView = rpgView;
+    }
+
+    public void displayMainWindow() {
+        rpgView.displayAllHeroes(heroService.findAllHeroes());
+    }
 
 }

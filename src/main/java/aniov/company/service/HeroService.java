@@ -1,7 +1,7 @@
 package aniov.company.service;
 
 import aniov.company.model.Dao.HeroDao;
-import aniov.company.model.Hero;
+import aniov.company.model.hero.Hero;
 
 import java.util.ArrayList;
 import java.util.List;
