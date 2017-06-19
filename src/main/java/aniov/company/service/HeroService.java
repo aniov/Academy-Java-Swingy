@@ -1,56 +1,42 @@
 package aniov.company.service;
 
+import aniov.company.model.Dao.HeroDao;
 import aniov.company.model.Hero;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Marius on 6/18/2017.
  */
+@AllArgsConstructor
 public class HeroService {
 
-    private SessionFactory sessionFactory;
+    private HeroDao heroDao;
 
-    public void saveHero(Hero hero) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(hero);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    public void updateHero(Hero hero) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.update(hero);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    public Hero findHeroById(Long id) {
-        Session session = sessionFactory.openSession();
-        Hero hero = session.get(Hero.class, id);
-        session.close();
-        return hero;
-
-    }
-
-    public List<Hero> findHeroesByName(String name) {
-        Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Hero h where h.name = :Name").setParameter("Name", name);
-        List<Hero> heroes = query.list();
-        session.close();
+    public List<Hero> findAllHeroes() {
+        List<Object> objects =  heroDao.findAll(Hero.class);
+        List<Hero> heroes = new ArrayList<Hero>();
+        for (Object object : objects) {
+            heroes.add((Hero)object);
+        }
         return heroes;
     }
 
+    public Hero findHeroById(Long id) {
+        return (Hero) heroDao.findById(Hero.class, id);
+    }
+
+    public List<Hero> findHeroByName(String name) {
+        return heroDao.findHeroesByName(name);
+    }
+
+    public void saveHero(Hero hero) {
+        heroDao.saveOrUpdate(hero);
+    }
+
     public void deleteHero(Hero hero) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(hero);
-        session.getTransaction().commit();
-        session.close();
+        heroDao.delete(hero);
     }
 }
