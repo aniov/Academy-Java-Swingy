@@ -2,18 +2,17 @@ package aniov.company.controller;
 
 import aniov.company.service.HeroService;
 import aniov.company.view.RpgView;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by Marius on 6/19/2017.
  */
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class RpgController {
 
-    private RpgView rpgView;
-    private HeroService heroService;
-
+    private  RpgView rpgView;
+    private HeroService heroService = new HeroService();
 
 }

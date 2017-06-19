@@ -2,7 +2,6 @@ package aniov.company.service;
 
 import aniov.company.model.Dao.HeroDao;
 import aniov.company.model.Hero;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +9,15 @@ import java.util.List;
 /**
  * Created by Marius on 6/18/2017.
  */
-@AllArgsConstructor
 public class HeroService {
 
-    private HeroDao heroDao;
+    private HeroDao heroDao = new HeroDao();
 
     public List<Hero> findAllHeroes() {
-        List<Object> objects =  heroDao.findAll(Hero.class);
+        List<Object> objects = heroDao.findAll(Hero.class);
         List<Hero> heroes = new ArrayList<Hero>();
         for (Object object : objects) {
-            heroes.add((Hero)object);
+            heroes.add((Hero) object);
         }
         return heroes;
     }

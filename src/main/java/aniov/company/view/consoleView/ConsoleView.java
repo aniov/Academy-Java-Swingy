@@ -5,7 +5,7 @@ import aniov.company.view.RpgView;
 /**
  * Created by Marius on 6/19/2017.
  */
-public class consoleView implements RpgView {
+public class ConsoleView implements RpgView {
 
     public void showView() {
 

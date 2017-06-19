@@ -5,6 +5,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.inject.Singleton;
+
 /**
  * Created by Marius on 6/18/2017.
  */
