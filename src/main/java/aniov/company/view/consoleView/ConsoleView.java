@@ -14,7 +14,7 @@ public class ConsoleView implements RpgView {
         System.out.println("Heroes:");
 
         for (Hero hero : heroes) {
-            System.out.println(hero.getId() + ". Name: " + hero.getName() + " Type: " + hero.getHeroType());
+            System.out.println(hero.getId() + ". Name: " + hero.getName() + ", Type: " + hero.getHeroType() + ", Artifacts: " + hero.getArtifacts());
         }
     }
 

@@ -1,5 +1,6 @@
 package aniov.company.controller;
 
+import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
 import aniov.company.view.RpgView;
 import lombok.Data;
@@ -14,9 +15,11 @@ public class RpgController {
 
     private RpgView rpgView;
     private HeroService heroService = new HeroService();
+    private ArtifactService artifactService = new ArtifactService();
 
     public void setRpgView(RpgView rpgView) {
         this.rpgView = rpgView;
+
     }
 
     public void displayMainWindow() {

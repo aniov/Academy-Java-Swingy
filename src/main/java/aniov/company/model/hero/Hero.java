@@ -1,7 +1,7 @@
 package aniov.company.model.hero;
 
-import aniov.company.model.artifact.Artifact;
 import aniov.company.model.Character;
+import aniov.company.model.artifact.Artifact;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -32,6 +33,14 @@ public class Hero extends Character {
     private HeroType heroType;
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Artifact> artifacts;
+    private Set<Artifact> artifacts = new HashSet<Artifact>();
+
+    public void addArtifact(Artifact artifact) {
+        artifacts.add(artifact);
+    }
+
+    public void deleteArtifact(Artifact artifact) {
+        artifacts.remove(artifact);
+    }
 
 }

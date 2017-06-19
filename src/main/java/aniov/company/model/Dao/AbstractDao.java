@@ -1,5 +1,6 @@
 package aniov.company.model.Dao;
 
+import aniov.company.service.hibernate.HibernateService;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +11,28 @@ import java.util.List;
 /**
  * Created by Marius on 6/19/2017.
  */
+
 public abstract class AbstractDao {
 
-    protected SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory = HibernateService.sessionFactory;
 
-    public void saveOrUpdate(Object object) {
+    public Object save(Object object) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Long id = (Long) session.save(object);
+            session.getTransaction().commit();
+            return object;
+        } catch (HibernateException e) {
+            handleException(e);
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void update(Object object) {
         Session session = null;
         try {
             session = sessionFactory.openSession();
@@ -24,9 +42,7 @@ public abstract class AbstractDao {
         } catch (HibernateException e) {
             handleException(e);
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 

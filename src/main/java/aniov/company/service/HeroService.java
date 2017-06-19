@@ -30,8 +30,12 @@ public class HeroService {
         return heroDao.findHeroesByName(name);
     }
 
-    public void saveHero(Hero hero) {
-        heroDao.saveOrUpdate(hero);
+    public Hero saveHero(Hero hero) {
+        return (Hero) heroDao.save(hero);
+    }
+
+    public void updateHero(Hero hero) {
+        heroDao.update(hero);
     }
 
     public void deleteHero(Hero hero) {

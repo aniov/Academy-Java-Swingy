@@ -18,6 +18,7 @@ public class App {
     public static void main(String[] args) {
 
         if (args.length == 1 && setView(args[0])) {
+
             startRPG();
             hibernateService.exit();
         }
@@ -29,9 +30,9 @@ public class App {
     }
 
     private static boolean setView(String input) {
-        hibernateService.setup();
         if (input.equals("console")) {
             rpgController.setRpgView(consoleView);
+            rpgController.displayMainWindow();
             return true;
 
         } else if (input.equals("gui")) {
