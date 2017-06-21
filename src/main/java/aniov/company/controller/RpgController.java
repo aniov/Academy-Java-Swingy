@@ -1,9 +1,12 @@
 package aniov.company.controller;
 
+import aniov.company.model.hero.Hero;
 import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
 import aniov.company.view.RpgView;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Created by Marius on 6/19/2017.
@@ -29,5 +32,10 @@ public class RpgController extends ObserverOfTheView {
         this.rpgView = rpgView;
         this.rpgView.addObserver(this);
 
+    }
+
+    @Override
+    public List<Hero> getAllHeroes() {
+        return heroService.findAllHeroes();
     }
 }

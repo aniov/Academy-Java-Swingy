@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SwingView extends JFrame implements RpgView {
 
-    public void displayAllHeroes(List<Hero> heroes) {
+    public void displayAllHeroes() {
     }
 
     public void displayHero(Hero hero) {
@@ -30,5 +30,15 @@ public class SwingView extends JFrame implements RpgView {
     @Override
     public void removeObserver(ObserverOfTheView observer) {
         observers.remove(observer);
+    }
+
+    @Override
+    public void showMainInterface() {
+
+    }
+
+    @Override
+    public void enterHeroInterface() {
+
     }
 }

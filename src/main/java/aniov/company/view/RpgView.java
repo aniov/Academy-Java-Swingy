@@ -15,15 +15,17 @@ import java.util.List;
  */
 public interface RpgView {
 
-    List<ObserverOfTheView> observers = new ArrayList<>();
+    List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer
 
-    void displayAllHeroes(List<Hero> heroes);
+    void displayAllHeroes();
 
     void displayHero(Hero hero);
-
-    void readInput();
 
     void addObserver(ObserverOfTheView observer);
 
     void removeObserver(ObserverOfTheView observer);
+
+    void showMainInterface();
+
+    void enterHeroInterface();
 }

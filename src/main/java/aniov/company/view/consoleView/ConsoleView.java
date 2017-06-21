@@ -12,7 +12,9 @@ import java.util.Scanner;
  */
 public class ConsoleView implements RpgView {
 
-    public void displayAllHeroes(List<Hero> heroes) {
+    private List<Hero> heroes;
+
+    public void displayAllHeroes() {
         System.out.println("Heroes:");
 
         for (Hero hero : heroes) {
@@ -24,16 +26,6 @@ public class ConsoleView implements RpgView {
 
     }
 
-    public void readInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Insert something: ");
-        String myText = scanner.nextLine();
-
-        for (ObserverOfTheView observer : observers) {
-            observer.getTextFromView(myText);
-        }
-    }
-
     @Override
     public void addObserver(ObserverOfTheView observer) {
         observers.add(observer);
@@ -43,4 +35,21 @@ public class ConsoleView implements RpgView {
     public void removeObserver(ObserverOfTheView observer) {
         observers.remove(observer);
     }
+
+    @Override
+    public void showMainInterface() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Welcome to RPG Game\nPress Y(es) if you want to start: ");
+        String myText = scanner.nextLine();
+        if (myText.equalsIgnoreCase("y")) {
+            enterHeroInterface();
+        }
+    }
+
+    @Override
+    public void enterHeroInterface() {
+        heroes = observers.get(0).getAllHeroes();
+        displayAllHeroes();
+    }
+
 }

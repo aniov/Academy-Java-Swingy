@@ -1,7 +1,10 @@
 package aniov.company.controller;
 
+import aniov.company.model.hero.Hero;
 import aniov.company.view.RpgView;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Created by Marius on 6/20/2017.
@@ -16,4 +19,6 @@ public abstract class ObserverOfTheView {
     public abstract void getTextFromView(String input);
 
     public abstract void setRpgView(RpgView rpgView);
+
+    public abstract List<Hero> getAllHeroes();
 }

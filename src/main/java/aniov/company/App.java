@@ -33,7 +33,7 @@ public class App {
         if (input.equals("console")) {
             rpgController.setRpgView(consoleView);
 
-            consoleView.readInput();
+            consoleView.showMainInterface();
 
             return true;
 
