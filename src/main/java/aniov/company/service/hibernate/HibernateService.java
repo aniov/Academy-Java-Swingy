@@ -5,6 +5,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Created by Marius on 6/18/2017.
  */
@@ -14,6 +17,7 @@ public class HibernateService {
     public static SessionFactory sessionFactory;
 
     public HibernateService() {
+        Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         setup();
     }
 

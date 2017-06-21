@@ -1,5 +1,6 @@
 package aniov.company.view.swingView;
 
+import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.hero.Hero;
 import aniov.company.view.RpgView;
 
@@ -17,7 +18,17 @@ public class SwingView extends JFrame implements RpgView {
     public void displayHero(Hero hero) {
     }
 
-    public String readInput() {
-        return null;
+    public void readInput() {
+
+    }
+
+    @Override
+    public void addObserver(ObserverOfTheView observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ObserverOfTheView observer) {
+        observers.remove(observer);
     }
 }

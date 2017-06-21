@@ -4,26 +4,30 @@ import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
 import aniov.company.view.RpgView;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Created by Marius on 6/19/2017.
  */
 @Data
-@NoArgsConstructor
-public class RpgController {
+public class RpgController extends ObserverOfTheView {
 
-    private RpgView rpgView;
     private HeroService heroService = new HeroService();
     private ArtifactService artifactService = new ArtifactService();
 
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void getTextFromView(String input) {
+        System.out.println("I got this from view: " + input);
+    }
+
+    @Override
     public void setRpgView(RpgView rpgView) {
         this.rpgView = rpgView;
+        this.rpgView.addObserver(this);
 
     }
-
-    public void displayMainWindow() {
-        rpgView.displayAllHeroes(heroService.findAllHeroes());
-    }
-
 }

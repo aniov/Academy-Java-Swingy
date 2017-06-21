@@ -18,9 +18,10 @@
         <!--Properties-->
 
         <property name="hibernate.archive.autodetection">class</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+
 
         <!--Mapping-->
         <mapping class="aniov.company.model.hero.Hero"/>

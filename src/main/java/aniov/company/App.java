@@ -32,11 +32,15 @@ public class App {
     private static boolean setView(String input) {
         if (input.equals("console")) {
             rpgController.setRpgView(consoleView);
-            rpgController.displayMainWindow();
+
+            consoleView.readInput();
+
             return true;
 
         } else if (input.equals("gui")) {
             rpgController.setRpgView(swingView);
+
+
             return true;
         }
         return false;
