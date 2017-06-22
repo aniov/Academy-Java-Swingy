@@ -1,6 +1,6 @@
-package aniov.company.model.villain;
+package aniov.company.model.character.villain;
 
-import aniov.company.model.Character;
+import aniov.company.model.character.Character;
 import lombok.Data;
 
 import javax.persistence.EnumType;

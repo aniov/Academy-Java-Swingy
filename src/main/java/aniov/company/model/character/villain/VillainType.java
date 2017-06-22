@@ -1,4 +1,4 @@
-package aniov.company.model.villain;
+package aniov.company.model.character.villain;
 
 /**
  * Created by Marius on 6/18/2017.

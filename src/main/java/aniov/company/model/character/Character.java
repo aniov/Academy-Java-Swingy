@@ -1,4 +1,4 @@
-package aniov.company.model;
+package aniov.company.model.character;
 
 import lombok.Data;
 

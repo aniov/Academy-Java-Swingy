@@ -1,7 +1,7 @@
-package aniov.company.model;
+package aniov.company.model.character;
 
-import aniov.company.model.hero.Hero;
-import aniov.company.model.hero.HeroType;
+import aniov.company.model.character.hero.Hero;
+import aniov.company.model.character.hero.HeroType;
 
 /**
  * Created by Marius on 6/19/2017.

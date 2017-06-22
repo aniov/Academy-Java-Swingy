@@ -1,7 +1,6 @@
 package aniov.company.model.artifact;
 
-import aniov.company.model.artifact.ArtifactType;
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 import lombok.Data;
 
 import javax.persistence.*;

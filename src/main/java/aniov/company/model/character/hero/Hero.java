@@ -1,6 +1,6 @@
-package aniov.company.model.hero;
+package aniov.company.model.character.hero;
 
-import aniov.company.model.Character;
+import aniov.company.model.character.Character;
 import aniov.company.model.artifact.Artifact;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

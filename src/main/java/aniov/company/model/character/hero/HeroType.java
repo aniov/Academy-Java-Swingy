@@ -1,4 +1,4 @@
-package aniov.company.model.hero;
+package aniov.company.model.character.hero;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

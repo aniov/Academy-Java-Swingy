@@ -1,6 +1,6 @@
 package aniov.company.controller;
 
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 import aniov.company.view.RpgView;
 import lombok.Data;
 

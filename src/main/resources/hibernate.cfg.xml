@@ -24,7 +24,7 @@
 
 
         <!--Mapping-->
-        <mapping class="aniov.company.model.hero.Hero"/>
+        <mapping class="aniov.company.model.character.hero.Hero"/>
         <mapping class="aniov.company.model.artifact.Artifact"/>
 
     </session-factory>

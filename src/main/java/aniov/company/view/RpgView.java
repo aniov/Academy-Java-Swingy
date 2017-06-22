@@ -1,7 +1,7 @@
 package aniov.company.view;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 
 import java.util.ArrayList;
 import java.util.List;

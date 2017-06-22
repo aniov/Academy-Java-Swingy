@@ -1,18 +1,20 @@
-package aniov.company.model.Dao;
+package aniov.company.storage.database;
 
 import aniov.company.service.hibernate.HibernateService;
+import aniov.company.storage.StorageAccess;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Marius on 6/19/2017.
  */
 
-public abstract class AbstractDao {
+public class DataBaseStorageDao implements StorageAccess {
 
     protected SessionFactory sessionFactory = HibernateService.sessionFactory;
 
@@ -59,6 +61,21 @@ public abstract class AbstractDao {
         }
     }
 
+    @Override
+    public Collection<Object> findByName(Class c, String name) {
+
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery(String.format("from %s where name = :Name", c.getName())).setParameter("Name", name);
+            List<Object> objectList = query.list();
+
+            return objectList;
+        } catch (HibernateException e) {
+            handleException(e);
+            return null;
+        }
+    }
+
+
     public void delete(Object object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -69,7 +86,7 @@ public abstract class AbstractDao {
         }
     }
 
-    protected void handleException(HibernateException e) {
+    public void handleException(Exception e) {
         System.out.println("An Error Occurred: " + e);
     }
 }

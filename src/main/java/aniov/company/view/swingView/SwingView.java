@@ -1,11 +1,10 @@
 package aniov.company.view.swingView;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 import aniov.company.view.RpgView;
 
 import javax.swing.*;
-import java.util.List;
 
 /**
  * Created by Marius on 6/19/2017.

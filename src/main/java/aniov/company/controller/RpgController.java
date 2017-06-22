@@ -1,8 +1,9 @@
 package aniov.company.controller;
 
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
+import aniov.company.storage.database.DataBaseStorageDao;
 import aniov.company.view.RpgView;
 import lombok.Data;
 
@@ -14,8 +15,9 @@ import java.util.List;
 @Data
 public class RpgController extends ObserverOfTheView {
 
-    private HeroService heroService = new HeroService();
-    private ArtifactService artifactService = new ArtifactService();
+    private final static DataBaseStorageDao dataBaseStorageDao = new DataBaseStorageDao();
+    private HeroService heroService = new HeroService(dataBaseStorageDao);
+    private ArtifactService artifactService = new ArtifactService(dataBaseStorageDao);
 
     @Override
     public void update() {

@@ -1,7 +1,7 @@
 package aniov.company.view.consoleView;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.hero.Hero;
+import aniov.company.model.character.hero.Hero;
 import aniov.company.view.RpgView;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Created by Marius on 6/19/2017.
  */
-public class ConsoleView implements RpgView {
+public class ConsoleView implements RpgView{
 
     private List<Hero> heroes;
 
