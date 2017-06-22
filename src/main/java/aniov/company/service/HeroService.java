@@ -1,7 +1,7 @@
 package aniov.company.service;
 
 import aniov.company.model.character.hero.Hero;
-import aniov.company.storage.database.DataBaseStorageDao;
+import aniov.company.storage.StorageAccess;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,10 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class HeroService {
 
-    private DataBaseStorageDao dbDao;
+    private StorageAccess dbDao;
 
     public List<Hero> findAllHeroes() {
-        List<Object> objects = dbDao.findAll(Hero.class);
+        List<Object> objects = (List<Object>) dbDao.findAll(Hero.class);
         List<Hero> heroes = new ArrayList<Hero>();
         for (Object object : objects) {
             heroes.add((Hero) object);

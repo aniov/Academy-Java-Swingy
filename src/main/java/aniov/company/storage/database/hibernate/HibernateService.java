@@ -1,4 +1,4 @@
-package aniov.company.service.hibernate;
+package aniov.company.storage.database.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -12,28 +12,28 @@ import java.util.logging.Logger;
  * Created by Marius on 6/18/2017.
  */
 
-public class HibernateService {
+public abstract class HibernateService {
 
-    public static SessionFactory sessionFactory;
+    public final static SessionFactory sessionFactory = setup();
 
-    public HibernateService() {
-        Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
-        setup();
+    private HibernateService() {
     }
 
-    public void setup() {
+    private static SessionFactory setup() {
+        Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
         try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            return new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
             e.printStackTrace();
             StandardServiceRegistryBuilder.destroy(registry);
+            return null;
         }
     }
 
-    public void exit() {
+    public static void exit() {
         sessionFactory.close();
     }
 }

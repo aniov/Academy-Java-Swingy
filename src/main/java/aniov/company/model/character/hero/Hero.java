@@ -28,6 +28,9 @@ public class Hero extends Character {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private Integer experience = 0;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private HeroType heroType;

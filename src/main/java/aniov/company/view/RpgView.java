@@ -17,15 +17,15 @@ public interface RpgView {
 
     List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer
 
-    void displayAllHeroes();
-
-    void displayHero(Hero hero);
-
     void addObserver(ObserverOfTheView observer);
 
     void removeObserver(ObserverOfTheView observer);
 
+    //void displayAllHeroes();
+
+    //void displayHero(Hero hero);
+
     void showMainInterface();
 
-    void enterHeroInterface();
+    //void enterHeroInterface();
 }

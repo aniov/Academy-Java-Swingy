@@ -14,11 +14,11 @@ public abstract class ObserverOfTheView {
 
     public RpgView rpgView;
 
-    public abstract void update();
+    public abstract void ShowView();
 
-    public abstract void getTextFromView(String input);
-
-    public abstract void setRpgView(RpgView rpgView);
+    public void setRpgView(RpgView rpgView) {
+        this.rpgView = rpgView;
+    }
 
     public abstract List<Hero> getAllHeroes();
 }

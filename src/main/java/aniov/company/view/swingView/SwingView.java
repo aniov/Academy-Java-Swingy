@@ -11,7 +11,7 @@ import javax.swing.*;
  */
 public class SwingView extends JFrame implements RpgView {
 
-    public void displayAllHeroes() {
+/*    public void displayAllHeroes() {
     }
 
     public void displayHero(Hero hero) {
@@ -19,7 +19,7 @@ public class SwingView extends JFrame implements RpgView {
 
     public void readInput() {
 
-    }
+    }*/
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -36,8 +36,8 @@ public class SwingView extends JFrame implements RpgView {
 
     }
 
-    @Override
+/*    @Override
     public void enterHeroInterface() {
 
-    }
+    }*/
 }

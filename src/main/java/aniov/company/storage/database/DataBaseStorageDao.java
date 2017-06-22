@@ -1,6 +1,6 @@
 package aniov.company.storage.database;
 
-import aniov.company.service.hibernate.HibernateService;
+import aniov.company.storage.database.hibernate.HibernateService;
 import aniov.company.storage.StorageAccess;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -67,7 +67,6 @@ public class DataBaseStorageDao implements StorageAccess {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery(String.format("from %s where name = :Name", c.getName())).setParameter("Name", name);
             List<Object> objectList = query.list();
-
             return objectList;
         } catch (HibernateException e) {
             handleException(e);

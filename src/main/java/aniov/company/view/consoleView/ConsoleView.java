@@ -14,18 +14,6 @@ public class ConsoleView implements RpgView{
 
     private List<Hero> heroes;
 
-    public void displayAllHeroes() {
-        System.out.println("Heroes:");
-
-        for (Hero hero : heroes) {
-            System.out.println(hero.getId() + ". Name: " + hero.getName() + ", Type: " + hero.getHeroType() + ", Artifacts: " + hero.getArtifacts());
-        }
-    }
-
-    public void displayHero(Hero hero) {
-
-    }
-
     @Override
     public void addObserver(ObserverOfTheView observer) {
         observers.add(observer);
@@ -36,20 +24,35 @@ public class ConsoleView implements RpgView{
         observers.remove(observer);
     }
 
+    /*public void displayAllHeroes() {
+        System.out.println("Heroes:");
+
+        for (Hero hero : heroes) {
+            System.out.println(hero.getId() + ". Name: " + hero.getName() + ", Type: " + hero.getHeroType() + ", Artifacts: " + hero.getArtifacts());
+        }
+    }
+
+    public void displayHero(Hero hero) {
+
+    }*/
+
+
+
     @Override
     public void showMainInterface() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Welcome to RPG Game\nPress Y(es) if you want to start: ");
         String myText = scanner.nextLine();
         if (myText.equalsIgnoreCase("y")) {
-            enterHeroInterface();
+            //enterHeroInterface();
+            System.out.println("We can start");
         }
     }
 
-    @Override
+   /* @Override
     public void enterHeroInterface() {
         heroes = observers.get(0).getAllHeroes();
         displayAllHeroes();
-    }
+    }*/
 
 }
