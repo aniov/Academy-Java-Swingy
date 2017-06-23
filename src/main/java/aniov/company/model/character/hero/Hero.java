@@ -36,7 +36,7 @@ public class Hero extends Character {
     private HeroType heroType;
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Artifact> artifacts = new HashSet<Artifact>();
+    private Set<Artifact> artifacts;// = new HashSet<>();
 
     public void addArtifact(Artifact artifact) {
         artifacts.add(artifact);

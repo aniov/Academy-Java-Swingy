@@ -2,6 +2,7 @@ package aniov.company.controller;
 
 import aniov.company.model.Model;
 import aniov.company.model.character.hero.Hero;
+import aniov.company.model.character.hero.HeroType;
 import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
 import aniov.company.storage.database.DataBaseStorageDao;
@@ -32,5 +33,16 @@ public class RpgController extends ObserverOfTheView {
     @Override
     public List<Hero> getAllHeroes() {
         return heroService.findAllHeroes();
+    }
+
+    @Override
+    public Hero getHeroById(Long id) {
+        return heroService.findHeroById(id);
+    }
+
+    @Override
+    public Hero createNewHero(String name, String type) {
+        HeroType heroType = HeroType.valueOf(type);
+        return heroService.createNewHero(name, heroType);
     }
 }

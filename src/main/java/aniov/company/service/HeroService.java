@@ -1,6 +1,8 @@
 package aniov.company.service;
 
+import aniov.company.model.character.HeroFactory;
 import aniov.company.model.character.hero.Hero;
+import aniov.company.model.character.hero.HeroType;
 import aniov.company.storage.StorageAccess;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +45,11 @@ public class HeroService {
 
     public Hero saveHero(Hero hero) {
         return (Hero) dbDao.save(hero);
+    }
+
+    public Hero createNewHero(String name, HeroType heroType) {
+        Hero hero = HeroFactory.getInstance().createNewHero(name, heroType);
+        return saveHero(hero);
     }
 
     public void updateHero(Hero hero) {

@@ -36,8 +36,13 @@ public class SwingView extends JFrame implements RpgView {
 
     }
 
-/*    @Override
+    @Override
     public void enterHeroInterface() {
 
-    }*/
+    }
+
+    @Override
+    public Hero choseHero(Integer heroIndex) {
+        return null;
+    }
 }

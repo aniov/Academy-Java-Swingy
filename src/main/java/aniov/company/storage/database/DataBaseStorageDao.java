@@ -42,8 +42,7 @@ public class DataBaseStorageDao implements StorageAccess {
 
     public Object findById(Class c, Long id) {
         try (Session session = sessionFactory.openSession()) {
-            Object object = session.load(c, id);
-            return object;
+            return session.get(c, id);
         } catch (HibernateException e) {
             handleException(e);
             return null;
