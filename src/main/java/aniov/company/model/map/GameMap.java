@@ -20,11 +20,12 @@ public class GameMap {
     private Long heroId;
     private boolean gameWin;
 
-    final public static String empty = "-";
-    final public static String hero = "H";
-    final public static String passed = "P";
-    final public static String deadVillain = "D";
-    final public static String heroAndVillain = "HV";
+    public static final String EMPTY = "-";
+    public static final String HERO = "H";
+    public static final String VILLAIN = "V";
+    public static final String PASSED = "P";
+    public static final String DEAD_VILLAIN = "D";
+    public static final String HERO_AND_VILLAIN = "HV";
 
     public GameMap(int heroLevel, Long heroId) {
         this.level = heroLevel;
@@ -44,11 +45,11 @@ public class GameMap {
 
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
-                this.theMap[i][j] = empty;
+                this.theMap[i][j] = EMPTY;
     }
     /** Put Hero in center of the map*/
     private void putHeroOnMap(){
-        theMap[size / 2][size / 2] = "Hero";
+        theMap[size / 2][size / 2] = HERO;
         heroPosition = new Point(size / 2, size / 2);
     }
 
@@ -56,7 +57,7 @@ public class GameMap {
         Random random = new Random();
 
         int nrOfVillains = random.nextInt(4) + size;
-        nrOfVillains = (size * size) - nrOfVillains;
+        nrOfVillains = (size * size) - 3 * nrOfVillains;
 
         /** Create a Point with X, Y coordinates*/
         Point point = new Point();
@@ -64,10 +65,10 @@ public class GameMap {
         while (nrOfVillains > 0){
             point.setLocation(random.nextInt(size), random.nextInt(size));
 
-            if (theMap[point.x][point.y].equals(empty)) {
+            if (theMap[point.x][point.y].equals(EMPTY)) {
                 int villainType = random.nextInt(VillainType.values().length);
                 //theMap[point.x][point.y] = VillainType.values()[villainType].name();
-                theMap[point.x][point.y] = "V";
+                theMap[point.x][point.y] = VILLAIN;
                 nrOfVillains--;
             }
         }

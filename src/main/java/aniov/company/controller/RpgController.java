@@ -16,13 +16,14 @@ import java.util.List;
 @Data
 public class RpgController extends ObserverOfTheView {
 
-    private final static DataBaseStorageDao dataBaseStorageDao = new DataBaseStorageDao();//We will use for now the DB Storage
-    private HeroService heroService = new HeroService(dataBaseStorageDao);
-    private ArtifactService artifactService = new ArtifactService(dataBaseStorageDao);
     private Model model;
+    private HeroService heroService;
+    private ArtifactService artifactService;
 
     public RpgController(Model model) {
         this.model = model;
+        this.heroService = new HeroService(this.model.getStorageDao());
+        this.artifactService = new ArtifactService(this.model.getStorageDao());
     }
 
     @Override
@@ -44,5 +45,16 @@ public class RpgController extends ObserverOfTheView {
     public Hero createNewHero(String name, String type) {
         HeroType heroType = HeroType.valueOf(type);
         return heroService.createNewHero(name, heroType);
+    }
+
+    @Override
+    public void createMap(Hero hero) {
+        model.setHero(hero);
+        model.createGameMap();
+    }
+
+    @Override
+    public String[][] getMap() {
+        return model.getGameMap().getTheMap();
     }
 }

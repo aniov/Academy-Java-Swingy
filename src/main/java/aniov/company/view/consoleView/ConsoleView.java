@@ -5,7 +5,6 @@ import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
 import aniov.company.view.RpgView;
-import org.hibernate.boot.jaxb.SourceType;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -30,12 +29,13 @@ public class ConsoleView implements RpgView {
         observers.remove(observer);
     }
 
+    /** Enter point*/
     @Override
     public void showMainInterface() {
         System.out.print("Welcome to RPG Game\nPress Y(es) if you want to start: ");
-        String myText = scanner.nextLine();
+        String input = scanner.nextLine();
 
-        if (myText.equalsIgnoreCase("y")) {
+        if (input.equalsIgnoreCase("y")) {
             enterHeroInterface();
         }
     }
@@ -44,7 +44,7 @@ public class ConsoleView implements RpgView {
     public void enterHeroInterface() {
         heroes = observers.get(0).getAllHeroes();
         displayAllHeroes();
-        while (!readInput()) {
+        while (!pickHeroOrCreate()) {
             displayAllHeroes();
         }
     }
@@ -59,7 +59,6 @@ public class ConsoleView implements RpgView {
         System.out.println("\nHeroes List:" + (heroes.isEmpty() ? " you don't have any heroes" : "" + "\n----------------------------------------------"));
 
         ListIterator iterator = heroes.listIterator();
-
         while (iterator.hasNext()) {
             Hero hero = (Hero) iterator.next();
             System.out.println(iterator.nextIndex() + ". Name: " + hero.getName() + ", Type: " + hero.getHeroType() + ", Artifacts: ");
@@ -70,12 +69,13 @@ public class ConsoleView implements RpgView {
         System.out.print("Chose hero number from the list\nCreate a new one - press y\n-> ");
     }
 
-    private boolean readInput() {
+    private boolean pickHeroOrCreate() {
         String input = scanner.nextLine();
         if (input.equalsIgnoreCase("y")) {
             createNewHero();
             heroes = observers.get(0).getAllHeroes();
             displayAllHeroes();
+            pickHeroOrCreate();
             return true;
         } else {
             try {
@@ -95,7 +95,20 @@ public class ConsoleView implements RpgView {
     }
 
     private void enterGamePlay() {
-        System.out.println("Here we start to play on board " + currentHero.getName() + " " + currentHero.getArtifacts());
+        System.out.println("It's time to PLAY \nYour hero: " + currentHero.getName() + " Artifacts: " + currentHero.getArtifacts() + "\n");
+        scanner.nextLine();
+        observers.get(0).createMap(currentHero);
+        displayGameMap();
+    }
+
+    private void displayGameMap() {
+        String[][] map = observers.get(0).getMap();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++){
+                System.out.print(map[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     private boolean createNewHero() {

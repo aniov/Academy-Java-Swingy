@@ -13,8 +13,12 @@ import lombok.Data;
 @Data
 public class Model {
 
-    private static final StorageAccess storageDao = new DataBaseStorageDao();
+    private StorageAccess storageDao = new DataBaseStorageDao();//We will use for now the DB Storage
     private Hero hero;
     private HeroService heroService = new HeroService(storageDao);
     private GameMap gameMap;
+
+    public void createGameMap(){
+        this.gameMap = new GameMap(hero.getLevel(), hero.getId());
+    }
 }

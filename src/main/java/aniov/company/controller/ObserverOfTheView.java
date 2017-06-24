@@ -33,6 +33,10 @@ public abstract class ObserverOfTheView {
         return name.matches("[a-zA-Z]{3,25}");
     }
 
+    public abstract void createMap(Hero hero);
+
+    public abstract String[][] getMap();
+
     public HeroType[] getHeroTypes() {
         return HeroType.values();
     }
