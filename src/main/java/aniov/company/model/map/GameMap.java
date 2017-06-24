@@ -73,4 +73,13 @@ public class GameMap {
             }
         }
     }
+
+    public void setOnMap(Point point, String str){
+        theMap[point.x][point.y] = str;
+    }
+
+    public String getFromMap(Point point){
+        return theMap[point.x][point.y];
+    }
+
 }

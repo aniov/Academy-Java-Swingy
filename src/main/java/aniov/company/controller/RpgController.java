@@ -3,9 +3,9 @@ package aniov.company.controller;
 import aniov.company.model.Model;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
+import aniov.company.model.map.GamePlay;
 import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
-import aniov.company.storage.database.DataBaseStorageDao;
 import lombok.Data;
 
 import java.util.List;
@@ -48,13 +48,38 @@ public class RpgController extends ObserverOfTheView {
     }
 
     @Override
-    public void createMap(Hero hero) {
+    public void createMapAndStartGame(Hero hero) {
         model.setHero(hero);
         model.createGameMap();
+        model.startGamePlay();
     }
 
     @Override
     public String[][] getMap() {
         return model.getGameMap().getTheMap();
+    }
+
+    @Override
+    public boolean moveHeroUp() {
+        model.heroMove(GamePlay.UP);
+        return true;
+    }
+
+    @Override
+    public boolean moveHeroDown() {
+        model.heroMove(GamePlay.DOWN);
+        return true;
+    }
+
+    @Override
+    public boolean moveHeroLeft() {
+        model.heroMove(GamePlay.LEFT);
+        return true;
+    }
+
+    @Override
+    public boolean moveHeroRight() {
+        model.heroMove(GamePlay.RIGHT);
+        return true;
     }
 }

@@ -33,9 +33,18 @@ public abstract class ObserverOfTheView {
         return name.matches("[a-zA-Z]{3,25}");
     }
 
-    public abstract void createMap(Hero hero);
+    public abstract void createMapAndStartGame(Hero hero);
 
     public abstract String[][] getMap();
+
+    public abstract boolean moveHeroUp();
+
+    public abstract boolean moveHeroDown();
+
+    public abstract boolean moveHeroLeft();
+
+    public abstract boolean moveHeroRight();
+
 
     public HeroType[] getHeroTypes() {
         return HeroType.values();

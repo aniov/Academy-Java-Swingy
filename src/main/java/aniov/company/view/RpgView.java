@@ -2,6 +2,7 @@ package aniov.company.view;
 
 import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
+import aniov.company.model.map.GameMap;
 import org.omg.CORBA.INTERNAL;
 
 import java.util.ArrayList;
@@ -31,4 +32,9 @@ public interface RpgView {
     void enterHeroInterface();
 
     Hero choseHero(Integer heroIndex);
+
+  //  void heroWonTheFight();
+
+
+
 }

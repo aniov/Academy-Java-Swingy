@@ -29,7 +29,9 @@ public class ConsoleView implements RpgView {
         observers.remove(observer);
     }
 
-    /** Enter point*/
+    /**
+     * Enter point
+     */
     @Override
     public void showMainInterface() {
         System.out.print("Welcome to RPG Game\nPress Y(es) if you want to start: ");
@@ -66,7 +68,7 @@ public class ConsoleView implements RpgView {
                 System.out.println("\t\t" + artifact);
             }
         }
-        System.out.print("Chose hero number from the list\nCreate a new one - press y\n-> ");
+        System.out.print("\nChose hero number from the list OR\nCreate a new one - press y (for new a hero)\n-> ");
     }
 
     private boolean pickHeroOrCreate() {
@@ -95,26 +97,51 @@ public class ConsoleView implements RpgView {
     }
 
     private void enterGamePlay() {
-        System.out.println("It's time to PLAY \nYour hero: " + currentHero.getName() + " Artifacts: " + currentHero.getArtifacts() + "\n");
-        scanner.nextLine();
-        observers.get(0).createMap(currentHero);
-        displayGameMap();
-        readInputMoves();
 
+        System.out.println("It's time to PLAY \nYour hero: " + currentHero.getName() + " -  artifacts: " + currentHero.getArtifacts() + "\n");
+        System.out.println("press any key to start...");
+        scanner.nextLine();
+        observers.get(0).createMapAndStartGame(currentHero);
+        while (true) {
+            displayGameMap();
+            readInputMoves();
+        }
     }
 
-    private void readInputMoves() {
+    private void playerWin() {
+        System.out.println("\t\tYou Won !!!!");
+    }
+
+    private boolean readInputMoves() {
+
+        System.out.println("move: ");
+        String inputMove = scanner.nextLine().toUpperCase();
+        switch (inputMove) {
+            case "W":
+                return observers.get(0).moveHeroUp();
+            case "S":
+                return observers.get(0).moveHeroDown();
+            case "A":
+                return observers.get(0).moveHeroLeft();
+            case "D":
+                return observers.get(0).moveHeroRight();
+            default:
+                System.out.println("that's not a valid choice");
+                readInputMoves();
+        }
+        return false;
     }
 
     private void displayGameMap() {
         String[][] map = observers.get(0).getMap();
+        System.out.println("\tGAME MAP\n");
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map.length; j++){
+            for (int j = 0; j < map.length; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
         }
-        System.out.println("you can move up(W) - down(S) - left(A) - right(D)");
+        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\n");
     }
 
     private boolean createNewHero() {
