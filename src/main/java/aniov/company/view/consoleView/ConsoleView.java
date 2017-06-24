@@ -99,6 +99,11 @@ public class ConsoleView implements RpgView {
         scanner.nextLine();
         observers.get(0).createMap(currentHero);
         displayGameMap();
+        readInputMoves();
+
+    }
+
+    private void readInputMoves() {
     }
 
     private void displayGameMap() {
@@ -109,6 +114,7 @@ public class ConsoleView implements RpgView {
             }
             System.out.println();
         }
+        System.out.println("you can move up(W) - down(S) - left(A) - right(D)");
     }
 
     private boolean createNewHero() {
