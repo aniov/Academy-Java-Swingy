@@ -2,9 +2,7 @@ package aniov.company.model.character.hero;
 
 import aniov.company.model.character.Character;
 import aniov.company.model.artifact.Artifact;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,7 +16,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Hero extends Character {
 
     @Id
@@ -36,7 +34,7 @@ public class Hero extends Character {
     private HeroType heroType;
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Artifact> artifacts;// = new HashSet<>();
+    private Set<Artifact> artifacts = new HashSet<>();
 
     public void addArtifact(Artifact artifact) {
         artifacts.add(artifact);

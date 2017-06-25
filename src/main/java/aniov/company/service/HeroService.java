@@ -1,6 +1,6 @@
 package aniov.company.service;
 
-import aniov.company.model.character.HeroFactory;
+import aniov.company.model.character.CharacterFactory;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
 import aniov.company.storage.StorageAccess;
@@ -48,7 +48,7 @@ public class HeroService {
     }
 
     public Hero createNewHero(String name, HeroType heroType) {
-        Hero hero = HeroFactory.getInstance().createNewHero(name, heroType);
+        Hero hero = (Hero) CharacterFactory.getInstance().createNewCharacter(name, heroType, 1);
         return saveHero(hero);
     }
 

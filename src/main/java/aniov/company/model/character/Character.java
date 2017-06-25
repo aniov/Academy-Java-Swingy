@@ -1,9 +1,8 @@
 package aniov.company.model.character;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -13,7 +12,8 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 @Data
-public abstract class Character implements Serializable{
+@NoArgsConstructor
+public abstract class Character implements Serializable {
 
     @NotNull
     private Integer level;
