@@ -114,22 +114,22 @@ public class ConsoleView implements RpgView {
 
     private boolean readInputMoves() {
 
-        System.out.println("move: ");
-        String inputMove = scanner.nextLine().toUpperCase();
-        switch (inputMove) {
-            case "W":
-                return observers.get(0).moveHeroUp();
-            case "S":
-                return observers.get(0).moveHeroDown();
-            case "A":
-                return observers.get(0).moveHeroLeft();
-            case "D":
-                return observers.get(0).moveHeroRight();
-            default:
-                System.out.println("that's not a valid choice");
-                readInputMoves();
+        while (true) {
+            System.out.println("your move: ");
+            String inputMove = scanner.nextLine().toUpperCase();
+            switch (inputMove) {
+                case "W":
+                    return observers.get(0).moveHeroUp();
+                case "S":
+                    return observers.get(0).moveHeroDown();
+                case "A":
+                    return observers.get(0).moveHeroLeft();
+                case "D":
+                    return observers.get(0).moveHeroRight();
+                default:
+                    System.out.println("that's not a valid choice");
+            }
         }
-        return false;
     }
 
     private void displayGameMap() {
@@ -177,4 +177,19 @@ public class ConsoleView implements RpgView {
         }
     }
 
+    @Override
+    public boolean wantToFight() {
+
+        while (true) {
+            System.out.println("You encounter a Villain. You can fight him or try to run (will have 50% chance to happen)\nto Fight press 'f' to Run press 'r': ");
+            String fightOrRun = scanner.nextLine();
+            if (fightOrRun.equalsIgnoreCase("f")) {
+                return true;
+            } else if (fightOrRun.equalsIgnoreCase("r")) {
+                return false;
+            } else {
+                System.out.println("that's not a valid choice");
+            }
+        }
+    }
 }

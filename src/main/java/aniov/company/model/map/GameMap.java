@@ -17,7 +17,6 @@ public class GameMap {
     private String[][] theMap;
     private Point heroPosition;
     private Point nextHeroPosition;
-    private Long heroId;
     private boolean gameWin;
 
     public static final String EMPTY = "-";
@@ -27,9 +26,8 @@ public class GameMap {
     public static final String DEAD_VILLAIN = "D";
     public static final String HERO_AND_VILLAIN = "HV";
 
-    public GameMap(int heroLevel, Long heroId) {
+    public GameMap(int heroLevel) {
         this.level = heroLevel;
-        this.heroId = heroId;
         generateMap();
     }
 

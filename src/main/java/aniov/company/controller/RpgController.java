@@ -8,6 +8,7 @@ import aniov.company.service.ArtifactService;
 import aniov.company.service.HeroService;
 import lombok.Data;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -61,25 +62,44 @@ public class RpgController extends ObserverOfTheView {
 
     @Override
     public boolean moveHeroUp() {
-        model.heroMove(GamePlay.UP);
+        moveHero(GamePlay.UP);
         return true;
     }
 
     @Override
     public boolean moveHeroDown() {
-        model.heroMove(GamePlay.DOWN);
+        moveHero(GamePlay.DOWN);
         return true;
     }
 
     @Override
     public boolean moveHeroLeft() {
-        model.heroMove(GamePlay.LEFT);
+        moveHero(GamePlay.LEFT);
         return true;
     }
 
     @Override
     public boolean moveHeroRight() {
-        model.heroMove(GamePlay.RIGHT);
+        moveHero(GamePlay.RIGHT);
         return true;
+    }
+
+    @Override
+    public void fightOrRun() {
+
+    }
+
+    private void moveHero(Point move) {
+        model.heroMove(move);
+
+        if (model.getGamePlay().getVillain() != null) {
+            if (rpgView.wantToFight()) {
+                model.fightOrRun(true);
+
+            } else {
+                model.fightOrRun(false);
+
+            }
+        }
     }
 }

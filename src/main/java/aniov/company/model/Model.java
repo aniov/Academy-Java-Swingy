@@ -23,14 +23,22 @@ public class Model {
     private GamePlay gamePlay;
 
     public void createGameMap(){
-        this.gameMap = new GameMap(hero.getLevel(), hero.getId());
+        this.gameMap = new GameMap(hero.getLevel());
     }
 
     public void startGamePlay() {
-        this.gamePlay = new GamePlay(gameMap);
+        this.gamePlay = new GamePlay(gameMap, hero);
     }
 
     public void heroMove(Point move) {
         gamePlay.heroMove(move);
+    }
+
+    public void fightOrRun(boolean fight) {
+        if (fight) {
+            gamePlay.fight();
+        } else {
+            gamePlay.tryToRun();
+        }
     }
 }

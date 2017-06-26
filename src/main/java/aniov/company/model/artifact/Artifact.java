@@ -2,6 +2,7 @@ package aniov.company.model.artifact;
 
 import aniov.company.model.character.hero.Hero;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Data
+@NoArgsConstructor
 public class Artifact implements Serializable {
 
     @Id
@@ -38,4 +40,13 @@ public class Artifact implements Serializable {
     @ManyToOne
     @PrimaryKeyJoinColumn
     private Hero hero;
+
+    public Artifact(Hero hero, ArtifactType artifactType) {
+        this.hero = hero;
+        this.level = hero.getLevel();
+        this.type = artifactType;
+        this.attack = level * artifactType.getAttack();
+        this.defence = level * artifactType.getDefence();
+        this.hitPoints = level * artifactType.getHitPoints();
+    }
 }

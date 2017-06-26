@@ -33,6 +33,8 @@ public interface RpgView {
 
     Hero choseHero(Integer heroIndex);
 
+    boolean wantToFight();
+
   //  void heroWonTheFight();
 
 

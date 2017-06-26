@@ -1,11 +1,15 @@
 package aniov.company.model.map;
 
+import aniov.company.model.character.CharacterFactory;
+import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.villain.Villain;
+import aniov.company.model.character.villain.VillainType;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Created by Marius on 6/24/2017.
@@ -21,9 +25,12 @@ public class GamePlay {
 
     @NonNull
     private GameMap gameMap;
+    @NonNull
+    private Hero hero;
 
     private Point heroNextPosition = new Point();
     private Villain villain;
+
 
     public void heroMove(Point newLocation) {
 
@@ -37,8 +44,9 @@ public class GamePlay {
 
             if (isVillain()) {
 
-                /** Generate new Villain conforming to the type*/
-                villain = new Villain();
+                /** Generate new Villain based on hero level*/
+                villain = (Villain) CharacterFactory.getInstance()
+                        .createNewCharacter("Villain", VillainType.BAD_VILLAIN, gameMap.getLevel());
                 return;
             }
             /** Set the leaving position of the hero*/ //TODO
@@ -70,4 +78,28 @@ public class GamePlay {
         return villain.equals(GameMap.VILLAIN);
     }
 
+    public void fight() {
+
+        if (fightIsWon()) {
+            villain =  null;
+            gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.EMPTY);
+
+            gameMap.setOnMap(gameMap.getNextHeroPosition(), GameMap.HERO);
+            gameMap.getHeroPosition().setLocation(gameMap.getNextHeroPosition());
+        }
+
+    }
+
+    private boolean fightIsWon() {
+
+       /* while (villain.getHealth() > 0 && hero.getHealth() > 0) {
+                villain.setHealth(new Random().nextBoolean());
+        }*/
+       return true;
+    }
+
+    public boolean tryToRun() {
+
+        return  (new Random().nextFloat() < 0.5f);
+    }
 }

@@ -44,4 +44,28 @@ public class Hero extends Character {
         artifacts.remove(artifact);
     }
 
+    public Integer getTotalAttack() {
+        Integer totalAttack = this.getAttack();
+        for (Artifact artifact : artifacts) {
+            totalAttack += artifact.getAttack();
+        }
+        return totalAttack;
+    }
+
+    public Integer getTotalDefence() {
+        Integer totalDefence = this.getDefence();
+        for (Artifact artifact : artifacts) {
+            totalDefence += artifact.getDefence();
+        }
+        return totalDefence;
+    }
+
+    public Integer getTotalHitPoints() {
+        Integer totalHitPoints = this.getHitPoints();
+        for (Artifact artifact : artifacts) {
+            totalHitPoints += artifact.getHitPoints();
+        }
+        return totalHitPoints;
+    }
+
 }
