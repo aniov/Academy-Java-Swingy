@@ -1,5 +1,6 @@
 package aniov.company.model;
 
+import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.map.GameMap;
 import aniov.company.model.map.GamePlay;
@@ -40,5 +41,17 @@ public class Model {
 
     public boolean tryToRun() {
         return gamePlay.tryToRun();
+    }
+
+    public Artifact newArtifact() {
+        return gamePlay.generateNewArtifact();
+    }
+
+    public boolean isGameWon() {
+        if (gameMap.isGameWin()) {
+            storageDao.update(hero);
+            return true;
+        }
+        return false;
     }
 }

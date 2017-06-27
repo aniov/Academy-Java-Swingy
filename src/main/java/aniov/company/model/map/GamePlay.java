@@ -1,5 +1,7 @@
 package aniov.company.model.map;
 
+import aniov.company.model.artifact.Artifact;
+import aniov.company.model.artifact.ArtifactType;
 import aniov.company.model.character.CharacterFactory;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.villain.Villain;
@@ -31,7 +33,6 @@ public class GamePlay {
     private Point heroNextPosition = new Point();
     private Villain villain;
 
-
     public void heroMove(Point newLocation) {
 
         heroNextPosition.setLocation(gameMap.getHeroPosition());
@@ -50,17 +51,9 @@ public class GamePlay {
                 return;
             }
             /** Set the leaving position of the hero*/ //TODO
-            if (gameMap.getFromMap(gameMap.getHeroPosition()).equals(GameMap.HERO)) {
-                gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.EMPTY);
-            } else {
-                gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.EMPTY);
-            }
+            gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.EMPTY);
             /** Set the next position of the hero*/
-            if (gameMap.getFromMap(gameMap.getNextHeroPosition()).equals(GameMap.EMPTY)) {
-                gameMap.setOnMap(heroNextPosition, GameMap.HERO);
-            } else {
-                gameMap.setOnMap(heroNextPosition, GameMap.HERO);
-            }
+            gameMap.setOnMap(heroNextPosition, GameMap.HERO);
             gameMap.getHeroPosition().setLocation(heroNextPosition);
         } else {
             gameMap.setGameWin(true);
@@ -81,7 +74,7 @@ public class GamePlay {
     public boolean fight() {
 
         if (fightIsWon()) {
-            villain =  null;
+            villain = null;
             gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.EMPTY);
 
             gameMap.setOnMap(gameMap.getNextHeroPosition(), GameMap.HERO);
@@ -98,12 +91,23 @@ public class GamePlay {
        /* while (villain.getHealth() > 0 && hero.getHealth() > 0) {
                 villain.setHealth(new Random().nextBoolean());
         }*/
-       return true;
+        return true;
+    }
+
+    public Artifact generateNewArtifact() {
+
+        if (new Random().nextBoolean()) {
+            int random = new Random().nextInt(ArtifactType.values().length);
+            ArtifactType artifactType = ArtifactType.values()[random];
+
+           return new Artifact(hero, artifactType);
+        }
+        return null;
     }
 
     public boolean tryToRun() {
         // 50% chance to escape the fight
-        boolean run =  new Random().nextBoolean();
+        boolean run = new Random().nextBoolean();
         if (run) {
             villain = null;
             return true;

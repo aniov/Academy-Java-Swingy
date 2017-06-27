@@ -1,7 +1,6 @@
 package aniov.company.view.consoleView;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
 import aniov.company.view.RpgView;
@@ -50,11 +49,7 @@ public class ConsoleView implements RpgView {
     public void enterHeroInterface() {
         while (true) {
             heroes = controllerObserver.getAllHeroes();
-            displayAllHeroes();
-
-            while (!pickHeroOrCreate() && currentHero != null) {
-                displayAllHeroes();
-            }
+            pickHeroOrCreate();
             if (exitGame) {
                 return;
             }
@@ -80,30 +75,64 @@ public class ConsoleView implements RpgView {
         System.out.print("\n~Chose hero number from the list OR\n~Create a new one - press y (for new a hero)\n~If you want to exit the game, type 'exit': \n-> ");
     }
 
-    private boolean pickHeroOrCreate() {
+    private void pickHeroOrCreate() {
         while (true) {
+            displayAllHeroes();
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("y")) {
                 createNewHero();
                 heroes = controllerObserver.getAllHeroes();
-                displayAllHeroes();
-                return true;
+                continue;
             } else if (input.equalsIgnoreCase("exit")) {
                 exitGame = true;
+                return;
             } else {
                 try {
                     Integer heroIndex = Integer.parseInt(input);
                     if (heroIndex > 0 && heroIndex <= heroes.size()) {
                         currentHero = choseHero(heroIndex - 1);
-                        return true;
+                        return;
                     } else {
                         System.out.println("That hero doesn't exist");
                     }
                 } catch (NumberFormatException e) {
-                    return false;
+                    System.out.println("Invalid input. Try an integer.");
+                    continue;
                 }
             }
-            return false;
+        }
+    }
+
+    private boolean createNewHero() {
+
+        while (true) {
+            System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 25>): ");
+
+            HeroType[] heroTypes = controllerObserver.getHeroTypes();
+            String newHeroName = scanner.nextLine();
+            if (!controllerObserver.isHeroNameValid(newHeroName)) {
+                System.out.println("The name you've entered is not valid");
+                continue;
+            }
+            System.out.println("Chose type of your hero (press number): ");
+
+            for (int i = 0; i < heroTypes.length; i++) {
+                System.out.println("\t" + i + ". " + heroTypes[i] + " (attack: " + heroTypes[i].getAttack()
+                        + ", defence: " + heroTypes[i].getDefence()
+                        + ", hit points: " + heroTypes[i].getHitPoints() + ")");
+            }
+            System.out.print("-> ");
+            try {
+                Integer heroTypeSelected = Integer.parseInt(scanner.nextLine());
+                if (heroTypeSelected >= 0 && heroTypeSelected < heroTypes.length) {
+                    controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
+                    return true;
+                } else {
+                    System.out.println("The number you chose is not part of the Heroes Type list. Please try again !");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Try an integer.");
+            }
         }
     }
 
@@ -164,39 +193,6 @@ public class ConsoleView implements RpgView {
         System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\n");
     }
 
-    private boolean createNewHero() {
-
-        while (true) {
-            System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 25>): ");
-
-            HeroType[] heroTypes = controllerObserver.getHeroTypes();
-            String newHeroName = scanner.nextLine();
-            if (!controllerObserver.isHeroNameValid(newHeroName)) {
-                System.out.println("The name you've entered is not valid");
-                continue;
-            }
-            System.out.println("Chose type of your hero (press number): ");
-
-            for (int i = 0; i < heroTypes.length; i++) {
-                System.out.println("\t" + i + ". " + heroTypes[i] + " (health: " + heroTypes[i].getHealth()
-                        + ", attack: " + heroTypes[i].getAttack() + ", defence: " + heroTypes[i].getDefence()
-                        + ", hit points: " + heroTypes[i].getHitPoints() + ")");
-            }
-            System.out.print("-> ");
-            try {
-                Integer heroTypeSelected = scanner.nextInt();
-                if (heroTypeSelected >= 0 && heroTypeSelected < heroTypes.length) {
-                    controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
-                    return true;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-                return false;
-            }
-            return false;
-        }
-    }
-
     @Override
     public boolean wantToFight() {
 
@@ -234,6 +230,21 @@ public class ConsoleView implements RpgView {
         System.out.println("You Lost the fight. Press 'Enter' to return to Game board");
         scanner.nextLine();
         fightIsLost = true;
+    }
+
+    @Override
+    public boolean keepThisArtifact(String artifact) {
+        while (true) {
+            System.out.println("Villain dropped this artifact: " + artifact + "\nyou want to keep it? Y / N");
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("y")) {
+                return true;
+            } else if (input.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.println("that's not a valid choice");
+            }
+        }
     }
 
     private void displayHeroStats() {

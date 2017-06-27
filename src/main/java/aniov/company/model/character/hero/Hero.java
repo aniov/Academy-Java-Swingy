@@ -72,6 +72,14 @@ public class Hero extends Character {
     public String toString() {
         return "Name: " + name + ", Class: " + heroType + ", Level: " + getLevel() + ", Xp: " + experience + "\tTotal Stats:"
                 + " Attack: " + getTotalAttack() + ", Defence: " + getTotalDefence() + ", Hit points: " + getTotalHitPoints()
-                + ".\tArtifacts: " + artifacts;
+                + "\n\t\tArtifacts:\n" + artifacts();
+    }
+
+    private String artifacts() {
+        StringBuilder sb = new StringBuilder();
+        for (Artifact artifact : artifacts) {
+            sb.append("\t\t\t" + artifact + "\n");
+        }
+        return sb.toString();
     }
 }

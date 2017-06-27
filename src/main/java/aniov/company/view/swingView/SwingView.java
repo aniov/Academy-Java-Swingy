@@ -69,4 +69,9 @@ public class SwingView extends JFrame implements RpgView {
     public void heroLostTheFight() {
 
     }
+
+    @Override
+    public boolean keepThisArtifact(String artifact) {
+        return false;
+    }
 }

@@ -49,4 +49,23 @@ public class Artifact implements Serializable {
         this.defence = level * artifactType.getDefence();
         this.hitPoints = level * artifactType.getHitPoints();
     }
+
+    @Override
+    public String toString() {
+
+        if (type.equals(ArtifactType.ARMOR)) {
+            return "Type: " + type +
+                    ", level: " + level +
+                    ", defence: " + defence;
+        } else if (type.equals(ArtifactType.WEAPON)) {
+            return "Type: " + type +
+                    ", level: " + level +
+                    ", attack: " + attack;
+        } else if(type.equals(ArtifactType.HELM)) {
+            return "Type: " + type +
+                    ", level: " + level +
+                    ", hitPoints: " + hitPoints;
+        }
+        return "";
+    }
 }

@@ -43,6 +43,8 @@ public interface RpgView {
 
     void heroEscapedVillain();
 
+    boolean keepThisArtifact(String artifact);
+
 
 
 }

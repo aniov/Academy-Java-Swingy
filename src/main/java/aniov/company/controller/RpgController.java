@@ -1,6 +1,7 @@
 package aniov.company.controller;
 
 import aniov.company.model.Model;
+import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
 import aniov.company.model.map.GamePlay;
@@ -86,18 +87,18 @@ public class RpgController extends ObserverOfTheView {
 
     private void moveHero(Point move) {
         model.heroMove(move);
+        if (model.getGamePlay().getVillain() == null) { //if there is no villain we just move
+            return;
+        }
+        if (rpgView.wantToFight()) {
+            fight();
 
-        if (model.getGamePlay().getVillain() != null) {
-            if (rpgView.wantToFight()) {
-                fight();
-
+        } else {
+            if (model.tryToRun()) {
+                rpgView.heroEscapedVillain();
             } else {
-                if (model.tryToRun()) {
-                    rpgView.heroEscapedVillain();
-                } else {
-                    rpgView.heroCouldNotEscape();
-                    fight();
-                }
+                rpgView.heroCouldNotEscape();
+                fight();
             }
         }
     }
@@ -105,13 +106,25 @@ public class RpgController extends ObserverOfTheView {
     private void fight() {
         if (model.fight()) {
             rpgView.heroWonTheFight();
+            newArtifact();//the fight is won, we see if the villain dropped an artifact
         } else {
             rpgView.heroLostTheFight();
         }
     }
 
+    private void newArtifact() {
+        Artifact artifact = model.newArtifact();
+
+        if (artifact != null) {
+            boolean keep = rpgView.keepThisArtifact(artifact.toString());
+            if (keep) {
+                model.getHero().addArtifact(artifact);
+            }
+        }
+    }
+
     @Override
     public boolean gameIsWon() {
-        return model.getGameMap().isGameWin();
+        return model.isGameWon();
     }
 }
