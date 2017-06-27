@@ -22,7 +22,7 @@ public class Model {
     private GameMap gameMap;
     private GamePlay gamePlay;
 
-    public void createGameMap(){
+    public void createGameMap() {
         this.gameMap = new GameMap(hero.getLevel());
     }
 
@@ -34,11 +34,11 @@ public class Model {
         gamePlay.heroMove(move);
     }
 
-    public void fightOrRun(boolean fight) {
-        if (fight) {
-            gamePlay.fight();
-        } else {
-            gamePlay.tryToRun();
-        }
+    public boolean fight() {
+        return gamePlay.fight();
+    }
+
+    public boolean tryToRun() {
+        return gamePlay.tryToRun();
     }
 }

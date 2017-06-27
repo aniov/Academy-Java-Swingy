@@ -78,7 +78,7 @@ public class GamePlay {
         return villain.equals(GameMap.VILLAIN);
     }
 
-    public void fight() {
+    public boolean fight() {
 
         if (fightIsWon()) {
             villain =  null;
@@ -86,8 +86,11 @@ public class GamePlay {
 
             gameMap.setOnMap(gameMap.getNextHeroPosition(), GameMap.HERO);
             gameMap.getHeroPosition().setLocation(gameMap.getNextHeroPosition());
+            // We won the fight, we can continue
+            return true;
         }
-
+        // We lost the game
+        return false;
     }
 
     private boolean fightIsWon() {
@@ -99,7 +102,12 @@ public class GamePlay {
     }
 
     public boolean tryToRun() {
-
-        return  (new Random().nextFloat() < 0.5f);
+        // 50% chance to escape the fight
+        boolean run =  new Random().nextBoolean();
+        if (run) {
+            villain = null;
+            return true;
+        }
+        return false;
     }
 }

@@ -35,7 +35,13 @@ public interface RpgView {
 
     boolean wantToFight();
 
-  //  void heroWonTheFight();
+    void heroWonTheFight();
+
+    void heroLostTheFight();
+
+    void heroCouldNotEscape();
+
+    void heroEscapedVillain();
 
 
 

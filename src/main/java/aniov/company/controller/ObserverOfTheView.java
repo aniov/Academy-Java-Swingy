@@ -45,7 +45,7 @@ public abstract class ObserverOfTheView {
 
     public abstract boolean moveHeroRight();
 
-    public abstract void fightOrRun();
+    public abstract boolean gameIsWon();
 
     public HeroType[] getHeroTypes() {
         return HeroType.values();

@@ -50,4 +50,23 @@ public class SwingView extends JFrame implements RpgView {
     public boolean wantToFight() {
         return false;
     }
+
+    @Override
+    public void heroWonTheFight() {
+    }
+
+    @Override
+    public void heroCouldNotEscape() {
+
+    }
+
+    @Override
+    public void heroEscapedVillain() {
+
+    }
+
+    @Override
+    public void heroLostTheFight() {
+
+    }
 }

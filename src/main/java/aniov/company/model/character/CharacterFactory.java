@@ -31,7 +31,6 @@ public class CharacterFactory {
             hero.setHeroType(heroType);
             hero.setAttack(heroType.getAttack());
             hero.setDefence(heroType.getDefence());
-            hero.setHealth(heroType.getHealth());
             hero.setHitPoints(heroType.getHitPoints());
             return hero;
         } else if (type instanceof VillainType) {
@@ -41,7 +40,6 @@ public class CharacterFactory {
 
             villain.setLevel(level);
             villain.setType(villainType);
-            villain.setHealth(villainType.getHealth() * level);
             villain.setAttack(villainType.getAttack() * level);
             villain.setDefence(villainType.getDefence() * level);
             villain.setHitPoints(villainType.getHitPoints() * level);

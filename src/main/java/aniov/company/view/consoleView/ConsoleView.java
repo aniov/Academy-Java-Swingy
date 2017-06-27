@@ -16,12 +16,16 @@ import java.util.Scanner;
 public class ConsoleView implements RpgView {
 
     private static final Scanner scanner = new Scanner(System.in);
+    private ObserverOfTheView controllerObserver;
     private List<Hero> heroes;
     private Hero currentHero;
+    private boolean exitGame;
+    private boolean fightIsLost;
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
         observers.add(observer);
+        controllerObserver = observers.get(0);
     }
 
     @Override
@@ -44,17 +48,25 @@ public class ConsoleView implements RpgView {
 
     @Override
     public void enterHeroInterface() {
-        heroes = observers.get(0).getAllHeroes();
-        displayAllHeroes();
-        while (!pickHeroOrCreate()) {
+        while (true) {
+            heroes = controllerObserver.getAllHeroes();
             displayAllHeroes();
+
+            while (!pickHeroOrCreate() && currentHero != null) {
+                displayAllHeroes();
+            }
+            if (exitGame) {
+                return;
+            }
+            /** Enter game play*/
+            enterGamePlay();
         }
     }
 
     @Override
     public Hero choseHero(Integer heroIndex) {
         Long heroId = heroes.get(heroIndex).getId();
-        return observers.get(0).getHeroById(heroId);
+        return controllerObserver.getHeroById(heroId);
     }
 
     private void displayAllHeroes() {
@@ -63,53 +75,62 @@ public class ConsoleView implements RpgView {
         ListIterator iterator = heroes.listIterator();
         while (iterator.hasNext()) {
             Hero hero = (Hero) iterator.next();
-            System.out.println(iterator.nextIndex() + ". Name: " + hero.getName() + ", Type: " + hero.getHeroType() + ", Artifacts: ");
-            for (Artifact artifact : hero.getArtifacts()) {
-                System.out.println("\t\t" + artifact);
-            }
+            System.out.println("\t" + iterator.nextIndex() + ". " + hero);
         }
-        System.out.print("\nChose hero number from the list OR\nCreate a new one - press y (for new a hero)\n-> ");
+        System.out.print("\n~Chose hero number from the list OR\n~Create a new one - press y (for new a hero)\n~If you want to exit the game, type 'exit': \n-> ");
     }
 
     private boolean pickHeroOrCreate() {
-        String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("y")) {
-            createNewHero();
-            heroes = observers.get(0).getAllHeroes();
-            displayAllHeroes();
-            pickHeroOrCreate();
-            return true;
-        } else {
-            try {
-                Integer heroIndex = Integer.parseInt(input);
-                if (heroIndex > 0 && heroIndex <= heroes.size()) {
-                    currentHero = choseHero(heroIndex - 1);
-                    enterGamePlay();
-                    return true;
-                } else {
-                    System.out.println("That hero doesn't exist");
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("y")) {
+                createNewHero();
+                heroes = controllerObserver.getAllHeroes();
+                displayAllHeroes();
+                return true;
+            } else if (input.equalsIgnoreCase("exit")) {
+                exitGame = true;
+            } else {
+                try {
+                    Integer heroIndex = Integer.parseInt(input);
+                    if (heroIndex > 0 && heroIndex <= heroes.size()) {
+                        currentHero = choseHero(heroIndex - 1);
+                        return true;
+                    } else {
+                        System.out.println("That hero doesn't exist");
+                    }
+                } catch (NumberFormatException e) {
+                    return false;
                 }
-            } catch (NumberFormatException e) {
-                return false;
             }
+            return false;
         }
-        return false;
     }
 
     private void enterGamePlay() {
 
-        System.out.println("It's time to PLAY \nYour hero: " + currentHero.getName() + " -  artifacts: " + currentHero.getArtifacts() + "\n");
+        System.out.print("It's time to PLAY \n\nYour hero: ");
+        displayHeroStats();
         System.out.println("press any key to start...");
         scanner.nextLine();
-        observers.get(0).createMapAndStartGame(currentHero);
+        controllerObserver.createMapAndStartGame(currentHero);
+        fightIsLost = false;
         while (true) {
             displayGameMap();
             readInputMoves();
+            displayHeroStats();
+            if (fightIsLost) {
+                return;
+            } else if (controllerObserver.gameIsWon()) {
+                playerWin();
+                return;
+            }
         }
     }
 
     private void playerWin() {
-        System.out.println("\t\tYou Won !!!!");
+        System.out.println("\t\t\nYou Won !!!!\n");
+        currentHero = null;
     }
 
     private boolean readInputMoves() {
@@ -119,13 +140,13 @@ public class ConsoleView implements RpgView {
             String inputMove = scanner.nextLine().toUpperCase();
             switch (inputMove) {
                 case "W":
-                    return observers.get(0).moveHeroUp();
+                    return controllerObserver.moveHeroUp();
                 case "S":
-                    return observers.get(0).moveHeroDown();
+                    return controllerObserver.moveHeroDown();
                 case "A":
-                    return observers.get(0).moveHeroLeft();
+                    return controllerObserver.moveHeroLeft();
                 case "D":
-                    return observers.get(0).moveHeroRight();
+                    return controllerObserver.moveHeroRight();
                 default:
                     System.out.println("that's not a valid choice");
             }
@@ -133,13 +154,12 @@ public class ConsoleView implements RpgView {
     }
 
     private void displayGameMap() {
-        String[][] map = observers.get(0).getMap();
-        System.out.println("\tGAME MAP\n");
+        String[][] map = controllerObserver.getMap();
+        System.out.println("\t\tGAME MAP\n");
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                System.out.print(map[i][j] + " ");
+                System.out.print("\t" + map[i][j] + (j == map.length - 1 ? "\n" : ""));
             }
-            System.out.println();
         }
         System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\n");
     }
@@ -149,9 +169,9 @@ public class ConsoleView implements RpgView {
         while (true) {
             System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 25>): ");
 
-            HeroType[] heroTypes = observers.get(0).getHeroTypes();
+            HeroType[] heroTypes = controllerObserver.getHeroTypes();
             String newHeroName = scanner.nextLine();
-            if (!observers.get(0).isHeroNameValid(newHeroName)) {
+            if (!controllerObserver.isHeroNameValid(newHeroName)) {
                 System.out.println("The name you've entered is not valid");
                 continue;
             }
@@ -166,7 +186,7 @@ public class ConsoleView implements RpgView {
             try {
                 Integer heroTypeSelected = scanner.nextInt();
                 if (heroTypeSelected >= 0 && heroTypeSelected < heroTypes.length) {
-                    observers.get(0).createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
+                    controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
                     return true;
                 }
             } catch (NumberFormatException e) {
@@ -192,4 +212,33 @@ public class ConsoleView implements RpgView {
             }
         }
     }
+
+    @Override
+    public void heroWonTheFight() {
+        System.out.println("You won the fight against the Villain");
+    }
+
+    @Override
+    public void heroCouldNotEscape() {
+        System.out.println("You could not escape this villain, you have to Fight him...\npress 'Enter' key to continue");
+        scanner.nextLine();
+    }
+
+    @Override
+    public void heroEscapedVillain() {
+        System.out.println("You could Escaped this villain, you are so lucky...\npress 'Enter' key to continue");
+    }
+
+    @Override
+    public void heroLostTheFight() {
+        System.out.println("You Lost the fight. Press 'Enter' to return to Game board");
+        scanner.nextLine();
+        fightIsLost = true;
+    }
+
+    private void displayHeroStats() {
+        System.out.println(currentHero);
+    }
+
+
 }

@@ -68,4 +68,10 @@ public class Hero extends Character {
         return totalHitPoints;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Class: " + heroType + ", Level: " + getLevel() + ", Xp: " + experience + "\tTotal Stats:"
+                + " Attack: " + getTotalAttack() + ", Defence: " + getTotalDefence() + ", Hit points: " + getTotalHitPoints()
+                + ".\tArtifacts: " + artifacts;
+    }
 }

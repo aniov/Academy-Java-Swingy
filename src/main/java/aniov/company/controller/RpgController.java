@@ -84,22 +84,34 @@ public class RpgController extends ObserverOfTheView {
         return true;
     }
 
-    @Override
-    public void fightOrRun() {
-
-    }
-
     private void moveHero(Point move) {
         model.heroMove(move);
 
         if (model.getGamePlay().getVillain() != null) {
             if (rpgView.wantToFight()) {
-                model.fightOrRun(true);
+                fight();
 
             } else {
-                model.fightOrRun(false);
-
+                if (model.tryToRun()) {
+                    rpgView.heroEscapedVillain();
+                } else {
+                    rpgView.heroCouldNotEscape();
+                    fight();
+                }
             }
         }
+    }
+
+    private void fight() {
+        if (model.fight()) {
+            rpgView.heroWonTheFight();
+        } else {
+            rpgView.heroLostTheFight();
+        }
+    }
+
+    @Override
+    public boolean gameIsWon() {
+        return model.getGameMap().isGameWin();
     }
 }

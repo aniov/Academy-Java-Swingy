@@ -19,9 +19,6 @@ public abstract class Character implements Serializable {
     private Integer level;
 
     @NotNull
-    private Integer health;
-
-    @NotNull
     private Integer attack;
 
     @NotNull
