@@ -1,13 +1,15 @@
 package aniov.company.model.character.hero;
 
-import aniov.company.model.character.Character;
 import aniov.company.model.artifact.Artifact;
-import lombok.*;
+import aniov.company.model.character.Character;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -34,9 +36,12 @@ public class Hero extends Character {
     private HeroType heroType;
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Artifact> artifacts = new HashSet<>();
+    private Set<Artifact> artifacts = new LinkedHashSet<>();
 
     public void addArtifact(Artifact artifact) {
+        if (artifacts.contains(artifact)) {
+            artifacts.remove(artifact);
+        }
         artifacts.add(artifact);
     }
 
@@ -66,6 +71,17 @@ public class Hero extends Character {
             totalHitPoints += artifact.getHitPoints();
         }
         return totalHitPoints;
+    }
+
+    public void addXpAndLvlUp(Integer xp) {
+        Integer maxXp = (int) (getLevel() * 1000 + Math.pow((getLevel() - 1), 2) * 450);
+
+        if (experience + xp >= maxXp) {
+            experience = experience + xp - maxXp;
+            setLevel(getLevel() + 1);
+        } else {
+            experience += xp;
+        }
     }
 
     @Override

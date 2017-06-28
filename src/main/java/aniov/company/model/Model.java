@@ -43,8 +43,8 @@ public class Model {
         return gamePlay.tryToRun();
     }
 
-    public Artifact newArtifact() {
-        return gamePlay.generateNewArtifact();
+    public Artifact getNewArtifact() {
+        return gamePlay.getArtifact();
     }
 
     public boolean isGameWon() {

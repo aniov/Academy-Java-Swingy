@@ -11,9 +11,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum VillainType implements CharacterType {
 
-    BAD_VILLAIN(3, 2, 4, 3), SUPER_BAD_VILLAIN(3, 2, 4, 3), Z(3, 2, 4, 3), W(3, 2, 4, 3); //Stats at lvl 1
+    PUSSY_VILLAIN(1, 2, 1), BAD_VILLAIN(2, 4, 3), SUPER_BAD_VILLAIN(3, 5, 6), BOSS(5, 5, 7); //Stats at lvl 1
 
-    private Integer health;
     private Integer attack;
     private Integer defence;
     private Integer hitPoints;

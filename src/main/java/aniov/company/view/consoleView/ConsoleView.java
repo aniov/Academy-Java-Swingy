@@ -72,14 +72,14 @@ public class ConsoleView implements RpgView {
             Hero hero = (Hero) iterator.next();
             System.out.println("\t" + iterator.nextIndex() + ". " + hero);
         }
-        System.out.print("\n~Chose hero number from the list OR\n~Create a new one - press y (for new a hero)\n~If you want to exit the game, type 'exit': \n-> ");
+        System.out.print("\n~Chose hero number from the list OR\n~Create a new one - press N (for new a hero)\n~If you want to exit the game, type 'exit': \n-> ");
     }
 
     private void pickHeroOrCreate() {
         while (true) {
             displayAllHeroes();
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("y")) {
+            if (input.equalsIgnoreCase("n")) {
                 createNewHero();
                 heroes = controllerObserver.getAllHeroes();
                 continue;
@@ -194,10 +194,10 @@ public class ConsoleView implements RpgView {
     }
 
     @Override
-    public boolean wantToFight() {
+    public boolean wantToFight(String villainType) {
 
         while (true) {
-            System.out.println("You encounter a Villain. You can fight him or try to run (will have 50% chance to happen)\nto Fight press 'f' to Run press 'r': ");
+            System.out.println("You encounter a " + villainType + ". You can fight him or try to run (will have 50% chance to happen)\nto Fight press 'f' to Run press 'r': ");
             String fightOrRun = scanner.nextLine();
             if (fightOrRun.equalsIgnoreCase("f")) {
                 return true;

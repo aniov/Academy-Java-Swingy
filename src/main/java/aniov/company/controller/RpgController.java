@@ -58,7 +58,8 @@ public class RpgController extends ObserverOfTheView {
 
     @Override
     public String[][] getMap() {
-        return model.getGameMap().getTheMap();
+        return model.getGameMap().getMapForView();
+        //return model.getGameMap().getTheMap();
     }
 
     @Override
@@ -90,7 +91,8 @@ public class RpgController extends ObserverOfTheView {
         if (model.getGamePlay().getVillain() == null) { //if there is no villain we just move
             return;
         }
-        if (rpgView.wantToFight()) {
+        String villainType = model.getGamePlay().getVillain().getType().name();
+        if (rpgView.wantToFight(villainType)) {
             fight();
 
         } else {
@@ -113,7 +115,7 @@ public class RpgController extends ObserverOfTheView {
     }
 
     private void newArtifact() {
-        Artifact artifact = model.newArtifact();
+        Artifact artifact = model.getNewArtifact();
 
         if (artifact != null) {
             boolean keep = rpgView.keepThisArtifact(artifact.toString());

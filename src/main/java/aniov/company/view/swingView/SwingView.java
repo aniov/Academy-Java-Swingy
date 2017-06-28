@@ -47,7 +47,7 @@ public class SwingView extends JFrame implements RpgView {
     }
 
     @Override
-    public boolean wantToFight() {
+    public boolean wantToFight(String villainType) {
         return false;
     }
 

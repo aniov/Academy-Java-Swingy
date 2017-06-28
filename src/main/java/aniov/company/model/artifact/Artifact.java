@@ -1,6 +1,7 @@
 package aniov.company.model.artifact;
 
 import aniov.company.model.character.hero.Hero;
+import aniov.company.model.character.villain.VillainType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,13 +42,14 @@ public class Artifact implements Serializable {
     @PrimaryKeyJoinColumn
     private Hero hero;
 
-    public Artifact(Hero hero, ArtifactType artifactType) {
+    public Artifact(Hero hero, ArtifactType artifactType, VillainType villainType, Integer villainLevel) {
         this.hero = hero;
-        this.level = hero.getLevel();
+        this.level = villainLevel;
         this.type = artifactType;
-        this.attack = level * artifactType.getAttack();
-        this.defence = level * artifactType.getDefence();
-        this.hitPoints = level * artifactType.getHitPoints();
+
+        this.attack = level * (artifactType.getAttack() != 0 ? artifactType.getAttack() + villainType.getAttack() : 0);
+        this.defence = level * (artifactType.getDefence() != 0 ? artifactType.getDefence() + villainType.getDefence() : 0);
+        this.hitPoints = level * (artifactType.getHitPoints() != 0 ? artifactType.getHitPoints() + villainType.getHitPoints() : 0);
     }
 
     @Override
@@ -61,11 +63,26 @@ public class Artifact implements Serializable {
             return "Type: " + type +
                     ", level: " + level +
                     ", attack: " + attack;
-        } else if(type.equals(ArtifactType.HELM)) {
+        } else if (type.equals(ArtifactType.HELM)) {
             return "Type: " + type +
                     ", level: " + level +
                     ", hitPoints: " + hitPoints;
         }
         return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Artifact artifact = (Artifact) o;
+
+        return type == artifact.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return type != null ? type.hashCode() : 0;
     }
 }

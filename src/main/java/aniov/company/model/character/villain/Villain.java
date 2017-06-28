@@ -16,6 +16,5 @@ import javax.validation.constraints.NotNull;
 public class Villain extends Character {
 
     @NotNull
-    @Enumerated(EnumType.STRING)
     private VillainType type;
 }

@@ -5,6 +5,8 @@ import aniov.company.model.character.hero.HeroType;
 import aniov.company.model.character.villain.Villain;
 import aniov.company.model.character.villain.VillainType;
 
+import java.util.Random;
+
 /**
  * Created by Marius on 6/19/2017.
  */
@@ -25,7 +27,7 @@ public class CharacterFactory {
             Hero hero = new Hero();
 
             HeroType heroType = (HeroType) type;
-
+            //Only lvl 1 hero
             hero.setLevel(1);
             hero.setName(charName);
             hero.setHeroType(heroType);
@@ -37,7 +39,7 @@ public class CharacterFactory {
             Villain villain = new Villain();
 
             VillainType villainType = (VillainType) type;
-
+            //villain lvl matching hero lvl / game map lvl
             villain.setLevel(level);
             villain.setType(villainType);
             villain.setAttack(villainType.getAttack() * level);
