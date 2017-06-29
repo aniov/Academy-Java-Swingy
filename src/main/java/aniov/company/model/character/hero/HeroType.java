@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public enum HeroType implements CharacterType {
 
-    PALADIN(8, 10, 6), WARRIOR(6, 12, 4), KNIGHT(8, 8, 8), WARLOCK(10, 8, 8); //Stats at lvl 1
+    PALADIN(8, 22, 6), WARRIOR(6, 26, 4), KNIGHT(8, 24, 8), WARLOCK(10, 22, 8); //Stats at lvl 1
 
     private Integer attack;
     private Integer defence;

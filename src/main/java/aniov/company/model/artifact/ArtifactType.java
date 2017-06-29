@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ArtifactType {
 
-    WEAPON(2, 0, 0), ARMOR(0, 2, 0), HELM(0, 0, 2);
+    WEAPON(2, 0, 0), ARMOR(0, 6, 0), HELM(0, 0, 2);
 
     private Integer attack;
     private Integer defence;

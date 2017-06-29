@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by Marius on 6/24/2017.
@@ -57,7 +58,12 @@ public class GamePlay {
             gameMap.getHeroPosition().setLocation(heroNextPosition);
         } else {
             gameMap.setGameWin(true);
+            repairHero(); //reset hero base defence, we leave the defence from artifacts unchanged
         }
+    }
+
+    private void repairHero() {
+        hero.setDefence(hero.getHeroType().getDefence() * hero.getLevel());
     }
 
     private boolean moveIsValid() {
@@ -80,16 +86,15 @@ public class GamePlay {
     public boolean fight() {
 
         if (fightIsWon()) {
-            villain = null;
             artifact = null;
+            generateNewArtifact();
+            addExperience();
+
+            villain = null;
             gameMap.setOnMap(gameMap.getHeroPosition(), GameMap.PASSED);
 
             gameMap.setOnMap(gameMap.getNextHeroPosition(), GameMap.HERO);
             gameMap.getHeroPosition().setLocation(gameMap.getNextHeroPosition());
-
-            generateNewArtifact();
-            addExperience();
-
             // We won the fight, we can continue
             return true;
         }
@@ -119,12 +124,44 @@ public class GamePlay {
         hero.addXpAndLvlUp(xpGained);
     }
 
-    private boolean fightIsWon() { //TODO
+    private boolean fightIsWon() {
 
-       /* while (villain.getHealth() > 0 && hero.getHealth() > 0) {
-                villain.setHealth(new Random().nextBoolean());
-        }*/
-        return true;
+        Integer heroFightAttack = hero.getTotalAttack() + hero.getLevel() * (hero.getTotalHitPoints() / 2);
+        Integer villainFightAttack = villain.getAttack() + villain.getLevel() * (villain.getHitPoints() / 2);
+
+        Integer heroFightDefence = hero.getTotalDefence();
+        Integer villainFightDefence = villain.getDefence();
+
+        while (villainFightDefence >= 0 && heroFightDefence >= 0) {
+            villainFightDefence -= heroFightAttack;
+            heroFightDefence -= villainFightAttack;
+        }
+        if (villainFightDefence <= 0 && heroFightDefence > 0) {
+
+            //artifacts will lose first the defence stats, then hero base defence stats
+            setActualHeroDefence(heroFightDefence);
+            return true;
+        }
+        return false;
+    }
+
+    private void setActualHeroDefence(Integer heroFightDefence) {
+        Integer heroDefenceLost = heroFightDefence - hero.getTotalDefence(); //is negative
+        Set<Artifact> artifacts = hero.getArtifacts();
+
+        for (Artifact artifact : artifacts) {
+            if (artifact.getType().equals(ArtifactType.ARMOR)) {
+                heroDefenceLost += artifact.getDefence();
+                if (heroDefenceLost <= 0) {
+                    artifact.setDefence(0);
+                } else {
+                    artifact.setDefence(heroDefenceLost);
+                    heroDefenceLost = 0;
+                }
+            }
+        }
+        //if we don't have any artifacts we just add -defence lost, if we do, we add the remaining after we deduct from artifact defence
+        hero.setDefence(hero.getDefence() + heroDefenceLost);
     }
 
     public void generateNewArtifact() {
