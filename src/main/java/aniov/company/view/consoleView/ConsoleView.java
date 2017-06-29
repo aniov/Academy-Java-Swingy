@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * Created by Marius on 6/19/2017.
  */
-public class ConsoleView implements RpgView {
+public class ConsoleView extends RpgView {
 
     private static final Scanner scanner = new Scanner(System.in);
     private ObserverOfTheView controllerObserver;
@@ -23,13 +23,8 @@ public class ConsoleView implements RpgView {
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
-        observers.add(observer);
+        super.addObserver(observer);
         controllerObserver = observers.get(0);
-    }
-
-    @Override
-    public void removeObserver(ObserverOfTheView observer) {
-        observers.remove(observer);
     }
 
     /**
@@ -62,6 +57,60 @@ public class ConsoleView implements RpgView {
     public Hero choseHero(Integer heroIndex) {
         Long heroId = heroes.get(heroIndex).getId();
         return controllerObserver.getHeroById(heroId);
+    }
+
+    @Override
+    public boolean wantToFight(String villainType) {
+
+        while (true) {
+            System.out.println("You encounter a " + villainType + ". You can fight him or try to run (will have 50% chance to happen)\nto Fight press 'f' to Run press 'r': ");
+            String fightOrRun = scanner.nextLine();
+            if (fightOrRun.equalsIgnoreCase("f")) {
+                return true;
+            } else if (fightOrRun.equalsIgnoreCase("r")) {
+                return false;
+            } else {
+                System.out.println("that's not a valid choice");
+            }
+        }
+    }
+
+    @Override
+    public void heroWonTheFight() {
+        System.out.println("You won the fight against the Villain");
+    }
+
+    @Override
+    public void heroCouldNotEscape() {
+        System.out.println("You could not escape this villain, you have to Fight him...\npress 'Enter' key to continue");
+        scanner.nextLine();
+    }
+
+    @Override
+    public void heroEscapedVillain() {
+        System.out.println("You could Escaped this villain, you are so lucky...\npress 'Enter' key to continue");
+    }
+
+    @Override
+    public void heroLostTheFight() {
+        System.out.println("You Lost the fight. Press 'Enter' to return to Game board");
+        scanner.nextLine();
+        fightIsLost = true;
+    }
+
+    @Override
+    public boolean keepThisArtifact(String artifact) {
+        while (true) {
+            System.out.println("Villain dropped this artifact: " + artifact + "\nyou want to keep it? Y / N");
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("y")) {
+                return true;
+            } else if (input.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.println("that's not a valid choice");
+            }
+        }
     }
 
     private void displayAllHeroes() {
@@ -191,60 +240,6 @@ public class ConsoleView implements RpgView {
             }
         }
         System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\n");
-    }
-
-    @Override
-    public boolean wantToFight(String villainType) {
-
-        while (true) {
-            System.out.println("You encounter a " + villainType + ". You can fight him or try to run (will have 50% chance to happen)\nto Fight press 'f' to Run press 'r': ");
-            String fightOrRun = scanner.nextLine();
-            if (fightOrRun.equalsIgnoreCase("f")) {
-                return true;
-            } else if (fightOrRun.equalsIgnoreCase("r")) {
-                return false;
-            } else {
-                System.out.println("that's not a valid choice");
-            }
-        }
-    }
-
-    @Override
-    public void heroWonTheFight() {
-        System.out.println("You won the fight against the Villain");
-    }
-
-    @Override
-    public void heroCouldNotEscape() {
-        System.out.println("You could not escape this villain, you have to Fight him...\npress 'Enter' key to continue");
-        scanner.nextLine();
-    }
-
-    @Override
-    public void heroEscapedVillain() {
-        System.out.println("You could Escaped this villain, you are so lucky...\npress 'Enter' key to continue");
-    }
-
-    @Override
-    public void heroLostTheFight() {
-        System.out.println("You Lost the fight. Press 'Enter' to return to Game board");
-        scanner.nextLine();
-        fightIsLost = true;
-    }
-
-    @Override
-    public boolean keepThisArtifact(String artifact) {
-        while (true) {
-            System.out.println("Villain dropped this artifact: " + artifact + "\nyou want to keep it? Y / N");
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("y")) {
-                return true;
-            } else if (input.equalsIgnoreCase("n")) {
-                return false;
-            } else {
-                System.out.println("that's not a valid choice");
-            }
-        }
     }
 
     private void displayHeroStats() {

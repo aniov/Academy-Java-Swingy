@@ -9,17 +9,10 @@ import javax.swing.*;
 /**
  * Created by Marius on 6/19/2017.
  */
-public class SwingView extends JFrame implements RpgView {
+public class SwingView extends RpgView {
 
-/*    public void displayAllHeroes() {
-    }
+    private JFrame jFrame;
 
-    public void displayHero(Hero hero) {
-    }
-
-    public void readInput() {
-
-    }*/
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -33,7 +26,19 @@ public class SwingView extends JFrame implements RpgView {
 
     @Override
     public void showMainInterface() {
+        System.out.println("Main");
+        jFrame = new JFrame();
 
+        JButton b=new JButton("click");//creating instance of JButton
+        b.setBounds(130,100,100, 40);
+
+        jFrame.add(b);//adding button in JFrame
+
+        jFrame.setSize(400,500);//400 width and 500 height
+        jFrame.setLayout(null);//using no layout managers
+        jFrame.setVisible(true);//making the frame visible
+
+        jFrame.setVisible(true);
     }
 
     @Override

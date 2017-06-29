@@ -24,14 +24,12 @@ public class StartRpg {
         HibernateService.exit();
     }
 
-
     private void setViewType(String input) {
         if (input.equals("console")) {
             rpgController.setRpgView(consoleView);
 
         } else if (input.equals("gui")) {
             rpgController.setRpgView(swingView);
-
         }
     }
 }

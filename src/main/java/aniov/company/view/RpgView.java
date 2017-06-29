@@ -13,37 +13,37 @@ import java.util.List;
  */
 
 /**
- * Observable Interface or Subject
+ * Observable Interface (abstract class) or Subject
  */
-public interface RpgView {
+public abstract class RpgView {
 
-    List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer
+    protected List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer
 
-    void addObserver(ObserverOfTheView observer);
+    public void addObserver(ObserverOfTheView observer){
+        observers.add(observer);
+    }
 
-    void removeObserver(ObserverOfTheView observer);
+    public void removeObserver(ObserverOfTheView observer){
+        observers.remove(observer);
+    }
 
-    //void displayAllHeroes();
+    public abstract void showMainInterface();
 
-    //void displayHero(Hero hero);
+    protected abstract void enterHeroInterface();
 
-    void showMainInterface();
+    protected abstract Hero choseHero(Integer heroIndex);
 
-    void enterHeroInterface();
+    public abstract boolean wantToFight(String villainType);
 
-    Hero choseHero(Integer heroIndex);
+    public abstract void heroWonTheFight();
 
-    boolean wantToFight(String villainType);
+    public abstract void heroLostTheFight();
 
-    void heroWonTheFight();
+    public abstract void heroCouldNotEscape();
 
-    void heroLostTheFight();
+    public abstract void heroEscapedVillain();
 
-    void heroCouldNotEscape();
-
-    void heroEscapedVillain();
-
-    boolean keepThisArtifact(String artifact);
+    public abstract boolean keepThisArtifact(String artifact);
 
 
 
