@@ -3,6 +3,7 @@ package aniov.company.view;
 import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.map.GameMap;
+import lombok.Getter;
 import org.omg.CORBA.INTERNAL;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Observable Interface (abstract class) or Subject
  */
+@Getter
 public abstract class RpgView {
 
     protected List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer

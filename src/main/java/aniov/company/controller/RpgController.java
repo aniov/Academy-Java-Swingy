@@ -59,7 +59,6 @@ public class RpgController extends ObserverOfTheView {
     @Override
     public String[][] getMap() {
         return model.getGameMap().getMapForView();
-        //return model.getGameMap().getTheMap();
     }
 
     @Override
