@@ -27,17 +27,6 @@ public class SwingView extends RpgView {
         mainWindow.createMainWindow();
     }
 
- /*   @Override
-    public void enterHeroInterface() {
-        GameFrame gameFrame = new GameFrame(this);
-        gameFrame.openHeroSelectPanel();
-    }*/
-
-   /* @Override
-    public Hero choseHero(Integer heroIndex) {
-        return null;
-    }*/
-
     @Override
     public boolean wantToFight(String villainType) {
         return false;

@@ -40,25 +40,6 @@ public class ConsoleView extends RpgView {
         }
     }
 
-    //@Override
-    public void enterHeroInterface() {
-        while (true) {
-            heroes = controllerObserver.getAllHeroes();
-            pickHeroOrCreate();
-            if (exitGame) {
-                return;
-            }
-            /** Enter game play*/
-            enterGamePlay();
-        }
-    }
-
-   // @Override
-    public Hero choseHero(Integer heroIndex) {
-        Long heroId = heroes.get(heroIndex).getId();
-        return controllerObserver.getHeroById(heroId);
-    }
-
     @Override
     public boolean wantToFight(String villainType) {
 
@@ -111,6 +92,23 @@ public class ConsoleView extends RpgView {
                 System.out.println("that's not a valid choice");
             }
         }
+    }
+
+    public void enterHeroInterface() {
+        while (true) {
+            heroes = controllerObserver.getAllHeroes();
+            pickHeroOrCreate();
+            if (exitGame) {
+                return;
+            }
+            /** Enter game play*/
+            enterGamePlay();
+        }
+    }
+
+    public Hero choseHero(Integer heroIndex) {
+        Long heroId = heroes.get(heroIndex).getId();
+        return controllerObserver.getHeroById(heroId);
     }
 
     private void displayAllHeroes() {
@@ -245,6 +243,5 @@ public class ConsoleView extends RpgView {
     private void displayHeroStats() {
         System.out.println(currentHero);
     }
-
 
 }

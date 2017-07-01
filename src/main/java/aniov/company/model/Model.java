@@ -49,7 +49,7 @@ public class Model {
 
     public boolean isGameWon() {
         if (gameMap.isGameWin()) {
-            storageDao.update(hero);
+            heroService.updateHero(hero);
             return true;
         }
         return false;

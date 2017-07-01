@@ -50,6 +50,11 @@ public class RpgController extends ObserverOfTheView {
     }
 
     @Override
+    public void deleteHero(Hero hero) {
+        heroService.deleteHero(hero);
+    }
+
+    @Override
     public void createMapAndStartGame(Hero hero) {
         model.setHero(hero);
         model.createGameMap();

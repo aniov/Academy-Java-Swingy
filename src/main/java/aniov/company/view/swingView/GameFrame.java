@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 /**
  * Created by Marius on 6/29/2017.
@@ -15,7 +14,6 @@ import java.util.List;
 @Getter
 public class GameFrame extends JFrame {
 
-    //private List<Hero> heroes;
     private Hero currentHero;
     private SwingView swingView;
 
@@ -39,6 +37,7 @@ public class GameFrame extends JFrame {
     public void openHeroSelectPanel() {
         createHeroPanel.setVisible(false);
         remove(createHeroPanel);
+        createSelectHeroPanel();
 
         add(heroSelectPanel);
         heroSelectPanel.setVisible(true);

@@ -28,6 +28,8 @@ public abstract class ObserverOfTheView {
 
     public abstract Hero createNewHero(String name, String type);
 
+    public abstract void deleteHero(Hero hero);
+
     public boolean isHeroNameValid(String name) {
         //Only letters, min 3, max 20
         return name.matches("[a-zA-Z]{3,20}");

@@ -2,7 +2,6 @@ package aniov.company.view.swingView;
 
 import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
-import lombok.Setter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -20,6 +19,7 @@ public class HeroSelectPanel extends JPanel {
     private List<Hero> heroes;
     private JScrollPane heroScrollPane;
     private JList<String> heroList;
+    private JButton deleteButton;
     private JButton selectButton;
     private JButton createButton;
     private JScrollPane statsScrollPane;
@@ -27,27 +27,23 @@ public class HeroSelectPanel extends JPanel {
     private JLabel heroListLabel;
     private JLabel statsListLabel;
 
-    @Override
+/*    @Override
     public void addNotify() {
         super.addNotify();
-        updateHeroList();
+        updateHeroes();
     }
 
     @Override
     public boolean isVisible() {
-        updateHeroList();
+        updateHeroes();
         return super.isVisible();
 
-    }
+    }*/
 
     public HeroSelectPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
-        updateHeroList();
+        updateHeroes();
         initComponents();
-    }
-
-    private void updateHeroList() {
-        heroes = gameFrame.getSwingView().getObservers().get(0).getAllHeroes();
     }
 
     private void selectButtonActionPerformed(ActionEvent e) {
@@ -58,10 +54,18 @@ public class HeroSelectPanel extends JPanel {
         gameFrame.openCreateHeroPanel();
     }
 
+    private void deleteButtonActionPerformed(ActionEvent e) {
+        Integer selectedHeroIndex = heroList.getSelectedIndex();
+        if (selectedHeroIndex >= 0) {
+            heroList.clearSelection();
+            gameFrame.getSwingView().getObservers().get(0).deleteHero(getSelectedHero(selectedHeroIndex));
+            updateHeroes();
+            heroList.setListData(getHeroesName());
+        }
+    }
+
     private void heroListValueChanged(ListSelectionEvent e) {
-
-        if (!e.getValueIsAdjusting()) {
-
+        if (e.getValueIsAdjusting()) {
             String stats = getStatsFromHero(heroList.getSelectedIndex());
             statsTextArea.setText(stats);
         }
@@ -73,6 +77,7 @@ public class HeroSelectPanel extends JPanel {
         heroList = new JList<>();
         selectButton = new JButton();
         createButton = new JButton();
+        deleteButton = new JButton();
         statsScrollPane = new JScrollPane();
         statsTextArea = new JTextArea();
         heroListLabel = new JLabel();
@@ -95,6 +100,10 @@ public class HeroSelectPanel extends JPanel {
         createButton.setText("new hero");
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
+        //---- deleteButton ----
+        deleteButton.setText("delete");
+        deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
+
         //======== statsScrollPane ========
         {
 
@@ -116,13 +125,14 @@ public class HeroSelectPanel extends JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
                                 .addGroup(layout.createParallelGroup()
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addContainerGap(172, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(deleteButton)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                                                 .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(9, 9, 9))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(23, 23, 23)
                                                 .addGroup(layout.createParallelGroup()
                                                         .addComponent(heroListLabel)
                                                         .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
@@ -152,9 +162,15 @@ public class HeroSelectPanel extends JPanel {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(createButton)
-                                        .addComponent(selectButton))
+                                        .addComponent(selectButton)
+                                        .addComponent(deleteButton))
                                 .addGap(26, 26, 26))
         );
+    }
+
+    private void updateHeroes() {
+        heroes = gameFrame.getSwingView().getObservers().get(0).getAllHeroes();
+        getHeroesName();
     }
 
     private String[] getHeroesName() {
@@ -179,5 +195,9 @@ public class HeroSelectPanel extends JPanel {
         }
         sb.append(sArtifacts);
         return sb.toString();
+    }
+
+    private Hero getSelectedHero(int selectedIndex) {
+        return heroes.get(selectedIndex);
     }
 }

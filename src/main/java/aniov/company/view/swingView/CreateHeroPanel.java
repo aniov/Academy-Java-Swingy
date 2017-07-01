@@ -24,6 +24,7 @@ public class CreateHeroPanel extends JPanel {
     private JLabel heroTypelabel;
     private JLabel nameLabel;
     private JLabel errorLabel;
+    private JPanel errorVerticalSpacer;
 
     public CreateHeroPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
@@ -38,10 +39,10 @@ public class CreateHeroPanel extends JPanel {
     private void heroNameTextFieldKeyTyped(KeyEvent e) {
 
         if (isHeroNameValid()) {
-            errorLabel.setText("Valid Name");
+            errorLabel.setText("valid name");
             errorLabel.setForeground(new Color(55, 148, 55));
         } else {
-            errorLabel.setText("Invalid Name, only letters <min 3 - max 20>");
+            errorLabel.setText("invalid name, only letters <min 3 - max 20>");
             errorLabel.setForeground(new Color(255, 51, 51));
         }
         errorLabel.setVisible(true);
@@ -58,6 +59,10 @@ public class CreateHeroPanel extends JPanel {
             gameFrame.getSwingView().getObservers().get(0).createNewHero(heroName, heroType);
             resetInputName();
             gameFrame.openHeroSelectPanel();
+        } else  if (heroNameTextField.getText().isEmpty()) {
+            errorLabel.setText("enter a name");
+            errorLabel.setForeground(new Color(255, 51, 51));
+            errorLabel.setVisible(true);
         }
     }
 
@@ -78,6 +83,7 @@ public class CreateHeroPanel extends JPanel {
         heroTypelabel = new JLabel();
         nameLabel = new JLabel();
         errorLabel = new JLabel();
+        errorVerticalSpacer = new JPanel(null);
 
         //---- statsLabel ----
         statsLabel.setText("Stats");
@@ -139,32 +145,30 @@ public class CreateHeroPanel extends JPanel {
                                                 .addComponent(statsLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
                                                 .addContainerGap(514, Short.MAX_VALUE))
                                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup()
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addGap(194, 194, 194)
-                                                                .addComponent(errorLabel, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(172, 172, 172)
                                                                 .addGroup(layout.createParallelGroup()
+                                                                        .addComponent(heroTypeComboBox, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(18, 18, 18)
-                                                                                .addGroup(layout.createParallelGroup()
-                                                                                        .addComponent(heroNameTextField, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                                .addGroup(layout.createParallelGroup()
-                                                                                                        .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(18, 18, 18)
-                                                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-                                                                                                .addGap(0, 12, Short.MAX_VALUE))))
+                                                                                .addComponent(heroTypelabel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(0, 99, Short.MAX_VALUE))))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup()
+                                                                        .addComponent(heroNameTextField, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(172, 172, 172)
-                                                                                .addGroup(layout.createParallelGroup()
-                                                                                        .addComponent(heroTypeComboBox, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                                .addComponent(heroTypelabel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-                                                                                                .addGap(0, 99, Short.MAX_VALUE)))))))
+                                                                                .addComponent(errorLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                                                                                .addGap(22, 22, 22)
+                                                                                .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(0, 0, Short.MAX_VALUE))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))))
                                                 .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
@@ -185,13 +189,15 @@ public class CreateHeroPanel extends JPanel {
                                                 .addComponent(nameLabel)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(heroNameTextField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(9, 9, 9)
-                                .addComponent(errorLabel)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cancelButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(60, Short.MAX_VALUE))
+                                        .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(errorLabel))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(72, Short.MAX_VALUE))
         );
     }
 
