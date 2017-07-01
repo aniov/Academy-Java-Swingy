@@ -40,7 +40,7 @@ public class ConsoleView extends RpgView {
         }
     }
 
-    @Override
+    //@Override
     public void enterHeroInterface() {
         while (true) {
             heroes = controllerObserver.getAllHeroes();
@@ -53,7 +53,7 @@ public class ConsoleView extends RpgView {
         }
     }
 
-    @Override
+   // @Override
     public Hero choseHero(Integer heroIndex) {
         Long heroId = heroes.get(heroIndex).getId();
         return controllerObserver.getHeroById(heroId);
@@ -155,7 +155,7 @@ public class ConsoleView extends RpgView {
     private boolean createNewHero() {
 
         while (true) {
-            System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 25>): ");
+            System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 20>): ");
 
             HeroType[] heroTypes = controllerObserver.getHeroTypes();
             String newHeroName = scanner.nextLine();

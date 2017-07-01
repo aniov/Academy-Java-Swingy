@@ -29,8 +29,8 @@ public abstract class ObserverOfTheView {
     public abstract Hero createNewHero(String name, String type);
 
     public boolean isHeroNameValid(String name) {
-        //Only letters, min 3, max 15
-        return name.matches("[a-zA-Z]{3,25}");
+        //Only letters, min 3, max 20
+        return name.matches("[a-zA-Z]{3,20}");
     }
 
     public abstract void createMapAndStartGame(Hero hero);

@@ -1,10 +1,12 @@
 package aniov.company.view.swingView;
 
+import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 import lombok.Setter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class HeroSelectPanel extends JPanel {
 
-    @Setter
+    private GameFrame gameFrame;
     private List<Hero> heroes;
     private JScrollPane heroScrollPane;
     private JList<String> heroList;
@@ -25,9 +27,27 @@ public class HeroSelectPanel extends JPanel {
     private JLabel heroListLabel;
     private JLabel statsListLabel;
 
-    public HeroSelectPanel(List<Hero> heroes) {
-        this.heroes = heroes;
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        updateHeroList();
+    }
+
+    @Override
+    public boolean isVisible() {
+        updateHeroList();
+        return super.isVisible();
+
+    }
+
+    public HeroSelectPanel(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
+        updateHeroList();
         initComponents();
+    }
+
+    private void updateHeroList() {
+        heroes = gameFrame.getSwingView().getObservers().get(0).getAllHeroes();
     }
 
     private void selectButtonActionPerformed(ActionEvent e) {
@@ -35,13 +55,15 @@ public class HeroSelectPanel extends JPanel {
     }
 
     private void createButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
+        gameFrame.openCreateHeroPanel();
     }
 
     private void heroListValueChanged(ListSelectionEvent e) {
 
-        if (! e.getValueIsAdjusting()) {
-            System.out.println(heroList.getSelectedValue() + "index: " + heroList.getSelectedIndex());
+        if (!e.getValueIsAdjusting()) {
+
+            String stats = getStatsFromHero(heroList.getSelectedIndex());
+            statsTextArea.setText(stats);
         }
     }
 
@@ -59,8 +81,8 @@ public class HeroSelectPanel extends JPanel {
         //======== heroScrollPane ========
         {
             //---- heroList ----
-            String[] heroNames = getHeroesName();
-            heroList.setListData(heroNames);
+            heroList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            heroList.setListData(getHeroesName());
             heroList.addListSelectionListener(e -> heroListValueChanged(e));
             heroScrollPane.setViewportView(heroList);
         }
@@ -77,9 +99,10 @@ public class HeroSelectPanel extends JPanel {
         {
 
             //---- statsTextArea ----
-            statsTextArea.setText("Demo Text");
             statsTextArea.setEditable(false);
+            statsTextArea.setMargin(new Insets(5, 5, 5, 5));
             statsScrollPane.setViewportView(statsTextArea);
+
         }
 
         //---- heroListLabel ----
@@ -141,5 +164,20 @@ public class HeroSelectPanel extends JPanel {
             heroesArray[i] = heroes.get(i).getName();
         }
         return heroesArray;
+    }
+
+    private String getStatsFromHero(int selectedIndex) {
+
+        Hero hero = heroes.get(selectedIndex);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Class: " + hero.getHeroType() + "\nLevel: " + hero.getLevel() + "\nExperience: " + hero.getExperience()
+                + "\nTotal stats:\n  Attack: " + hero.getTotalDefence() + "\n  Defence: " + hero.getTotalDefence()
+                + "\n  Hit points: " + hero.getTotalHitPoints() + "\nArtifacts:\n");
+        StringBuilder sArtifacts = new StringBuilder();
+        for (Artifact artifact : hero.getArtifacts()) {
+            sArtifacts.append("  " + artifact);
+        }
+        sb.append(sArtifacts);
+        return sb.toString();
     }
 }

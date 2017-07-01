@@ -31,9 +31,9 @@ public abstract class RpgView {
 
     public abstract void showMainInterface();
 
-    protected abstract void enterHeroInterface();
+    //protected abstract void enterHeroInterface();
 
-    protected abstract Hero choseHero(Integer heroIndex);
+    //protected abstract Hero choseHero(Integer heroIndex);
 
     public abstract boolean wantToFight(String villainType);
 
