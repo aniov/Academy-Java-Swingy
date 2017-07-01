@@ -157,7 +157,7 @@ public class HeroSelectPanel extends JPanel {
                                         .addComponent(statsListLabel))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(statsScrollPane))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -191,7 +191,7 @@ public class HeroSelectPanel extends JPanel {
                 + "\n  Hit points: " + hero.getTotalHitPoints() + "\nArtifacts:\n");
         StringBuilder sArtifacts = new StringBuilder();
         for (Artifact artifact : hero.getArtifacts()) {
-            sArtifacts.append("  " + artifact);
+            sArtifacts.append("  " + artifact + "\n");
         }
         sb.append(sArtifacts);
         return sb.toString();
