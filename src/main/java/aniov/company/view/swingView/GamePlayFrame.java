@@ -122,7 +122,8 @@ public class GamePlayFrame extends JPanel {
             heroLabel.setText(hero.getName());
 
             //---- infoLabel ----
-            infoLabel.setText("text");
+            infoLabel.setText("Info:");
+            //infoLabel.setVisible(false);
 
             //---- fightButton ----
             fightButton.setText("fig");
@@ -290,9 +291,32 @@ public class GamePlayFrame extends JPanel {
     public boolean wantToFight(String villain) {
         fightButton.setVisible(true);
         runButton.setVisible(true);
-        infoLabel.setText("Ecounter " + villain);
+        infoLabel.setText("Encounter " + villain);
 
         return true;
     }
 
+    public void heroWonOnMap() {
+        infoLabel.setText("You WON !");
+        hideButtons();
+    }
+
+    public void heroWonTheFight() {
+        infoLabel.setText("You won the fight");
+    }
+
+    public void heroLostTheFight() {
+        infoLabel.setText("You lost the fight. You are dead.");
+        hideButtons();
+
+    }
+
+    private void hideButtons() {
+        fightButton.setVisible(false);
+        runButton.setVisible(false);
+        upButton.setVisible(false);
+        downButton.setVisible(false);
+        leftButton.setVisible(false);
+        rightButton.setVisible(false);
+    }
 }

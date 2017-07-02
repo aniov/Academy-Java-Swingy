@@ -32,18 +32,18 @@ public class SwingView extends RpgView {
 
     @Override
     public boolean wantToFight(String villainType) {
-        //return mainWindow.getGameFrame().getGamePlayPanel().wantToFight(villainType);
-        return true;
+        return mainWindow.getGameFrame().getGamePlayPanel().wantToFight(villainType);
+       // return true;
     }
 
     @Override
     public void heroWon() {
-        System.out.println("WON");
+        mainWindow.getGameFrame().getGamePlayPanel().heroWonOnMap();
     }
 
     @Override
     public void heroWonTheFight() {
-        System.out.println("WON THE FIGHT");
+        mainWindow.getGameFrame().getGamePlayPanel().heroWonTheFight();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SwingView extends RpgView {
 
     @Override
     public void heroLostTheFight() {
-        System.out.println("LOST THE FIGHT");
+        mainWindow.getGameFrame().getGamePlayPanel().heroLostTheFight();
 
     }
 
