@@ -19,11 +19,12 @@ public class GameFrame extends JFrame {
 
     private HeroSelectPanel heroSelectPanel;
     private CreateHeroPanel createHeroPanel;
+    private GamePlayFrame gamePlayPanel;
 
     public GameFrame(SwingView swingView) throws HeadlessException {
         this.swingView = swingView;
 
-        setSize(600, 400);
+        setSize(900, 600);
         setTitle("RPG Game @Academy+Plus");
 
         setResizable(false);
@@ -31,24 +32,42 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         createSelectHeroPanel();
-        createNewHeroPanel();
     }
 
     public void openHeroSelectPanel() {
-        createHeroPanel.setVisible(false);
-        remove(createHeroPanel);
-        createSelectHeroPanel();
+        if (gamePlayPanel != null) {
+            gamePlayPanel.setVisible(false);
+            remove(gamePlayPanel);
+        } if (createHeroPanel != null ){
+            createHeroPanel.setVisible(false);
+            remove(createHeroPanel);
+        }
 
+        createSelectHeroPanel();
         add(heroSelectPanel);
         heroSelectPanel.setVisible(true);
     }
 
     public void openCreateHeroPanel() {
+        if (gamePlayPanel != null) {
+            gamePlayPanel.setVisible(false);
+            remove(gamePlayPanel);
+        }
         heroSelectPanel.setVisible(false);
-        remove(heroSelectPanel);
+        createNewHeroPanel();
 
         add(createHeroPanel);
         createHeroPanel.setVisible(true);
+    }
+
+    public void openGamePlayPanel(Hero hero) {
+        heroSelectPanel.setVisible(false);
+        remove(heroSelectPanel);
+        currentHero = hero;
+        createGamePlayPanel();
+
+        add(gamePlayPanel);
+        gamePlayPanel.setVisible(true);
     }
 
     private void createSelectHeroPanel() {
@@ -60,6 +79,11 @@ public class GameFrame extends JFrame {
         createHeroPanel = new CreateHeroPanel(this);
         createHeroPanel.setVisible(false);
 
+    }
+
+    private void createGamePlayPanel() {
+        gamePlayPanel = new GamePlayFrame(this, currentHero);
+        gamePlayPanel.setVisible(false);
     }
 
 }

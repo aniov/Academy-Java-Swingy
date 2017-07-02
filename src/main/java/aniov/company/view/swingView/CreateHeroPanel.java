@@ -104,6 +104,7 @@ public class CreateHeroPanel extends JPanel {
             statsTextArea.setText(getHeroTypeStats(selectedHeroType));
             statsTextArea.setFont(new Font("Segoe UI", Font.PLAIN, 18));
             statsTextArea.setToolTipText("Hero stats at Level 1");
+            statsTextArea.setMargin(new Insets(5, 5, 5, 5));
             scrollPane1.setViewportView(statsTextArea);
         }
 

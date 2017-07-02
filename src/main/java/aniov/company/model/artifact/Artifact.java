@@ -57,15 +57,15 @@ public class Artifact implements Serializable {
 
         if (type.equals(ArtifactType.ARMOR)) {
             return "Type: " + type +
-                    ", level: " + level +
+                    ", lvl: " + level +
                     ", defence: " + defence;
         } else if (type.equals(ArtifactType.WEAPON)) {
             return "Type: " + type +
-                    ", level: " + level +
+                    ", lvl: " + level +
                     ", attack: " + attack;
         } else if (type.equals(ArtifactType.HELM)) {
             return "Type: " + type +
-                    ", level: " + level +
+                    ", lvl: " + level +
                     ", hitPoints: " + hitPoints;
         }
         return "";

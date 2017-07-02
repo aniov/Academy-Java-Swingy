@@ -27,19 +27,6 @@ public class HeroSelectPanel extends JPanel {
     private JLabel heroListLabel;
     private JLabel statsListLabel;
 
-/*    @Override
-    public void addNotify() {
-        super.addNotify();
-        updateHeroes();
-    }
-
-    @Override
-    public boolean isVisible() {
-        updateHeroes();
-        return super.isVisible();
-
-    }*/
-
     public HeroSelectPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         updateHeroes();
@@ -47,7 +34,13 @@ public class HeroSelectPanel extends JPanel {
     }
 
     private void selectButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
+        Integer selectedHeroIndex = heroList.getSelectedIndex();
+        if (selectedHeroIndex >= 0) {
+            Hero hero = getSelectedHero(selectedHeroIndex);
+            if (hero != null) {
+                gameFrame.openGamePlayPanel(hero);
+            }
+        }
     }
 
     private void createButtonActionPerformed(ActionEvent e) {

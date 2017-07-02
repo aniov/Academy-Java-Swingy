@@ -12,6 +12,7 @@ public class App {
         }
         StartRpg startRpg = new StartRpg();
         startRpg.start(args[0]);
+
     }
 
 }

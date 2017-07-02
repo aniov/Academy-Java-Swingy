@@ -20,6 +20,7 @@ public class ConsoleView extends RpgView {
     private Hero currentHero;
     private boolean exitGame;
     private boolean fightIsLost;
+    private boolean heroWonOnMap;
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -59,6 +60,11 @@ public class ConsoleView extends RpgView {
     @Override
     public void heroWonTheFight() {
         System.out.println("You won the fight against the Villain");
+    }
+
+    @Override
+    public void heroWon() {
+        heroWonOnMap = true;
     }
 
     @Override
@@ -197,7 +203,7 @@ public class ConsoleView extends RpgView {
             displayHeroStats();
             if (fightIsLost) {
                 return;
-            } else if (controllerObserver.gameIsWon()) {
+            } else if (heroWonOnMap) {
                 playerWin();
                 return;
             }
@@ -207,6 +213,7 @@ public class ConsoleView extends RpgView {
     private void playerWin() {
         System.out.println("\t\t\nYou Won !!!!\n");
         currentHero = null;
+        heroWonOnMap = false;
     }
 
     private boolean readInputMoves() {

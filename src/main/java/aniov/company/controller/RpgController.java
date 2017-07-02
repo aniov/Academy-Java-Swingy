@@ -64,6 +64,7 @@ public class RpgController extends ObserverOfTheView {
     @Override
     public String[][] getMap() {
         return model.getGameMap().getMapForView();
+       // return model.getGameMap().getTheMap();
     }
 
     @Override
@@ -92,6 +93,10 @@ public class RpgController extends ObserverOfTheView {
 
     private void moveHero(Point move) {
         model.heroMove(move);
+        if (model.isGameWon()) {
+            rpgView.heroWon();
+            return;
+        }
         if (model.getGamePlay().getVillain() == null) { //if there is no villain we just move
             return;
         }

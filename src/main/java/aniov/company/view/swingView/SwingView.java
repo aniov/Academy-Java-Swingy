@@ -14,6 +14,9 @@ import lombok.Setter;
 public class SwingView extends RpgView {
 
     private ObserverOfTheView controllerObserver;
+    private MainWindow mainWindow;
+    private boolean fightIsLost;
+    private boolean fightIsWon;
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -23,17 +26,24 @@ public class SwingView extends RpgView {
 
     @Override
     public void showMainInterface() {
-        MainWindow mainWindow = new MainWindow(this);
+        mainWindow = new MainWindow(this);
         mainWindow.createMainWindow();
     }
 
     @Override
     public boolean wantToFight(String villainType) {
-        return false;
+        //return mainWindow.getGameFrame().getGamePlayPanel().wantToFight(villainType);
+        return true;
+    }
+
+    @Override
+    public void heroWon() {
+        System.out.println("WON");
     }
 
     @Override
     public void heroWonTheFight() {
+        System.out.println("WON THE FIGHT");
     }
 
     @Override
@@ -48,11 +58,12 @@ public class SwingView extends RpgView {
 
     @Override
     public void heroLostTheFight() {
+        System.out.println("LOST THE FIGHT");
 
     }
 
     @Override
     public boolean keepThisArtifact(String artifact) {
-        return false;
+        return true;
     }
 }

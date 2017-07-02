@@ -1,20 +1,23 @@
 package aniov.company.view.swingView;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.swing.*;
 
 /**
  * Created by Marius on 6/29/2017.
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MainWindow extends JFrame {
 
     //@NonNull
     //private ObserverOfTheView observer;
     @NonNull
     private SwingView swingView;
+    @Getter
+    private GameFrame gameFrame;
 
     public void createMainWindow() {
         JButton b = new JButton("Enter RPG Game");
@@ -32,7 +35,7 @@ public class MainWindow extends JFrame {
             setVisible(false);
             this.dispose();
 
-            GameFrame gameFrame = new GameFrame(swingView);
+            gameFrame = new GameFrame(swingView);
             gameFrame.openHeroSelectPanel();
         });
     }
