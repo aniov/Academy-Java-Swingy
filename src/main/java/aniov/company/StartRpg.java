@@ -2,7 +2,6 @@ package aniov.company;
 
 import aniov.company.controller.RpgController;
 import aniov.company.model.Model;
-import aniov.company.storage.database.hibernate.HibernateService;
 import aniov.company.view.consoleView.ConsoleView;
 import aniov.company.view.swingView.SwingView;
 
@@ -20,8 +19,7 @@ public class StartRpg {
         setViewType(input);
         rpgController.ShowView();
 
-
-       // HibernateService.exit();
+        // HibernateService.exit();
     }
 
     private void setViewType(String input) {

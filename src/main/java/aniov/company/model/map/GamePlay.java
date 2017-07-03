@@ -45,7 +45,6 @@ public class GamePlay {
 
         if (moveIsValid()) {
             gameMap.setNextHeroPosition(heroNextPosition);
-
             if (isVillain()) {
                 /** Generate new Villain based on hero level*/
                 generateNewVillain();
@@ -56,6 +55,7 @@ public class GamePlay {
             /** Set the next position of the hero*/
             gameMap.setOnMap(heroNextPosition, GameMap.HERO);
             gameMap.getHeroPosition().setLocation(heroNextPosition);
+            System.out.println("Move is done");
         } else {
             gameMap.setGameWin(true);
             repairHero(); //reset hero base defence, we leave the defence from artifacts unchanged

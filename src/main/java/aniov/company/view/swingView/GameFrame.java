@@ -1,8 +1,8 @@
 package aniov.company.view.swingView;
 
+import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,35 +10,50 @@ import java.awt.*;
 /**
  * Created by Marius on 6/29/2017.
  */
-@Setter
 @Getter
 public class GameFrame extends JFrame {
 
     private Hero currentHero;
-    private SwingView swingView;
 
     private HeroSelectPanel heroSelectPanel;
     private CreateHeroPanel createHeroPanel;
-    private GamePlayFrame gamePlayPanel;
+    private GamePlayPanel gamePlayPanel;
+    private ObserverOfTheView observer;
 
-    public GameFrame(SwingView swingView) throws HeadlessException {
-        this.swingView = swingView;
+    public GameFrame(ObserverOfTheView observer) throws HeadlessException {
+        this.observer = observer;
 
+        setVisible(true);
         setSize(900, 600);
         setTitle("RPG Game @Academy+Plus");
 
         setResizable(false);
-        setVisible(true);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        createSelectHeroPanel();
+        //  testingWait();
+
+        openHeroSelectPanel();
+
+        //openGamePlayPanel(new Hero());
+
+    }
+
+    private void testingWait() {
+
+        Testing testing = new Testing();
+        add(testing);
+        System.out.println("waiting for input: ");
+        System.out.println(testing.wasPressed());
+
     }
 
     public void openHeroSelectPanel() {
         if (gamePlayPanel != null) {
             gamePlayPanel.setVisible(false);
             remove(gamePlayPanel);
-        } if (createHeroPanel != null ){
+        }
+        if (createHeroPanel != null) {
             createHeroPanel.setVisible(false);
             remove(createHeroPanel);
         }
@@ -68,6 +83,9 @@ public class GameFrame extends JFrame {
 
         add(gamePlayPanel);
         gamePlayPanel.setVisible(true);
+
+       // System.out.println("Waiting");
+      //  System.out.println(gamePlayPanel.playerWantToFight("XXX"));
     }
 
     private void createSelectHeroPanel() {
@@ -78,11 +96,10 @@ public class GameFrame extends JFrame {
     private void createNewHeroPanel() {
         createHeroPanel = new CreateHeroPanel(this);
         createHeroPanel.setVisible(false);
-
     }
 
     private void createGamePlayPanel() {
-        gamePlayPanel = new GamePlayFrame(this, currentHero);
+        gamePlayPanel = new GamePlayPanel(this, currentHero);
         gamePlayPanel.setVisible(false);
     }
 

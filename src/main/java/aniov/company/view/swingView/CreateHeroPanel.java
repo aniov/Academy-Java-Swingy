@@ -56,7 +56,7 @@ public class CreateHeroPanel extends JPanel {
         if (isHeroNameValid()) {
             String heroName = heroNameTextField.getText();
             String heroType = heroTypeComboBox.getSelectedItem().toString();
-            gameFrame.getSwingView().getObservers().get(0).createNewHero(heroName, heroType);
+            gameFrame.getObserver().createNewHero(heroName, heroType);
             resetInputName();
             gameFrame.openHeroSelectPanel();
         } else  if (heroNameTextField.getText().isEmpty()) {
@@ -87,10 +87,11 @@ public class CreateHeroPanel extends JPanel {
 
         //---- statsLabel ----
         statsLabel.setText("Stats");
+        statsLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         //---- heroTypeComboBox ----
         heroTypeComboBox.setModel(new DefaultComboBoxModel(getHeroTypes()));
-        heroTypeComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        heroTypeComboBox.setFont(new Font("Segoe UI", Font.BOLD, 20));
         heroTypeComboBox.setToolTipText("Hero Type");
         heroTypeComboBox.addActionListener(e -> heroTypeComboBoxActionPerformed(e));
 
@@ -102,7 +103,7 @@ public class CreateHeroPanel extends JPanel {
             statsTextArea.setBackground(new Color(204, 204, 204));
             String selectedHeroType = heroTypeComboBox.getSelectedItem().toString();
             statsTextArea.setText(getHeroTypeStats(selectedHeroType));
-            statsTextArea.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+            statsTextArea.setFont(new Font("Segoe UI", Font.PLAIN, 22));
             statsTextArea.setToolTipText("Hero stats at Level 1");
             statsTextArea.setMargin(new Insets(5, 5, 5, 5));
             scrollPane1.setViewportView(statsTextArea);
@@ -120,20 +121,25 @@ public class CreateHeroPanel extends JPanel {
 
         //---- createButton ----
         createButton.setText("Create");
+        createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
         //---- cancelButton ----
         cancelButton.setText("Cancel");
+        cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 
         //---- heroTypelabel ----
         heroTypelabel.setText("Hero Class");
+        heroTypelabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         //---- nameLabel ----
         nameLabel.setText("Name");
+        nameLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         //---- errorLabel ----
         errorLabel.setVisible(false);
+        errorLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -143,72 +149,68 @@ public class CreateHeroPanel extends JPanel {
                                 .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup()
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(statsLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap(514, Short.MAX_VALUE))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(92, 92, 92)
                                                 .addGroup(layout.createParallelGroup()
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addGap(172, 172, 172)
-                                                                .addGroup(layout.createParallelGroup()
-                                                                        .addComponent(heroTypeComboBox, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(heroTypelabel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(0, 99, Short.MAX_VALUE))))
+                                                                .addComponent(heroTypelabel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(385, Short.MAX_VALUE))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addGap(18, 18, 18)
-                                                                .addGroup(layout.createParallelGroup()
-                                                                        .addComponent(heroNameTextField, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(nameLabel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(heroTypeComboBox, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(heroNameTextField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(errorLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                                                                                .addGap(22, 22, 22)
-                                                                                .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(0, 0, Short.MAX_VALUE))
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))))
-                                                .addGap(45, 45, 45))))
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(70, 70, 70)))
+                                                                .addGap(0, 87, Short.MAX_VALUE))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(statsLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(814, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(statsLabel)
+                                        .addComponent(heroTypelabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup()
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(24, 24, 24)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(statsLabel)
-                                                        .addComponent(heroTypelabel))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup()
-                                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(heroTypeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(190, 190, 190)
+                                                .addComponent(heroTypeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(238, 238, 238)
                                                 .addComponent(nameLabel)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(heroNameTextField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(errorLabel))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(72, Short.MAX_VALUE))
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(heroNameTextField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup()
+                                                        .addComponent(errorLabel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                                .addGap(59, 59, 59))))
         );
     }
 
     private HeroType[] getHeroTypes() {
-        return gameFrame.getSwingView().getObservers().get(0).getHeroTypes();
+        return gameFrame.getObserver().getHeroTypes();
     }
 
     private boolean isHeroNameValid() {
         String heroName = heroNameTextField.getText();
-        return gameFrame.getSwingView().getObservers().get(0).isHeroNameValid(heroName);
+        return gameFrame.getObserver().isHeroNameValid(heroName);
     }
 
     private String getHeroTypeStats(String type) {

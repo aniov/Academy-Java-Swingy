@@ -1,7 +1,6 @@
 package aniov.company.view.swingView;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.character.hero.Hero;
 import aniov.company.view.RpgView;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +16,7 @@ public class SwingView extends RpgView {
     private MainWindow mainWindow;
     private boolean fightIsLost;
     private boolean fightIsWon;
+    private GameFrame gameFrame;
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -26,44 +26,47 @@ public class SwingView extends RpgView {
 
     @Override
     public void showMainInterface() {
-        mainWindow = new MainWindow(this);
-        mainWindow.createMainWindow();
+        //mainWindow = new MainWindow(controllerObserver);
+        //mainWindow.createMainWindow();
+
+        gameFrame = new GameFrame(controllerObserver);
+
+
     }
 
     @Override
     public boolean wantToFight(String villainType) {
-        return mainWindow.getGameFrame().getGamePlayPanel().wantToFight(villainType);
-       // return true;
+        return gameFrame.getGamePlayPanel().playerWantToFight(villainType);
     }
 
     @Override
     public void heroWon() {
-        mainWindow.getGameFrame().getGamePlayPanel().heroWonOnMap();
+        gameFrame.getGamePlayPanel().heroWonOnMap();
     }
 
     @Override
     public void heroWonTheFight() {
-        mainWindow.getGameFrame().getGamePlayPanel().heroWonTheFight();
+        gameFrame.getGamePlayPanel().heroWonTheFight();
     }
 
     @Override
     public void heroCouldNotEscape() {
-
+        gameFrame.getGamePlayPanel().heroCouldNotRun();
     }
 
     @Override
     public void heroEscapedVillain() {
-
+        gameFrame.getGamePlayPanel().heroEscaped();
     }
 
     @Override
     public void heroLostTheFight() {
-        mainWindow.getGameFrame().getGamePlayPanel().heroLostTheFight();
+        gameFrame.getGamePlayPanel().heroLostTheFight();
 
     }
 
     @Override
     public boolean keepThisArtifact(String artifact) {
-        return true;
+        return gameFrame.getGamePlayPanel().keepArtifact(artifact);
     }
 }

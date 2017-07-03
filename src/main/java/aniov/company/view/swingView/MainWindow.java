@@ -1,5 +1,6 @@
 package aniov.company.view.swingView;
 
+import aniov.company.controller.ObserverOfTheView;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -12,16 +13,14 @@ import javax.swing.*;
 @RequiredArgsConstructor
 public class MainWindow extends JFrame {
 
-    //@NonNull
-    //private ObserverOfTheView observer;
     @NonNull
-    private SwingView swingView;
+    private ObserverOfTheView observer;
     @Getter
     private GameFrame gameFrame;
 
     public void createMainWindow() {
         JButton b = new JButton("Enter RPG Game");
-        b.setBounds(300, 100, 200, 30);
+        b.setBounds(300, 100, 200, 90);
 
         add(b);
         setSize(800, 300);
@@ -35,10 +34,11 @@ public class MainWindow extends JFrame {
             setVisible(false);
             this.dispose();
 
-            gameFrame = new GameFrame(swingView);
-            gameFrame.openHeroSelectPanel();
+
+            gameFrame = new GameFrame(observer);
+           // gameFrame.openHeroSelectPanel();
+
         });
     }
-
 
 }

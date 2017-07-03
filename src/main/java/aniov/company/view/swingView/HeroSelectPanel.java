@@ -51,7 +51,7 @@ public class HeroSelectPanel extends JPanel {
         Integer selectedHeroIndex = heroList.getSelectedIndex();
         if (selectedHeroIndex >= 0) {
             heroList.clearSelection();
-            gameFrame.getSwingView().getObservers().get(0).deleteHero(getSelectedHero(selectedHeroIndex));
+            gameFrame.getObserver().deleteHero(getSelectedHero(selectedHeroIndex));
             updateHeroes();
             heroList.setListData(getHeroesName());
         }
@@ -64,105 +64,8 @@ public class HeroSelectPanel extends JPanel {
         }
     }
 
-    private void initComponents() {
-
-        heroScrollPane = new JScrollPane();
-        heroList = new JList<>();
-        selectButton = new JButton();
-        createButton = new JButton();
-        deleteButton = new JButton();
-        statsScrollPane = new JScrollPane();
-        statsTextArea = new JTextArea();
-        heroListLabel = new JLabel();
-        statsListLabel = new JLabel();
-
-        //======== heroScrollPane ========
-        {
-            //---- heroList ----
-            heroList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-            heroList.setListData(getHeroesName());
-            heroList.addListSelectionListener(e -> heroListValueChanged(e));
-            heroScrollPane.setViewportView(heroList);
-        }
-
-        //---- selectButton ----
-        selectButton.setText("select");
-        selectButton.addActionListener(e -> selectButtonActionPerformed(e));
-
-        //---- createButton ----
-        createButton.setText("new hero");
-        createButton.addActionListener(e -> createButtonActionPerformed(e));
-
-        //---- deleteButton ----
-        deleteButton.setText("delete");
-        deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
-
-        //======== statsScrollPane ========
-        {
-
-            //---- statsTextArea ----
-            statsTextArea.setEditable(false);
-            statsTextArea.setMargin(new Insets(5, 5, 5, 5));
-            statsScrollPane.setViewportView(statsTextArea);
-
-        }
-
-        //---- heroListLabel ----
-        heroListLabel.setText("Hero list");
-
-        //---- statsListLabel ----
-        statsListLabel.setText("Stats list");
-
-        GroupLayout layout = new GroupLayout(this);
-        setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup()
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup()
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(deleteButton)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                                                .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(9, 9, 9))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup()
-                                                        .addComponent(heroListLabel)
-                                                        .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup()
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(25, 25, 25)
-                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(82, 82, 82)
-                                                .addGroup(layout.createParallelGroup()
-                                                        .addComponent(statsListLabel)
-                                                        .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 215, GroupLayout.PREFERRED_SIZE))))
-                                .addGap(22, 22, 22))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(heroListLabel)
-                                        .addComponent(statsListLabel))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(statsScrollPane))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(createButton)
-                                        .addComponent(selectButton)
-                                        .addComponent(deleteButton))
-                                .addGap(26, 26, 26))
-        );
-    }
-
     private void updateHeroes() {
-        heroes = gameFrame.getSwingView().getObservers().get(0).getAllHeroes();
+        heroes = gameFrame.getObserver().getAllHeroes();
         getHeroesName();
     }
 
@@ -193,4 +96,109 @@ public class HeroSelectPanel extends JPanel {
     private Hero getSelectedHero(int selectedIndex) {
         return heroes.get(selectedIndex);
     }
+
+    private void initComponents() {
+
+        heroScrollPane = new JScrollPane();
+        heroList = new JList<>();
+        selectButton = new JButton();
+        createButton = new JButton();
+        deleteButton = new JButton();
+        statsScrollPane = new JScrollPane();
+        statsTextArea = new JTextArea();
+        heroListLabel = new JLabel();
+        statsListLabel = new JLabel();
+
+        //======== heroScrollPane ========
+        {
+            //---- heroList ----
+            heroList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            heroList.setListData(getHeroesName());
+            heroList.setFont(new Font("Segoe UI", Font.BOLD, 20));
+            heroList.addListSelectionListener(e -> heroListValueChanged(e));
+            heroScrollPane.setViewportView(heroList);
+        }
+
+        //---- selectButton ----
+        selectButton.setText("select");
+        selectButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        selectButton.addActionListener(e -> selectButtonActionPerformed(e));
+
+        //---- createButton ----
+        createButton.setText("new hero");
+        createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        createButton.addActionListener(e -> createButtonActionPerformed(e));
+
+        //---- deleteButton ----
+        deleteButton.setText("delete");
+        deleteButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
+
+        //======== statsScrollPane ========
+        {
+
+            //---- statsTextArea ----
+            statsTextArea.setEditable(false);
+            statsTextArea.setMargin(new Insets(5, 5, 5, 5));
+            statsTextArea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+            statsScrollPane.setViewportView(statsTextArea);
+
+        }
+
+        //---- heroListLabel ----
+        heroListLabel.setText("Hero list");
+        heroListLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        //---- statsListLabel ----
+        statsListLabel.setText("Stats list");
+        statsListLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup()
+                                                .addComponent(heroListLabel, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(214, 214, 214)
+                                                .addGroup(layout.createParallelGroup()
+                                                        .addComponent(statsListLabel, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(31, 31, 31)
+                                                .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(180, 180, 180)))
+                                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(heroListLabel)
+                                        .addComponent(statsListLabel))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(heroScrollPane)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
+                                        .addComponent(deleteButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                        .addComponent(createButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                        .addComponent(selectButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                                .addContainerGap(76, Short.MAX_VALUE))
+        );
+    }
+
+
 }
