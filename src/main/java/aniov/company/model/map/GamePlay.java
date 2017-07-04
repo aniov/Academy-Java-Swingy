@@ -164,8 +164,10 @@ public class GamePlay {
     }
 
     public void generateNewArtifact() {
-        /** 50% chance to generate(drop) new Artifact */
-        if (new Random().nextBoolean()) {
+        /** 70% chance to generate(drop) new Artifact */
+        float change = new Random().nextFloat();
+
+        if (change < 0.7f) {
             int random = new Random().nextInt(ArtifactType.values().length);
             ArtifactType artifactType = ArtifactType.values()[random];
 
