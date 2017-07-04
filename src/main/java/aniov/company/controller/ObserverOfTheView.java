@@ -39,15 +39,13 @@ public abstract class ObserverOfTheView {
 
     public abstract String[][] getMap();
 
-    public abstract boolean moveHeroUp();
+    public abstract void moveHeroUp();
 
-    public abstract boolean moveHeroDown();
+    public abstract void moveHeroDown();
 
-    public abstract boolean moveHeroLeft();
+    public abstract void moveHeroLeft();
 
-    public abstract boolean moveHeroRight();
-
-    public abstract boolean gameIsWon();
+    public abstract void moveHeroRight();
 
     public HeroType[] getHeroTypes() {
         return HeroType.values();

@@ -50,7 +50,6 @@ public class Model {
     public boolean isGameWon() {
         if (gameMap.isGameWin()) {
             heroService.updateHero(hero);
-            System.out.println("WON!!!!");
             return true;
         }
         return false;

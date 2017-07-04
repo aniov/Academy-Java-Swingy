@@ -61,6 +61,7 @@ public class HeroSelectPanel extends JPanel {
             gameFrame.getObserver().deleteHero(getSelectedHero(selectedHeroIndex));
             updateHeroes();
             heroList.setListData(getHeroesName());
+            statsTextArea.setText("");
         }
     }
 

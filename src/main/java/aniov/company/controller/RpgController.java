@@ -63,33 +63,27 @@ public class RpgController extends ObserverOfTheView {
 
     @Override
     public String[][] getMap() {
-
         return model.getGameMap().getMapForView();
-        // return model.getGameMap().getTheMap();
     }
 
     @Override
-    public boolean moveHeroUp() {
+    public void moveHeroUp() {
         moveHero(GamePlay.UP);
-        return true;
     }
 
     @Override
-    public boolean moveHeroDown() {
+    public void moveHeroDown() {
         moveHero(GamePlay.DOWN);
-        return true;
     }
 
     @Override
-    public boolean moveHeroLeft() {
+    public void moveHeroLeft() {
         moveHero(GamePlay.LEFT);
-        return true;
     }
 
     @Override
-    public boolean moveHeroRight() {
+    public void moveHeroRight() {
         moveHero(GamePlay.RIGHT);
-        return true;
     }
 
     private void moveHero(Point move) {
@@ -106,7 +100,6 @@ public class RpgController extends ObserverOfTheView {
 
         if (rpgView.wantToFight(villainType)) {
             fight();
-
         } else {
             if (model.tryToRun()) {
                 rpgView.heroEscapedVillain();
@@ -135,10 +128,5 @@ public class RpgController extends ObserverOfTheView {
                 model.getHero().addArtifact(artifact);
             }
         }
-    }
-
-    @Override
-    public boolean gameIsWon() {
-        return model.isGameWon();
     }
 }

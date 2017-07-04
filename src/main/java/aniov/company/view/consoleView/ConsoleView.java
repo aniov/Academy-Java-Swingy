@@ -1,5 +1,6 @@
 package aniov.company.view.consoleView;
 
+import aniov.company.StartRpg;
 import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
@@ -101,6 +102,8 @@ public class ConsoleView extends RpgView {
     }
 
     public void enterHeroInterface() {
+
+
         while (true) {
             heroes = controllerObserver.getAllHeroes();
             pickHeroOrCreate();
@@ -136,7 +139,13 @@ public class ConsoleView extends RpgView {
                 createNewHero();
                 heroes = controllerObserver.getAllHeroes();
                 continue;
-            } else if (input.equalsIgnoreCase("exit")) {
+            } else if (input.equalsIgnoreCase("switch")) { //TODO
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                StartRpg.switchView();
+            }
+
+            else if (input.equalsIgnoreCase("exit")) {
                 exitGame = true;
                 return;
             } else {
@@ -216,20 +225,24 @@ public class ConsoleView extends RpgView {
         heroWonOnMap = false;
     }
 
-    private boolean readInputMoves() {
+    private void readInputMoves() {
 
         while (true) {
             System.out.println("your move: ");
             String inputMove = scanner.nextLine().toUpperCase();
             switch (inputMove) {
                 case "W":
-                    return controllerObserver.moveHeroUp();
+                    controllerObserver.moveHeroUp();
+                    break;
                 case "S":
-                    return controllerObserver.moveHeroDown();
+                    controllerObserver.moveHeroDown();
+                    break;
                 case "A":
-                    return controllerObserver.moveHeroLeft();
+                    controllerObserver.moveHeroLeft();
+                    break;
                 case "D":
-                    return controllerObserver.moveHeroRight();
+                    controllerObserver.moveHeroRight();
+                    break;
                 default:
                     System.out.println("that's not a valid choice");
             }
