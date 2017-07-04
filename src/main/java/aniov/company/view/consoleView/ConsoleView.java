@@ -176,13 +176,13 @@ public class ConsoleView extends RpgView {
             System.out.println("Chose type of your hero (press number): ");
 
             for (int i = 0; i < heroTypes.length; i++) {
-                System.out.println("\t" + i + ". " + heroTypes[i] + " (attack: " + heroTypes[i].getAttack()
+                System.out.println("\t" + (i + 1) + ". " + heroTypes[i] + " (attack: " + heroTypes[i].getAttack()
                         + ", defence: " + heroTypes[i].getDefence()
                         + ", hit points: " + heroTypes[i].getHitPoints() + ")");
             }
             System.out.print("-> ");
             try {
-                Integer heroTypeSelected = Integer.parseInt(scanner.nextLine());
+                Integer heroTypeSelected = Integer.parseInt(scanner.nextLine()) - 1;
                 if (heroTypeSelected >= 0 && heroTypeSelected < heroTypes.length) {
                     controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
                     return true;
@@ -257,7 +257,7 @@ public class ConsoleView extends RpgView {
                 System.out.print("\t" + map[i][j] + (j == map.length - 1 ? "\n" : ""));
             }
         }
-        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\nType 'quit' to exit this Game\n");
+        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\ntype 'quit' to exit this Game\n");
     }
 
     private void displayHeroStats() {
