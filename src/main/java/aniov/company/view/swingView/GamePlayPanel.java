@@ -360,58 +360,58 @@ public class GamePlayPanel extends JPanel {
 
             //---- fightButton ----
             fightButton.setText("fight");
-            fightButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\svg-6-16.png"));
+            fightButton.setIcon(new ImageIcon(getClass().getResource("/icons/fight.png")));
             fightButton.setToolTipText("fight with villain");
             fightButton.setEnabled(false);
             fightButton.addActionListener(e -> fightButtonActionPerformed(e));
 
             //---- runButton ----
             runButton.setText("run  ");
-            runButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\svg-5-16.png"));
+            runButton.setIcon(new ImageIcon(getClass().getResource("/icons/run.png")));
             runButton.setToolTipText("try to run, you have 50% chance");
             runButton.setEnabled(false);
             runButton.addActionListener(e -> runButtonActionPerformed(e));
 
             //---- keepButton ----
             keepButton.setText("keep");
-            keepButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\svg-2-16.png"));
+            keepButton.setIcon(new ImageIcon(getClass().getResource("/icons/keep.png")));
             keepButton.setToolTipText("keep the artifact");
             keepButton.setEnabled(false);
             keepButton.addActionListener(e -> keepButtonActionPerformed(e));
 
             //---- dropButton ----
             dropButton.setText("drop");
-            dropButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\svg-8-16.png"));
+            dropButton.setIcon(new ImageIcon(getClass().getResource("/icons/drop.png")));
             dropButton.setToolTipText("droop the artifact");
             dropButton.setEnabled(false);
             dropButton.addActionListener(e -> dropButtonActionPerformed(e));
 
             //---- backButton ----
             backButton.setText("Back");
-            backButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\011_yes-16.png"));
+            backButton.setIcon(new ImageIcon(getClass().getResource("/icons/back.png")));
             backButton.setToolTipText("back to previous window");
             backButton.setEnabled(false);
             backButton.addActionListener(e -> backButtonActionPerformed(e));
 
             //---- upButton ----
-            upButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\291-32.png"));
+            upButton.setIcon(new ImageIcon(getClass().getResource("/icons/arrow-up.png")));
             upButton.addActionListener(e -> upButtonActionPerformed(e));
 
             //---- leftButton ----
-            leftButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\288-32.png"));
+            leftButton.setIcon(new ImageIcon(getClass().getResource("/icons/arrow-left.png")));
             leftButton.addActionListener(e -> leftButtonActionPerformed(e));
 
             //---- rightButton ----
-            rightButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\290-32.png"));
+            rightButton.setIcon(new ImageIcon(getClass().getResource("/icons/arrow-right.png")));
             rightButton.addActionListener(e -> rightButtonActionPerformed(e));
 
             //---- downButton ----
-            downButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\289-32.png"));
+            downButton.setIcon(new ImageIcon(getClass().getResource("/icons/arrow-down.png")));
             downButton.addActionListener(e -> downButtonActionPerformed(e));
 
             //---- quitButton ----
             quitButton.setText("Quit");
-            quitButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\07_minus-16.png"));
+            quitButton.setIcon(new ImageIcon(getClass().getResource("/icons/quit.png")));
             quitButton.setToolTipText("quit current game");
             quitButton.addActionListener(e -> quitButtonActionPerformed(e));
 

@@ -36,7 +36,7 @@ public class MainWindow extends JFrame {
 
 
             gameFrame = new GameFrame(observer);
-           // gameFrame.openHeroSelectPanel();
+
 
         });
     }

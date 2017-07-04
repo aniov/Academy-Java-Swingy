@@ -130,19 +130,19 @@ public class HeroSelectPanel extends JPanel {
         //---- selectButton ----
         selectButton.setText("select");
         selectButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        selectButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\13-Check-20.png"));
+        selectButton.setIcon(new ImageIcon(getClass().getResource("/icons/select.png")));
         selectButton.addActionListener(e -> selectButtonActionPerformed(e));
 
         //---- createButton ----
         createButton.setText("new hero");
         createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        createButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\6-Add-20.png"));
+        createButton.setIcon(new ImageIcon(getClass().getResource("/icons/add.png")));
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
         //---- deleteButton ----
         deleteButton.setText("delete");
         deleteButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        deleteButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\trash_bin-20.png"));
+        deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
         deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
 
         //======== statsScrollPane ========
@@ -167,7 +167,7 @@ public class HeroSelectPanel extends JPanel {
         //---- exitButton ----
         exitButton.setText("exit");
         exitButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        exitButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\on-off-20.png"));
+        exitButton.setIcon(new ImageIcon(getClass().getResource("/icons/exit.png")));
         exitButton.addActionListener(e -> exitButtonActionPerformed(e));
 
         GroupLayout layout = new GroupLayout(this);

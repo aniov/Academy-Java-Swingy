@@ -32,6 +32,8 @@ public class SwingView extends RpgView {
         gameFrame = new GameFrame(controllerObserver);
 
 
+
+
     }
 
     @Override
