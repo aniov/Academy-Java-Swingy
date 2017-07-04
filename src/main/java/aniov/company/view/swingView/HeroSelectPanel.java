@@ -55,7 +55,7 @@ public class HeroSelectPanel extends JPanel {
     private void exitButtonActionPerformed(ActionEvent e) {
         gameFrame.setVisible(false);
         gameFrame.dispose();
-        System.exit(0);
+        gameFrame.getObserver().closeDataBaseConnection();
     }
 
     private void createButtonActionPerformed(ActionEvent e) {

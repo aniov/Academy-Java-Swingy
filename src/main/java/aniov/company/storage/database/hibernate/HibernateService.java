@@ -14,12 +14,9 @@ import java.util.logging.Logger;
 
 public abstract class HibernateService {
 
-    public final static SessionFactory sessionFactory = setup();
+    public final static SessionFactory sessionFactory = newSessionFactory();
 
-    private HibernateService() {
-    }
-
-    private static SessionFactory setup() {
+    private static SessionFactory newSessionFactory() {
         Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
@@ -33,7 +30,7 @@ public abstract class HibernateService {
         }
     }
 
-    public static void exit() {
+    public static void close() {
         sessionFactory.close();
     }
 }

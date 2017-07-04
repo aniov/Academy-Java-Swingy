@@ -19,8 +19,6 @@ public class StartRpg {
     public void start(String input) {
         setViewType(input);
         rpgController.ShowView();
-
-        // HibernateService.exit();
     }
 
     public static void switchView() {

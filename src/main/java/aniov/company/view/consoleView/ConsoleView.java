@@ -19,7 +19,9 @@ public class ConsoleView extends RpgView {
     private ObserverOfTheView controllerObserver;
     private List<Hero> heroes;
     private Hero currentHero;
+    private boolean exitApplication;
     private boolean exitGame;
+    private boolean exitConsole;
     private boolean fightIsLost;
     private boolean heroWonOnMap;
 
@@ -39,6 +41,9 @@ public class ConsoleView extends RpgView {
 
         if (input.equalsIgnoreCase("y")) {
             enterHeroInterface();
+        } else {
+            controllerObserver.closeDataBaseConnection();
+            return;
         }
     }
 
@@ -102,11 +107,14 @@ public class ConsoleView extends RpgView {
     }
 
     public void enterHeroInterface() {
-        exitGame = false;
+        exitConsole = false;
         while (true) {
             heroes = controllerObserver.getAllHeroes();
             pickHeroOrCreate();
-            if (exitGame) {
+            if (exitApplication) {
+                controllerObserver.closeDataBaseConnection();
+                return;
+            } else if (exitConsole) {
                 return;
             }
             /** Enter game play*/
@@ -137,13 +145,12 @@ public class ConsoleView extends RpgView {
             if (input.equalsIgnoreCase("n")) {
                 createNewHero();
                 heroes = controllerObserver.getAllHeroes();
-                continue;
             } else if (input.equalsIgnoreCase("switch")) { // switch to Swing View and exit MainInterface
                 StartRpg.switchView();
-                exitGame = true;
+                exitConsole = true;
                 return;
             } else if (input.equalsIgnoreCase("exit")) {
-                exitGame = true;
+                exitApplication = true;
                 return;
             } else {
                 try {
@@ -156,7 +163,6 @@ public class ConsoleView extends RpgView {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Try an integer.");
-                    continue;
                 }
             }
         }
@@ -203,6 +209,7 @@ public class ConsoleView extends RpgView {
         scanner.nextLine();
         controllerObserver.createMapAndStartGame(currentHero);
         fightIsLost = false;
+        exitGame = false;
         while (true) {
             displayGameMap();
             readInputMoves();

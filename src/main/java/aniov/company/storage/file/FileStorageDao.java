@@ -16,7 +16,6 @@ public class FileStorageDao implements StorageAccess {
 
     @Override
     public void update(Object object) {
-
     }
 
     @Override
@@ -41,6 +40,11 @@ public class FileStorageDao implements StorageAccess {
 
     @Override
     public void handleException(Exception e) {
+
+    }
+
+    @Override
+    public void closeSessionFactory() {
 
     }
 }

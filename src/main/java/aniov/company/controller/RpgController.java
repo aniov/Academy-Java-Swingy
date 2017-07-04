@@ -86,6 +86,11 @@ public class RpgController extends ObserverOfTheView {
         moveHero(GamePlay.RIGHT);
     }
 
+    @Override
+    public void closeDataBaseConnection() {
+        model.getStorageDao().closeSessionFactory();
+    }
+
     private void moveHero(Point move) {
 
         model.heroMove(move);

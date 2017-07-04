@@ -20,4 +20,6 @@ public interface StorageAccess {
     Collection<Object> findByName(Class c, String name);
 
     void handleException(Exception e);
+
+    void closeSessionFactory();
 }

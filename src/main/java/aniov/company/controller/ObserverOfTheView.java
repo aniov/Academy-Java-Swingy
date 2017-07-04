@@ -50,4 +50,6 @@ public abstract class ObserverOfTheView {
     public HeroType[] getHeroTypes() {
         return HeroType.values();
     }
+
+    public abstract void closeDataBaseConnection();
 }

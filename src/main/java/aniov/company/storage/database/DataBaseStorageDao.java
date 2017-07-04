@@ -1,7 +1,7 @@
 package aniov.company.storage.database;
 
-import aniov.company.storage.database.hibernate.HibernateService;
 import aniov.company.storage.StorageAccess;
+import aniov.company.storage.database.hibernate.HibernateService;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DataBaseStorageDao implements StorageAccess {
 
-    protected SessionFactory sessionFactory = HibernateService.sessionFactory;
+    private SessionFactory sessionFactory = HibernateService.sessionFactory;
 
     public Object save(Object object) {
         try (Session session = sessionFactory.openSession()) {
@@ -73,7 +73,6 @@ public class DataBaseStorageDao implements StorageAccess {
         }
     }
 
-
     public void delete(Object object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -86,5 +85,9 @@ public class DataBaseStorageDao implements StorageAccess {
 
     public void handleException(Exception e) {
         System.out.println("An Error Occurred: " + e);
+    }
+
+    public void closeSessionFactory() {
+        HibernateService.close();
     }
 }
