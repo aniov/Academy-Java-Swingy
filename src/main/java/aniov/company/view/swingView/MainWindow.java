@@ -6,6 +6,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by Marius on 6/29/2017.
@@ -17,28 +19,37 @@ public class MainWindow extends JFrame {
     private ObserverOfTheView observer;
     @Getter
     private GameFrame gameFrame;
+    private JButton enterButton;
 
     public void createMainWindow() {
-        JButton b = new JButton("Enter RPG Game");
-        b.setBounds(300, 100, 200, 90);
 
-        add(b);
+        initComponents();
+
         setSize(800, 300);
         setLayout(null);//using no layout managers
         setResizable(false);
         setVisible(true);//making the frame visible
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        b.addActionListener((event) -> {
-            setVisible(false);
-            this.dispose();
+        add(enterButton);
+    }
+
+    private void initComponents(){
+        enterButton = new JButton("Enter RPG Game");
+        enterButton.setBounds(250, 100, 300, 100);
+        enterButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        enterButton.setFocusPainted(false);
+        enterButton.setIcon(new ImageIcon(getClass().getResource("/icons/enter.png")));
+        enterButton.addActionListener((e) -> enterButtonActionPerformed(e));
 
 
-            gameFrame = new GameFrame(observer);
+    }
 
+    private void enterButtonActionPerformed(ActionEvent e) {
+        setVisible(false);
+        this.dispose();
 
-        });
+        gameFrame = new GameFrame(observer);
     }
 
 }

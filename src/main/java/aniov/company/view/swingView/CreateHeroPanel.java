@@ -122,11 +122,13 @@ public class CreateHeroPanel extends JPanel {
         //---- createButton ----
         createButton.setText("Create");
         createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        createButton.setIcon(new ImageIcon(getClass().getResource("/icons/save.png")));
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
         //---- cancelButton ----
         cancelButton.setText("Cancel");
         cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        cancelButton.setIcon(new ImageIcon(getClass().getResource("/icons/cancel.png")));
         cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 
         //---- heroTypelabel ----
@@ -158,9 +160,9 @@ public class CreateHeroPanel extends JPanel {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+                                                                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
                                                                         .addComponent(nameLabel, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(heroTypeComboBox, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(heroNameTextField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
@@ -198,8 +200,8 @@ public class CreateHeroPanel extends JPanel {
                                                         .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, Short.MAX_VALUE)
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                                 .addGap(59, 59, 59))))
         );
     }

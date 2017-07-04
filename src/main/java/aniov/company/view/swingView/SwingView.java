@@ -16,7 +16,6 @@ public class SwingView extends RpgView {
     private MainWindow mainWindow;
     private boolean fightIsLost;
     private boolean fightIsWon;
-    private GameFrame gameFrame;
 
     @Override
     public void addObserver(ObserverOfTheView observer) {
@@ -26,49 +25,42 @@ public class SwingView extends RpgView {
 
     @Override
     public void showMainInterface() {
-        //mainWindow = new MainWindow(controllerObserver);
-        //mainWindow.createMainWindow();
-
-        gameFrame = new GameFrame(controllerObserver);
-
-
-
-
+        mainWindow = new MainWindow(controllerObserver);
+        mainWindow.createMainWindow();
     }
 
     @Override
     public boolean wantToFight(String villainType) {
-        return gameFrame.getGamePlayPanel().playerWantToFight(villainType);
+        return mainWindow.getGameFrame().getGamePlayPanel().playerWantToFight(villainType);
     }
 
     @Override
     public void heroWon() {
-        gameFrame.getGamePlayPanel().heroWonOnMap();
+        mainWindow.getGameFrame().getGamePlayPanel().heroWonOnMap();
     }
 
     @Override
     public void heroWonTheFight() {
-        gameFrame.getGamePlayPanel().heroWonTheFight();
+        mainWindow.getGameFrame().getGamePlayPanel().heroWonTheFight();
     }
 
     @Override
     public void heroCouldNotEscape() {
-        gameFrame.getGamePlayPanel().heroCouldNotRun();
+        mainWindow.getGameFrame().getGamePlayPanel().heroCouldNotRun();
     }
 
     @Override
     public void heroEscapedVillain() {
-        gameFrame.getGamePlayPanel().heroEscaped();
+        mainWindow.getGameFrame().getGamePlayPanel().heroEscaped();
     }
 
     @Override
     public void heroLostTheFight() {
-        gameFrame.getGamePlayPanel().heroLostTheFight();
-
+        mainWindow.getGameFrame().getGamePlayPanel().heroLostTheFight();
     }
 
     @Override
     public boolean keepThisArtifact(String artifact) {
-        return gameFrame.getGamePlayPanel().keepArtifact(artifact);
+        return mainWindow.getGameFrame().getGamePlayPanel().keepArtifact(artifact);
     }
 }

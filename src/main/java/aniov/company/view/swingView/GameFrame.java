@@ -23,14 +23,12 @@ public class GameFrame extends JFrame {
     public GameFrame(ObserverOfTheView observer) throws HeadlessException {
         this.observer = observer;
 
-        setVisible(true);
         setSize(900, 600);
         setTitle("RPG Game @Academy+Plus");
-
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         openHeroSelectPanel();
+        setVisible(true);
     }
 
     public void openHeroSelectPanel() {
