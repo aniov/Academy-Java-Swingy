@@ -26,6 +26,7 @@ public class HeroSelectPanel extends JPanel {
     private JTextArea statsTextArea;
     private JLabel heroListLabel;
     private JLabel statsListLabel;
+    private JButton exitButton;
 
     public HeroSelectPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
@@ -41,6 +42,12 @@ public class HeroSelectPanel extends JPanel {
                 gameFrame.openGamePlayPanel(hero);
             }
         }
+    }
+
+    private void exitButtonActionPerformed(ActionEvent e) {
+        gameFrame.setVisible(false);
+        gameFrame.dispose();
+        System.exit(0);
     }
 
     private void createButtonActionPerformed(ActionEvent e) {
@@ -108,6 +115,7 @@ public class HeroSelectPanel extends JPanel {
         statsTextArea = new JTextArea();
         heroListLabel = new JLabel();
         statsListLabel = new JLabel();
+        exitButton = new JButton();
 
         //======== heroScrollPane ========
         {
@@ -122,16 +130,19 @@ public class HeroSelectPanel extends JPanel {
         //---- selectButton ----
         selectButton.setText("select");
         selectButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        selectButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\13-Check-20.png"));
         selectButton.addActionListener(e -> selectButtonActionPerformed(e));
 
         //---- createButton ----
         createButton.setText("new hero");
         createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        createButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\6-Add-20.png"));
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
         //---- deleteButton ----
         deleteButton.setText("delete");
         deleteButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        deleteButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\trash_bin-20.png"));
         deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
 
         //======== statsScrollPane ========
@@ -152,6 +163,12 @@ public class HeroSelectPanel extends JPanel {
         //---- statsListLabel ----
         statsListLabel.setText("Stats list");
         statsListLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        //---- exitButton ----
+        exitButton.setText("exit");
+        exitButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        exitButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\on-off-20.png"));
+        exitButton.addActionListener(e -> exitButtonActionPerformed(e));
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -175,7 +192,8 @@ public class HeroSelectPanel extends JPanel {
                                                 .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(180, 180, 180)))
+                                                .addGap(85, 85, 85)
+                                                .addComponent(exitButton)))
                                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -193,9 +211,10 @@ public class HeroSelectPanel extends JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
-                                        .addComponent(deleteButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .addComponent(createButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .addComponent(selectButton, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                                        .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(76, Short.MAX_VALUE))
         );
     }

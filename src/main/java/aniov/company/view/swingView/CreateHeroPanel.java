@@ -168,7 +168,7 @@ public class CreateHeroPanel extends JPanel {
                                                                                 .addComponent(errorLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                                 .addComponent(errorVerticalSpacer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(70, 70, 70)))
+                                                                                .addGap(30, 30, 30)))
                                                                 .addGap(0, 87, Short.MAX_VALUE))))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(statsLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)

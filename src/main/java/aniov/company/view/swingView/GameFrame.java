@@ -28,24 +28,9 @@ public class GameFrame extends JFrame {
         setTitle("RPG Game @Academy+Plus");
 
         setResizable(false);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //  testingWait();
-
         openHeroSelectPanel();
-
-        //openGamePlayPanel(new Hero());
-
-    }
-
-    private void testingWait() {
-
-        Testing testing = new Testing();
-        add(testing);
-        System.out.println("waiting for input: ");
-        System.out.println(testing.wasPressed());
-
     }
 
     public void openHeroSelectPanel() {
@@ -83,9 +68,6 @@ public class GameFrame extends JFrame {
 
         add(gamePlayPanel);
         gamePlayPanel.setVisible(true);
-
-       // System.out.println("Waiting");
-      //  System.out.println(gamePlayPanel.playerWantToFight("XXX"));
     }
 
     private void createSelectHeroPanel() {

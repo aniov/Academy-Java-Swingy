@@ -64,6 +64,7 @@ public class GamePlayPanel extends JPanel {
 
     private void upButtonActionPerformed(ActionEvent e) {
         Thread t = new Thread(() -> {
+            clearInfoLabels();
             gameFrame.getObserver().moveHeroUp();
             repaintUi();
         });
@@ -72,6 +73,7 @@ public class GamePlayPanel extends JPanel {
 
     private void rightButtonActionPerformed(ActionEvent e) {
         Thread t = new Thread(() -> {
+            clearInfoLabels();
             gameFrame.getObserver().moveHeroRight();
             repaintUi();
         });
@@ -80,6 +82,7 @@ public class GamePlayPanel extends JPanel {
 
     private void leftButtonActionPerformed(ActionEvent e) {
         Thread t = new Thread(() -> {
+            clearInfoLabels();
             gameFrame.getObserver().moveHeroLeft();
             repaintUi();
         });
@@ -88,6 +91,7 @@ public class GamePlayPanel extends JPanel {
 
     private void downButtonActionPerformed(ActionEvent e) {
         Thread t = new Thread(() -> {
+            clearInfoLabels();
             gameFrame.getObserver().moveHeroDown();
             repaintUi();
         });
@@ -113,7 +117,7 @@ public class GamePlayPanel extends JPanel {
     }
 
     private void backButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
+        gameFrame.openHeroSelectPanel();
     }
 
     private void keepButtonActionPerformed(ActionEvent e) {
@@ -139,16 +143,22 @@ public class GamePlayPanel extends JPanel {
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                JLabel label = new JLabel(map[i][j], JLabel.CENTER);
+                JLabel label = new JLabel(" ",JLabel.CENTER);
                 label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-                label.setPreferredSize(new Dimension(20, 20));
-                mapPanel.add(label);
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("\n");
+                label.setPreferredSize(new Dimension(40, 40));
 
+                label.setOpaque(true);
+                if (map[i][j].equals("H")) { // hero
+                    label.setBackground(Color.GREEN);
+                    label.setText("H");
+                } else if (map[i][j].equals("*")){ //hero passed
+                    label.setBackground(Color.ORANGE);
+                } else if (map[i][j].equals("?")){ //not discovered yet
+                    label.setBackground(Color.LIGHT_GRAY);
+                }
+                mapPanel.add(label);
+            }
+        }
         mapPanel.updateUI();
     }
 
@@ -182,7 +192,6 @@ public class GamePlayPanel extends JPanel {
 
     private void repaintUi() {
         map = gameFrame.getObserver().getMap();
-        System.out.println("get map to repaint");
         createUiMap();
         statsTextArea.setText(getHeroStats());
     }
@@ -191,7 +200,7 @@ public class GamePlayPanel extends JPanel {
 
         fightButton.setEnabled(true);
         runButton.setEnabled(true);
-        infoLabel.setText("Encounter " + villain);
+        infoLabel.setText("Encounter a: " + villain);
         deactivateMoveButtons();
 
         synchronized (obj) {
@@ -216,7 +225,7 @@ public class GamePlayPanel extends JPanel {
 
         keepButton.setEnabled(true);
         dropButton.setEnabled(true);
-        infoLabel2.setText("Keep artifact? " + artifact);
+        infoLabel2.setText("Keep ? " + artifact);
         deactivateMoveButtons();
         synchronized (obj) {
             try {
@@ -226,7 +235,8 @@ public class GamePlayPanel extends JPanel {
             }
         }
         activateMoveButtons();
-        infoLabel2.setText("");
+        infoLabel2.setText(" ");
+        infoLabel.setText(" ");
         if (keepArtifact) {
             keepArtifact = false;
             return true;
@@ -240,7 +250,8 @@ public class GamePlayPanel extends JPanel {
     void heroWonOnMap() {
         infoLabel.setText("You WON !");
         deactivateButtons();
-        quitButton.setText("Return");
+        quitButton.setEnabled(false);
+        backButton.setEnabled(true);
     }
 
     void heroWonTheFight() {
@@ -253,11 +264,12 @@ public class GamePlayPanel extends JPanel {
     void heroLostTheFight() {
         infoLabel.setText("You lost the fight. You are dead.");
         deactivateButtons();
-        quitButton.setText("Return to Select hero panel");
+        quitButton.setEnabled(false);
+        backButton.setEnabled(true);
     }
 
     void heroCouldNotRun() {
-        infoLabel.setText("You could Not Escape");
+        infoLabel2.setText("You could Not Escape");
     }
 
     void heroEscaped() {
@@ -286,6 +298,11 @@ public class GamePlayPanel extends JPanel {
         rightButton.setEnabled(true);
     }
 
+    private void clearInfoLabels() {
+        infoLabel.setText(" ");
+        infoLabel2.setText(" ");
+    }
+
     private void initComponents() {
 
         panel2 = new JPanel();
@@ -307,13 +324,17 @@ public class GamePlayPanel extends JPanel {
         scrollPane2 = new JScrollPane();
         mapPanel = new JPanel();
 
-        //======== mapPanel ========
+
+        //======== scrollPane2 ========
         {
-            mapPanel.setLayout(new GridLayout(map.length, map.length));
+            //======== mapPanel ========
+            {
+                mapPanel.setLayout(new GridLayout(map.length, map.length));
+            }
+            scrollPane2.setViewportView(mapPanel);
             createUiMap();
         }
 
-        //======== mapPanel ========
         {
 
             //======== scrollPane1 ========
@@ -332,10 +353,10 @@ public class GamePlayPanel extends JPanel {
             heroLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
             //---- infoLabel ----
-            infoLabel.setText("Info:");
+            infoLabel.setText(" ");
 
             //---- infoLabel2 ----
-            infoLabel2.setText("text");
+            infoLabel2.setText(" ");
 
             //---- fightButton ----
             fightButton.setText("fight");
