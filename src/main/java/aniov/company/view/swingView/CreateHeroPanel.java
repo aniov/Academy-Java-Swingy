@@ -59,7 +59,7 @@ public class CreateHeroPanel extends JPanel {
             gameFrame.getObserver().createNewHero(heroName, heroType);
             resetInputName();
             gameFrame.openHeroSelectPanel();
-        } else  if (heroNameTextField.getText().isEmpty()) {
+        } else if (heroNameTextField.getText().isEmpty()) {
             errorLabel.setText("enter a name");
             errorLabel.setForeground(new Color(255, 51, 51));
             errorLabel.setVisible(true);

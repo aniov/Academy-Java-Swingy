@@ -30,7 +30,7 @@ public class ConsoleView extends RpgView {
     }
 
     /**
-     * Enter point
+     * Entry point
      */
     @Override
     public void showMainInterface() {
@@ -102,8 +102,7 @@ public class ConsoleView extends RpgView {
     }
 
     public void enterHeroInterface() {
-
-
+        exitGame = false;
         while (true) {
             heroes = controllerObserver.getAllHeroes();
             pickHeroOrCreate();
@@ -128,7 +127,7 @@ public class ConsoleView extends RpgView {
             Hero hero = (Hero) iterator.next();
             System.out.println("\t" + iterator.nextIndex() + ". " + hero);
         }
-        System.out.print("\n~Chose hero number from the list OR\n~Create a new one - press N (for new a hero)\n~If you want to exit the game, type 'exit': \n-> ");
+        System.out.print("\n~ Chose hero number from the list OR\n~ Create a new one - press N (for new a hero)\n~ Switch to Graphic view, type: 'switch'\n~ If you want to exit the game, type 'exit': \n-> ");
     }
 
     private void pickHeroOrCreate() {
@@ -139,13 +138,11 @@ public class ConsoleView extends RpgView {
                 createNewHero();
                 heroes = controllerObserver.getAllHeroes();
                 continue;
-            } else if (input.equalsIgnoreCase("switch")) { //TODO
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+            } else if (input.equalsIgnoreCase("switch")) { // switch to Swing View and exit MainInterface
                 StartRpg.switchView();
-            }
-
-            else if (input.equalsIgnoreCase("exit")) {
+                exitGame = true;
+                return;
+            } else if (input.equalsIgnoreCase("exit")) {
                 exitGame = true;
                 return;
             } else {
@@ -210,7 +207,7 @@ public class ConsoleView extends RpgView {
             displayGameMap();
             readInputMoves();
             displayHeroStats();
-            if (fightIsLost) {
+            if (fightIsLost || exitGame) {
                 return;
             } else if (heroWonOnMap) {
                 playerWin();
@@ -233,16 +230,19 @@ public class ConsoleView extends RpgView {
             switch (inputMove) {
                 case "W":
                     controllerObserver.moveHeroUp();
-                    break;
+                    return;
                 case "S":
                     controllerObserver.moveHeroDown();
-                    break;
+                    return;
                 case "A":
                     controllerObserver.moveHeroLeft();
-                    break;
+                    return;
                 case "D":
                     controllerObserver.moveHeroRight();
-                    break;
+                    return;
+                case "QUIT":
+                    exitGame = true;
+                    return;
                 default:
                     System.out.println("that's not a valid choice");
             }
@@ -257,7 +257,7 @@ public class ConsoleView extends RpgView {
                 System.out.print("\t" + map[i][j] + (j == map.length - 1 ? "\n" : ""));
             }
         }
-        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\n");
+        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\nType 'quit' to exit this Game\n");
     }
 
     private void displayHeroStats() {

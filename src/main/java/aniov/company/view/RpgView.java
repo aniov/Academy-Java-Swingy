@@ -1,10 +1,7 @@
 package aniov.company.view;
 
 import aniov.company.controller.ObserverOfTheView;
-import aniov.company.model.character.hero.Hero;
-import aniov.company.model.map.GameMap;
 import lombok.Getter;
-import org.omg.CORBA.INTERNAL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +18,11 @@ public abstract class RpgView {
 
     protected List<ObserverOfTheView> observers = new ArrayList<>(); //We have only one Observer
 
-    public void addObserver(ObserverOfTheView observer){
+    public void addObserver(ObserverOfTheView observer) {
         observers.add(observer);
     }
 
-    public void removeObserver(ObserverOfTheView observer){
+    public void removeObserver(ObserverOfTheView observer) {
         observers.remove(observer);
     }
 
@@ -44,7 +41,6 @@ public abstract class RpgView {
     public abstract void heroEscapedVillain();
 
     public abstract boolean keepThisArtifact(String artifact);
-
 
 
 }

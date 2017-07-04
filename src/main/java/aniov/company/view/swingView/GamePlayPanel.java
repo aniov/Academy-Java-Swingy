@@ -143,7 +143,7 @@ public class GamePlayPanel extends JPanel {
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                JLabel label = new JLabel("",JLabel.CENTER);
+                JLabel label = new JLabel("", JLabel.CENTER);
                 label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                 label.setPreferredSize(new Dimension(40, 40));
 
@@ -151,9 +151,9 @@ public class GamePlayPanel extends JPanel {
                 if (map[i][j].equals("H")) { // hero
                     label.setBackground(Color.GREEN);
                     label.setIcon(new ImageIcon(getClass().getResource("/icons/hero.png")));
-                } else if (map[i][j].equals("*")){ //hero passed
+                } else if (map[i][j].equals("*")) { //hero passed
                     label.setBackground(Color.ORANGE);
-                } else if (map[i][j].equals("?")){ //not discovered yet
+                } else if (map[i][j].equals("?")) { //not discovered yet
                     label.setBackground(Color.LIGHT_GRAY);
                 }
                 mapPanel.add(label);

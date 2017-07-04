@@ -4,7 +4,6 @@ import aniov.company.controller.RpgController;
 import aniov.company.model.Model;
 import aniov.company.view.consoleView.ConsoleView;
 import aniov.company.view.swingView.SwingView;
-import lombok.Setter;
 
 /**
  * Created by Marius on 6/23/2017.
@@ -24,16 +23,6 @@ public class StartRpg {
         // HibernateService.exit();
     }
 
-    private void setViewType(String input) {
-        if (input.equals("console")) {
-            consoleIsOn = true;
-            rpgController.setRpgView(consoleView);
-
-        } else if (input.equals("gui")) {
-            rpgController.setRpgView(swingView);
-        }
-    }
-
     public static void switchView() {
         if (consoleIsOn) {
             consoleIsOn = false;
@@ -43,6 +32,16 @@ public class StartRpg {
             consoleIsOn = true;
             rpgController.setRpgView(consoleView);
             rpgController.ShowView();
+        }
+    }
+
+    private void setViewType(String input) {
+        if (input.equals("console")) {
+            consoleIsOn = true;
+            rpgController.setRpgView(consoleView);
+
+        } else if (input.equals("gui")) {
+            rpgController.setRpgView(swingView);
         }
     }
 }

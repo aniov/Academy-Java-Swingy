@@ -34,15 +34,13 @@ public class MainWindow extends JFrame {
         add(enterButton);
     }
 
-    private void initComponents(){
+    private void initComponents() {
         enterButton = new JButton("Enter RPG Game");
         enterButton.setBounds(250, 100, 300, 100);
         enterButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         enterButton.setFocusPainted(false);
         enterButton.setIcon(new ImageIcon(getClass().getResource("/icons/enter.png")));
         enterButton.addActionListener((e) -> enterButtonActionPerformed(e));
-
-
     }
 
     private void enterButtonActionPerformed(ActionEvent e) {

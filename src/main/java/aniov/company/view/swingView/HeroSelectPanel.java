@@ -1,5 +1,6 @@
 package aniov.company.view.swingView;
 
+import aniov.company.StartRpg;
 import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.hero.Hero;
 
@@ -27,11 +28,18 @@ public class HeroSelectPanel extends JPanel {
     private JLabel heroListLabel;
     private JLabel statsListLabel;
     private JButton exitButton;
+    private JButton consoleButton;
 
     public HeroSelectPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         updateHeroes();
         initComponents();
+    }
+
+    private void consoleButtonActionPerformed(ActionEvent e) {
+        gameFrame.setVisible(false);
+        gameFrame.dispose();
+        StartRpg.switchView();
     }
 
     private void selectButtonActionPerformed(ActionEvent e) {
@@ -117,6 +125,7 @@ public class HeroSelectPanel extends JPanel {
         heroListLabel = new JLabel();
         statsListLabel = new JLabel();
         exitButton = new JButton();
+        consoleButton = new JButton();
 
         //======== heroScrollPane ========
         {
@@ -132,18 +141,21 @@ public class HeroSelectPanel extends JPanel {
         selectButton.setText("select");
         selectButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         selectButton.setIcon(new ImageIcon(getClass().getResource("/icons/select.png")));
+        selectButton.setToolTipText("select and start playing");
         selectButton.addActionListener(e -> selectButtonActionPerformed(e));
 
         //---- createButton ----
         createButton.setText("new hero");
         createButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         createButton.setIcon(new ImageIcon(getClass().getResource("/icons/add.png")));
+        createButton.setToolTipText("create new character");
         createButton.addActionListener(e -> createButtonActionPerformed(e));
 
         //---- deleteButton ----
         deleteButton.setText("delete");
         deleteButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
+        deleteButton.setToolTipText("delete character");
         deleteButton.addActionListener(e -> deleteButtonActionPerformed(e));
 
         //======== statsScrollPane ========
@@ -169,54 +181,69 @@ public class HeroSelectPanel extends JPanel {
         exitButton.setText("exit");
         exitButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         exitButton.setIcon(new ImageIcon(getClass().getResource("/icons/exit.png")));
+        exitButton.setToolTipText("exit application");
         exitButton.addActionListener(e -> exitButtonActionPerformed(e));
+
+        //---- consoleButton ----
+        consoleButton.setIcon(new ImageIcon("C:\\Users\\Marius\\Desktop\\Swingy-Icons\\terminal-24.png"));
+        consoleButton.setText("console");
+        consoleButton.setToolTipText("switch to console view");
+        consoleButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        consoleButton.addActionListener(e -> consoleButtonActionPerformed(e));
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup()
-                                                .addComponent(heroListLabel, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup()
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(214, 214, 214)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(heroScrollPane, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(consoleButton, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                                                .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(35, 35, 35)
+                                                .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(40, 40, 40))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(heroListLabel, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup()
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                                .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(26, 26, 26))
+                                        .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup()
                                                         .addComponent(statsListLabel, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(31, 31, 31)
-                                                .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(85, 85, 85)
-                                                .addComponent(exitButton)))
-                                .addContainerGap(45, Short.MAX_VALUE))
+                                                        .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(28, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(heroListLabel)
-                                        .addComponent(statsListLabel))
+                                        .addComponent(statsListLabel)
+                                        .addComponent(heroListLabel))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(heroScrollPane)
+                                        .addComponent(statsScrollPane)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(statsScrollPane, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(heroScrollPane, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(42, 42, 42)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
-                                        .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(createButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(selectButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(76, Short.MAX_VALUE))
+                                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(consoleButton, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40))
         );
     }
 
