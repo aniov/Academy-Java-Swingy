@@ -17,7 +17,7 @@ public class StartRpg {
     private static boolean consoleIsOn = false;
 
     void start(String input) {
-        if (model.getStorageDao().getSessionFactory() == null) {
+        if (!model.conectedToDataBase()) {
             System.out.println("Cannot connect to data base...closing");
             return;
         }

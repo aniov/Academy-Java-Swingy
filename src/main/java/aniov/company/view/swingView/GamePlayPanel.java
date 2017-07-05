@@ -44,7 +44,7 @@ public class GamePlayPanel extends JPanel {
     private JScrollPane scrollPane2;
     private JPanel mapPanel;
 
-    private Object obj = new Object();
+    private final Object obj = new Object();
     private boolean wantToFight;
     private boolean tryToRun;
     private boolean keepArtifact;
@@ -141,20 +141,24 @@ public class GamePlayPanel extends JPanel {
     private void createUiMap() {
         mapPanel.removeAll();
 
-        for (int i = 0; i < map.length; i++) {
+        for (String[] aMap : map) {
             for (int j = 0; j < map.length; j++) {
                 JLabel label = new JLabel("", JLabel.CENTER);
                 label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                 label.setPreferredSize(new Dimension(40, 40));
 
                 label.setOpaque(true);
-                if (map[i][j].equals("H")) { // hero
-                    label.setBackground(Color.GREEN);
-                    label.setIcon(new ImageIcon(getClass().getResource("/icons/hero.png")));
-                } else if (map[i][j].equals("*")) { //hero passed
-                    label.setBackground(Color.ORANGE);
-                } else if (map[i][j].equals("?")) { //not discovered yet
-                    label.setBackground(Color.LIGHT_GRAY);
+                switch (aMap[j]) {
+                    case "H":  // hero
+                        label.setBackground(Color.GREEN);
+                        label.setIcon(new ImageIcon(getClass().getResource("/icons/hero.png")));
+                        break;
+                    case "*":  //hero passed
+                        label.setBackground(Color.ORANGE);
+                        break;
+                    case "?":  //not discovered yet
+                        label.setBackground(Color.LIGHT_GRAY);
+                        break;
                 }
                 mapPanel.add(label);
             }
@@ -261,11 +265,14 @@ public class GamePlayPanel extends JPanel {
         activateMoveButtons();
     }
 
-    void heroLostTheFight() {
-        infoLabel.setText("You lost the fight. You are dead.");
-        deactivateButtons();
-        quitButton.setEnabled(false);
-        backButton.setEnabled(true);
+    void heroLostTheFight() { // weird Exception without using 'EventQueue.invokeLater' (Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException)
+        EventQueue.invokeLater(() -> {
+            infoLabel.setText("You lost the fight. You are dead.");
+            deactivateButtons();
+            quitButton.setEnabled(false);
+            backButton.setEnabled(true);
+        });
+
     }
 
     void heroCouldNotRun() {

@@ -2,7 +2,6 @@ package aniov.company.storage.database;
 
 import aniov.company.storage.StorageAccess;
 import aniov.company.storage.database.hibernate.HibernateService;
-import lombok.Getter;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +16,6 @@ import java.util.List;
 
 public class DataBaseStorageDao implements StorageAccess {
 
-    @Getter
     private SessionFactory sessionFactory = HibernateService.sessionFactory;
 
     public Object save(Object object) {
@@ -89,5 +87,10 @@ public class DataBaseStorageDao implements StorageAccess {
 
     public void closeSessionFactory() {
         HibernateService.close();
+    }
+
+    @Override
+    public boolean connectToDataBase() {
+        return sessionFactory != null;
     }
 }

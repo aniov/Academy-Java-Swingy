@@ -14,7 +14,7 @@ public class CharacterFactory {
 
     private static CharacterFactory characterFactory = new CharacterFactory();
 
-    private void CharacterFactory() {
+    private CharacterFactory() {
     }
 
     public static CharacterFactory getInstance() {
@@ -42,9 +42,9 @@ public class CharacterFactory {
             //villain lvl matching hero lvl / game map lvl
             villain.setLevel(level);
             villain.setType(villainType);
-            villain.setAttack(villainType.getAttack() * level);
-            villain.setDefence(villainType.getDefence() * level);
-            villain.setHitPoints(villainType.getHitPoints() * level);
+            villain.setAttack(villainType.getAttack() * level / 2);
+            villain.setDefence(villainType.getDefence() * level / 2);
+            villain.setHitPoints(villainType.getHitPoints() * level / 2);
 
             return villain;
         }

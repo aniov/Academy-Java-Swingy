@@ -22,4 +22,6 @@ public interface StorageAccess {
     void handleException(Exception e);
 
     void closeSessionFactory();
+
+    boolean connectToDataBase();
 }

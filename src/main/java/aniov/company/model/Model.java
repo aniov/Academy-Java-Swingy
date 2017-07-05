@@ -17,7 +17,7 @@ import java.awt.*;
 @Data
 public class Model {
 
-    private DataBaseStorageDao storageDao = new DataBaseStorageDao();//We will use for now the DB Storage
+    private StorageAccess storageDao = new DataBaseStorageDao();//We will use for now the DB Storage
     private Hero hero;
     private HeroService heroService = new HeroService(storageDao);
     private GameMap gameMap;
@@ -53,5 +53,9 @@ public class Model {
             return true;
         }
         return false;
+    }
+
+    public boolean conectedToDataBase() {
+        return storageDao.connectToDataBase();
     }
 }

@@ -35,16 +35,18 @@ public class FileStorageDao implements StorageAccess {
 
     @Override
     public void delete(Object object) {
-
     }
 
     @Override
     public void handleException(Exception e) {
-
     }
 
     @Override
     public void closeSessionFactory() {
+    }
 
+    @Override
+    public boolean connectToDataBase() {
+        return true;
     }
 }

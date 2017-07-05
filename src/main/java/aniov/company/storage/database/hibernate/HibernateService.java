@@ -24,7 +24,6 @@ public abstract class HibernateService {
         try {
             return new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
-            e.printStackTrace();
             StandardServiceRegistryBuilder.destroy(registry);
             return null;
         }
