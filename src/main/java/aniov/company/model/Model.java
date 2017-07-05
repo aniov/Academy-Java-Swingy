@@ -12,12 +12,12 @@ import lombok.Data;
 import java.awt.*;
 
 /**
- * Created by Marius on 6/23/2017.
+ *
  */
 @Data
 public class Model {
 
-    private StorageAccess storageDao = new DataBaseStorageDao();//We will use for now the DB Storage
+    private DataBaseStorageDao storageDao = new DataBaseStorageDao();//We will use for now the DB Storage
     private Hero hero;
     private HeroService heroService = new HeroService(storageDao);
     private GameMap gameMap;

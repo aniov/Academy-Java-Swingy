@@ -6,7 +6,7 @@ import aniov.company.view.consoleView.ConsoleView;
 import aniov.company.view.swingView.SwingView;
 
 /**
- * Created by Marius on 6/23/2017.
+ *
  */
 public class StartRpg {
 
@@ -16,7 +16,11 @@ public class StartRpg {
     private static RpgController rpgController = new RpgController(model);
     private static boolean consoleIsOn = false;
 
-    public void start(String input) {
+    void start(String input) {
+        if (model.getStorageDao().getSessionFactory() == null) {
+            System.out.println("Cannot connect to data base...closing");
+            return;
+        }
         setViewType(input);
         rpgController.ShowView();
     }

@@ -2,6 +2,7 @@ package aniov.company.storage.database;
 
 import aniov.company.storage.StorageAccess;
 import aniov.company.storage.database.hibernate.HibernateService;
+import lombok.Getter;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,11 +12,12 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Marius on 6/19/2017.
+ *
  */
 
 public class DataBaseStorageDao implements StorageAccess {
 
+    @Getter
     private SessionFactory sessionFactory = HibernateService.sessionFactory;
 
     public Object save(Object object) {
@@ -52,8 +54,7 @@ public class DataBaseStorageDao implements StorageAccess {
     public List<Object> findAll(Class c) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery(String.format("from %s order by id asc", c.getName()));
-            List<Object> objects = query.list();
-            return objects;
+            return query.list();
         } catch (HibernateException e) {
             handleException(e);
             return null;
@@ -65,8 +66,7 @@ public class DataBaseStorageDao implements StorageAccess {
 
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery(String.format("from %s where name = :Name", c.getName())).setParameter("Name", name);
-            List<Object> objectList = query.list();
-            return objectList;
+            return query.list();
         } catch (HibernateException e) {
             handleException(e);
             return null;
