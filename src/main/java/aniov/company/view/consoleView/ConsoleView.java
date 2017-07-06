@@ -4,9 +4,9 @@ import aniov.company.StartRpg;
 import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
+import aniov.company.view.RpgView;
 import aniov.company.view.validation.HeroModel;
 import aniov.company.view.validation.ModelValidation;
-import aniov.company.view.RpgView;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -45,7 +45,6 @@ public class ConsoleView extends RpgView {
             enterHeroInterface();
         } else {
             controllerObserver.closeDataBaseConnection();
-            return;
         }
     }
 
@@ -108,7 +107,7 @@ public class ConsoleView extends RpgView {
         }
     }
 
-    public void enterHeroInterface() {
+    private void enterHeroInterface() {
         exitConsole = false;
         while (true) {
             heroes = controllerObserver.getAllHeroes();
@@ -119,12 +118,12 @@ public class ConsoleView extends RpgView {
             } else if (exitConsole) {
                 return;
             }
-            /** Enter game play*/
+            // Enter game play
             enterGamePlay();
         }
     }
 
-    public Hero choseHero(Integer heroIndex) {
+    private Hero choseHero(Integer heroIndex) {
         Long heroId = heroes.get(heroIndex).getId();
         return controllerObserver.getHeroById(heroId);
     }
@@ -170,7 +169,7 @@ public class ConsoleView extends RpgView {
         }
     }
 
-    private boolean createNewHero() {
+    private void createNewHero() {
         ModelValidation validation = new ModelValidation();
         while (true) {
             System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 20>): ");
@@ -191,9 +190,11 @@ public class ConsoleView extends RpgView {
                     HeroModel model = new HeroModel(newHeroName, heroTypes[heroTypeSelected]);
                     if (validation.isValid(model)) {
                         controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
-                        return true;
+                        return;
                     } else {
-                        System.out.println(validation.violations());
+                        for (String violation : validation.violations()) {
+                            System.out.println(violation);
+                        }
                     }
                 } else {
                     System.out.println("The number you chose is not part of the Heroes Type list. Please try again !");
@@ -267,7 +268,7 @@ public class ConsoleView extends RpgView {
                 System.out.print("\t" + map[i][j] + (j == map.length - 1 ? "\n" : ""));
             }
         }
-        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\ntype 'quit' to exit this Game\n");
+        System.out.println("\nyou can move up(W) - down(S) - left(A) - right(D)\ntype 'quit' to terminate this Game\n");
     }
 
     private void displayHeroStats() {

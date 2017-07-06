@@ -30,7 +30,7 @@ public class CreateHeroPanel extends JPanel {
     private JPanel errorVerticalSpacer;
 
 
-    public CreateHeroPanel(GameFrame gameFrame) {
+    CreateHeroPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         validation = new ModelValidation();
         initComponents();
@@ -47,7 +47,7 @@ public class CreateHeroPanel extends JPanel {
             errorLabel.setText("valid name");
             errorLabel.setForeground(new Color(55, 148, 55));
         } else {
-            errorLabel.setText(validation.violations() + " , only letters <min 3 - max 20>");
+            errorLabel.setText(validation.violations().get(0) + " , only letters <min 3 - max 20>");
             errorLabel.setForeground(new Color(255, 51, 51));
         }
         errorLabel.setVisible(true);
@@ -217,8 +217,7 @@ public class CreateHeroPanel extends JPanel {
 
     private boolean isHeroNameValid() {
         String heroName = heroNameTextField.getText();
-       // return gameFrame.getObserver().isHeroNameValid(heroName);
-        return validation.isValid(new HeroModel(heroName, HeroType.WARLOCK));
+        return validation.isValid(new HeroModel(heroName, HeroType.WARLOCK)); //we validate only the name
     }
 
     private String getHeroTypeStats(String type) {
