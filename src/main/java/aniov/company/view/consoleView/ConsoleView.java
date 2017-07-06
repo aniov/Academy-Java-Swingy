@@ -4,6 +4,8 @@ import aniov.company.StartRpg;
 import aniov.company.controller.ObserverOfTheView;
 import aniov.company.model.character.hero.Hero;
 import aniov.company.model.character.hero.HeroType;
+import aniov.company.view.validation.HeroModel;
+import aniov.company.view.validation.ModelValidation;
 import aniov.company.view.RpgView;
 
 import java.util.List;
@@ -135,7 +137,7 @@ public class ConsoleView extends RpgView {
             Hero hero = (Hero) iterator.next();
             System.out.println("\t" + iterator.nextIndex() + ". " + hero);
         }
-        System.out.print("\n~ Chose hero number from the list OR\n~ Create a new one - press N (for new a hero)\n~ Switch to Graphic view, type: 'switch'\n~ If you want to exit the game, type 'exit': \n-> ");
+        System.out.print("\n~ Chose hero number from the list OR\n~ Create a new one - press N (for a new hero)\n~ Switch to Graphic view, type: 'switch'\n~ If you want to exit the game, type 'exit': \n-> ");
     }
 
     private void pickHeroOrCreate() {
@@ -169,16 +171,12 @@ public class ConsoleView extends RpgView {
     }
 
     private boolean createNewHero() {
-
+        ModelValidation validation = new ModelValidation();
         while (true) {
             System.out.println("\nCreate new Hero \n-------------------------------------\nEnter the name of your new character(Only letters <min 3, max 20>): ");
 
             HeroType[] heroTypes = controllerObserver.getHeroTypes();
             String newHeroName = scanner.nextLine();
-            if (!controllerObserver.isHeroNameValid(newHeroName)) {
-                System.out.println("The name you've entered is not valid");
-                continue;
-            }
             System.out.println("Chose type of your hero (press number): ");
 
             for (int i = 0; i < heroTypes.length; i++) {
@@ -190,8 +188,13 @@ public class ConsoleView extends RpgView {
             try {
                 Integer heroTypeSelected = Integer.parseInt(scanner.nextLine()) - 1;
                 if (heroTypeSelected >= 0 && heroTypeSelected < heroTypes.length) {
-                    controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
-                    return true;
+                    HeroModel model = new HeroModel(newHeroName, heroTypes[heroTypeSelected]);
+                    if (validation.isValid(model)) {
+                        controllerObserver.createNewHero(newHeroName, heroTypes[heroTypeSelected].name());
+                        return true;
+                    } else {
+                        System.out.println(validation.violations());
+                    }
                 } else {
                     System.out.println("The number you chose is not part of the Heroes Type list. Please try again !");
                 }

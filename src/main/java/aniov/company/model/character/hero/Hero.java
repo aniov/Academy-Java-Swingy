@@ -4,11 +4,12 @@ import aniov.company.model.artifact.Artifact;
 import aniov.company.model.character.Character;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,10 +26,11 @@ public class Hero extends Character {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @NonNull
+    @Pattern(regexp = ".*([a-zA-Z]{3,20})", message = "invalid character name")
     private String name;
 
-    @NotBlank
+    @NotNull
     private Integer experience = 0;
 
     @NotNull

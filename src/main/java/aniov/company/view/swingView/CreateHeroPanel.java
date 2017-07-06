@@ -1,6 +1,8 @@
 package aniov.company.view.swingView;
 
 import aniov.company.model.character.hero.HeroType;
+import aniov.company.view.validation.HeroModel;
+import aniov.company.view.validation.ModelValidation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +16,7 @@ import java.awt.event.KeyEvent;
 public class CreateHeroPanel extends JPanel {
 
     private GameFrame gameFrame;
+    private ModelValidation validation;
     private JScrollPane scrollPane1;
     private JTextArea statsTextArea;
     private JLabel statsLabel;
@@ -26,8 +29,10 @@ public class CreateHeroPanel extends JPanel {
     private JLabel errorLabel;
     private JPanel errorVerticalSpacer;
 
+
     public CreateHeroPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
+        validation = new ModelValidation();
         initComponents();
     }
 
@@ -42,7 +47,7 @@ public class CreateHeroPanel extends JPanel {
             errorLabel.setText("valid name");
             errorLabel.setForeground(new Color(55, 148, 55));
         } else {
-            errorLabel.setText("invalid name, only letters <min 3 - max 20>");
+            errorLabel.setText(validation.violations() + " , only letters <min 3 - max 20>");
             errorLabel.setForeground(new Color(255, 51, 51));
         }
         errorLabel.setVisible(true);
@@ -212,7 +217,8 @@ public class CreateHeroPanel extends JPanel {
 
     private boolean isHeroNameValid() {
         String heroName = heroNameTextField.getText();
-        return gameFrame.getObserver().isHeroNameValid(heroName);
+       // return gameFrame.getObserver().isHeroNameValid(heroName);
+        return validation.isValid(new HeroModel(heroName, HeroType.WARLOCK));
     }
 
     private String getHeroTypeStats(String type) {

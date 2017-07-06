@@ -30,11 +30,6 @@ public abstract class ObserverOfTheView {
 
     public abstract void deleteHero(Hero hero);
 
-    public boolean isHeroNameValid(String name) {
-        //Only letters, min 3, max 20
-        return name.matches("[a-zA-Z]{3,20}");
-    }
-
     public abstract void createMapAndStartGame(Hero hero);
 
     public abstract String[][] getMap();
