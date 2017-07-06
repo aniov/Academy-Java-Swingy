@@ -99,7 +99,7 @@ public class HeroSelectPanel extends JPanel {
         Hero hero = heroes.get(selectedIndex);
         StringBuilder sb = new StringBuilder();
         sb.append("Class: " + hero.getHeroType() + "\nLevel: " + hero.getLevel() + "\nExperience: " + hero.getExperience()
-                + "\nTotal stats:\n  Attack: " + hero.getTotalDefence() + "\n  Defence: " + hero.getTotalDefence()
+                + "\nTotal stats:\n  Attack: " + hero.getTotalAttack() + "\n  Defence: " + hero.getTotalDefence()
                 + "\n  Hit points: " + hero.getTotalHitPoints() + "\nArtifacts:\n");
         StringBuilder sArtifacts = new StringBuilder();
         for (Artifact artifact : hero.getArtifacts()) {
