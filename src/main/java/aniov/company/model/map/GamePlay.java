@@ -120,7 +120,7 @@ public class GamePlay {
                 xpGained -= (xpGained * 10) / 100; //-10%
                 break;
         }
-        hero.addXpAndLvlUp(xpGained);
+        hero.addXpAndLvlUp(xpGained, maxExperience);
     }
 
     private boolean fightIsWon() {

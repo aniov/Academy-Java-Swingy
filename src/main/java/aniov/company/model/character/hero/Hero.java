@@ -75,8 +75,7 @@ public class Hero extends Character {
         return totalHitPoints;
     }
 
-    public void addXpAndLvlUp(Integer xp) {
-        Integer maxXp = (int) (getLevel() * 1000 + Math.pow((getLevel() - 1), 2) * 450);
+    public void addXpAndLvlUp(Integer xp, Integer maxXp) {
 
         if (experience + xp >= maxXp) {
             experience = experience + xp - maxXp;
